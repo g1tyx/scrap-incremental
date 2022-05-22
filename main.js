@@ -46,11 +46,15 @@ const scrapTextElement = document.getElementById("scrap-text");
 const scrapPerSecondTextElement = document.getElementById("scrap-per-second-text");
 const generatorsMenuButtonElement = document.getElementById("generators-menu-button");
 
-function format(amount, numDigits = 2) {
+function format(amount) {
     let power = Math.floor(Math.log10(amount));
     let mantissa = amount/Math.pow(10, power);
-    if (power < 3) return amount.toFixed(numDigits);
+    if (power < 6) return formatWithCommas(amount, 2);
     else return mantissa.toFixed(2) + "e" + power;
+}
+
+function formatWithCommas(amount, numDigits = 2) {
+    return amount.toFixed(numDigits).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function openMenu(clickedMenu) {
@@ -187,10 +191,10 @@ const totalBonusFromAllTransistors = document.getElementById("total-bonus-from-a
 const prestigeButtonElement = document.getElementById("prestige-button");
 
 function updateTransistorInfo() {
-    totalTransistorsElement.innerHTML = Number(data.transistors.toFixed(0)).toLocaleString("en-US");
-    gainedFromRestartElement.innerHTML = Number(transistorsGainedFromRestart.toFixed(0)).toLocaleString("en-US");
-    bonusFromTransistorsElement.innerHTML = Number(((data.transistorsBonus - 1) * 100).toFixed(0)).toLocaleString("en-US");
-    totalBonusFromAllTransistors.innerHTML = Number((Math.round(data.transistors) * (data.transistorsBonus - 1) * 100).toFixed(0)).toLocaleString("en-US");
+    totalTransistorsElement.innerHTML = formatWithCommas(data.transistors.toFixed(0), 0);
+    gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart.toFixed(0), 0);
+    bonusFromTransistorsElement.innerHTML = formatWithCommas(((data.transistorsBonus - 1) * 100).toFixed(0), 0);
+    totalBonusFromAllTransistors.innerHTML = formatWithCommas((Math.round(data.transistors) * (data.transistorsBonus - 1) * 100).toFixed(0), 0);
 
     if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = 'Red';
