@@ -100,7 +100,7 @@ window.onload = function() {
 }
 
 setInterval(mainLoop, 50);
-setInterval(saveData, 15000); // saves every 15s
+setInterval(autoSaveData, 15000); // saves every 15s
 //#endregion
 
 // GENERATORS
@@ -220,6 +220,7 @@ function doPrestige() {
 
     data.scrapsThisRun = 0;
     data.transistors += transistorsGainedFromRestart;
+    transistorsGainedFromRestart = 0;
 
     updateScrapPerSecond();
     updateGeneratorCost();
@@ -229,6 +230,11 @@ function doPrestige() {
 
 // SETTINGS
 //#region 
+
+function autoSaveData() {
+    window.localStorage.setItem('EnergyIdleSave', JSON.stringify(data));
+}
+
 function saveData() {
     window.localStorage.setItem('EnergyIdleSave', JSON.stringify(data));
     alert("Game saved!");
