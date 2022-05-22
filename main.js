@@ -49,7 +49,7 @@ const generatorsMenuButtonElement = document.getElementById("generators-menu-but
 function format(amount) {
     let power = Math.floor(Math.log10(amount));
     let mantissa = amount/Math.pow(10, power);
-    if (power < 6) return formatWithCommas(amount, 2);
+    if (power < 3) return amount.toFixed(2);
     else return mantissa.toFixed(2) + "e" + power;
 }
 
