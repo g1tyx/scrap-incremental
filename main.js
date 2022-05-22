@@ -190,12 +190,11 @@ function updateTransistorInfo() {
     totalTransistorsElement.innerHTML = Number(data.transistors.toFixed(0)).toLocaleString("en-US");
     gainedFromRestartElement.innerHTML = Number(transistorsGainedFromRestart.toFixed(0)).toLocaleString("en-US");
     bonusFromTransistorsElement.innerHTML = Number(((data.transistorsBonus - 1) * 100).toFixed(0)).toLocaleString("en-US");
-    totalBonusFromAllTransistors.innerHTML = Number((Math.floor(data.transistors) * Math.floor((data.transistorsBonus - 1) * 100)).toFixed(0)).toLocaleString("en-US");
+    totalBonusFromAllTransistors.innerHTML = Number((Math.round(data.transistors) * (data.transistorsBonus - 1) * 100).toFixed(0)).toLocaleString("en-US");
 
-    if (transistorsGainedFromRestart <= 1) {
+    if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = 'Red';
         prestigeButtonElement.style.cursor = "not-allowed";
-        return;
     } else {
         prestigeButtonElement.style.borderColor = 'Green';
         prestigeButtonElement.style.cursor = "default";
@@ -203,7 +202,7 @@ function updateTransistorInfo() {
 }
 
 function doPrestige() {
-    if (transistorsGainedFromRestart <= 1) return;
+    if (transistorsGainedFromRestart < 1) return;
 
     data.scrap = 11;
     data.generators = [];
