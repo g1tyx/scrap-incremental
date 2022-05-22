@@ -183,10 +183,21 @@ const totalTransistorsElement = document.getElementById("total-transistors");
 const gainedFromRestartElement = document.getElementById("gained-from-restart");
 const bonusFromTransistorsElement = document.getElementById("bonus-from-transistors");
 
+const prestigeButtonElement = document.getElementById("prestige-button");
+
 function updateTransistorInfo() {
     totalTransistorsElement.innerHTML = format(data.transistors, 0);
     gainedFromRestartElement.innerHTML = format(transistorsGainedFromRestart, 0);
     bonusFromTransistorsElement.innerhtml = (data.transistorsBonus - 1) * 100;
+
+    if (transistorsGainedFromRestart < 1) {
+        prestigeButtonElement.style.borderColor = 'Red';
+        prestigeButtonElement.style.cursor = "not-allowed";
+        return;
+    } else {
+        prestigeButtonElement.style.borderColor = 'Green';
+        prestigeButtonElement.style.cursor = "default";
+    }
 }
 
 function doPrestige() {
@@ -220,6 +231,7 @@ function doPrestige() {
 //#region 
 function saveData() {
     window.localStorage.setItem('EnergyIdleSave', JSON.stringify(data));
+    alert("Game saved!");
 }
 
 function loadData() {
