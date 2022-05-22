@@ -82,7 +82,7 @@ function scrapProductionLoop(deltaTime) {
     data.scrap += scrapsToGain * deltaTime;
     data.scrapsThisRun +=  scrapsToGain;
     data.totalScrap +=  scrapsToGain;
-    transistorsGainedFromRestart = (150 * Math.sqrt(data.scrapsThisRun/(400000000000/9)));
+    transistorsGainedFromRestart = Math.floor(150 * Math.sqrt(data.scrapsThisRun/(400000000000/9)));
 }
 
 
@@ -183,18 +183,22 @@ function changeBuyAmount(amount) {
 // PRESTIGE
 //#region 
 
-const totalTransistorsElement = document.getElementById("total-transistors");
-const gainedFromRestartElement = document.getElementById("gained-from-restart");
+const currentTransistorsElement = document.getElementById("current-transistors");
 const bonusPerTransistorElement = document.getElementById("bonus-per-transistor");
-const totalBonusFromAllTransistors = document.getElementById("total-bonus-from-all-transistors");
+const bonusFromCurrentTransistorsElement = document.getElementById("bonus-current-from-transistors");
+
+const gainedFromRestartElement = document.getElementById("gained-from-restart");
+const bonusFromTransistorsAfterPrestigeElement = document.getElementById("bonus-from-transistors-after-prestige");
 
 const prestigeButtonElement = document.getElementById("prestige-button");
 
 function updateTransistorInfo() {
-    totalTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
-    gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
+    currentTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
     bonusPerTransistorElement.innerHTML = formatWithCommas(((data.transistorsBonus - 1) * 100), 0);
-    totalBonusFromAllTransistors.innerHTML = formatWithCommas((Math.round(data.transistors) * (data.transistorsBonus - 1) * 100), 0);
+    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * ((data.transistorsBonus - 1) * 100), 0);
+
+    gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
+    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * ((data.transistorsBonus - 1) * 100), 0);
 
     if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = 'Red';
