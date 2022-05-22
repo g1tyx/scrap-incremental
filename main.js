@@ -185,7 +185,7 @@ function changeBuyAmount(amount) {
 
 const currentTransistorsElement = document.getElementById("current-transistors");
 const bonusPerTransistorElement = document.getElementById("bonus-per-transistor");
-const bonusFromCurrentTransistorsElement = document.getElementById("bonus-current-from-transistors");
+const bonusFromCurrentTransistorsElement = document.getElementById("bonus-from-current-transistors");
 
 const gainedFromRestartElement = document.getElementById("gained-from-restart");
 const bonusFromTransistorsAfterPrestigeElement = document.getElementById("bonus-from-transistors-after-prestige");
