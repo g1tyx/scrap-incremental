@@ -74,8 +74,8 @@ function updateScrapPerSecond() {
 }
 
 function scrapProductionLoop(deltaTime) {
-    let scrapsToGain = scrapPerSecond * (1 + (data.transistors * data.transistorsBonus / 100)) * deltaTime;
-    data.scrap += scrapsToGain;
+    let scrapsToGain = scrapPerSecond * (1 + (data.transistors * data.transistorsBonus / 100));
+    data.scrap += scrapsToGain * deltaTime;
     data.scrapsThisRun +=  scrapsToGain;
     data.totalScrap +=  scrapsToGain;
     transistorsGainedFromRestart = (150 * Math.sqrt(data.scrapsThisRun/(400000000000/9)));
@@ -182,13 +182,15 @@ function changeBuyAmount(amount) {
 const totalTransistorsElement = document.getElementById("total-transistors");
 const gainedFromRestartElement = document.getElementById("gained-from-restart");
 const bonusFromTransistorsElement = document.getElementById("bonus-from-transistors");
+const totalBonusFromAllTransistors = document.getElementById("total-bonus-from-all-transistors");
 
 const prestigeButtonElement = document.getElementById("prestige-button");
 
 function updateTransistorInfo() {
-    totalTransistorsElement.innerHTML = format(data.transistors, 0);
-    gainedFromRestartElement.innerHTML = format(transistorsGainedFromRestart, 0);
-    bonusFromTransistorsElement.innerhtml = (data.transistorsBonus - 1) * 100;
+    totalTransistorsElement.innerHTML = Number(data.transistors.toFixed(0)).toLocaleString("en-US");
+    gainedFromRestartElement.innerHTML = Number(transistorsGainedFromRestart.toFixed(0)).toLocaleString("en-US");
+    bonusFromTransistorsElement.innerHTML = Number(((data.transistorsBonus - 1) * 100).toFixed(0)).toLocaleString("en-US");
+    totalBonusFromAllTransistors.innerHTML = Number((Math.floor(data.transistors) * Math.floor((data.transistorsBonus - 1) * 100)).toFixed(0)).toLocaleString("en-US");
 
     if (transistorsGainedFromRestart <= 1) {
         prestigeButtonElement.style.borderColor = 'Red';
