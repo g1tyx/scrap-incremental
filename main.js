@@ -185,16 +185,16 @@ function changeBuyAmount(amount) {
 
 const totalTransistorsElement = document.getElementById("total-transistors");
 const gainedFromRestartElement = document.getElementById("gained-from-restart");
-const bonusFromTransistorsElement = document.getElementById("bonus-from-transistors");
+const bonusPerTransistorElement = document.getElementById("bonus-per-transistor");
 const totalBonusFromAllTransistors = document.getElementById("total-bonus-from-all-transistors");
 
 const prestigeButtonElement = document.getElementById("prestige-button");
 
 function updateTransistorInfo() {
-    totalTransistorsElement.innerHTML = formatWithCommas(data.transistors.toFixed(0), 0);
-    gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart.toFixed(0), 0);
-    bonusFromTransistorsElement.innerHTML = formatWithCommas(((data.transistorsBonus - 1) * 100).toFixed(0), 0);
-    totalBonusFromAllTransistors.innerHTML = formatWithCommas((Math.round(data.transistors) * (data.transistorsBonus - 1) * 100).toFixed(0), 0);
+    totalTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
+    gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
+    bonusPerTransistorElement.innerHTML = formatWithCommas(((data.transistorsBonus - 1) * 100), 0);
+    totalBonusFromAllTransistors.innerHTML = formatWithCommas((Math.round(data.transistors) * (data.transistorsBonus - 1) * 100), 0);
 
     if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = 'Red';
