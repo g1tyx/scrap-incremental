@@ -190,7 +190,7 @@ function updateTransistorInfo() {
     gainedFromRestartElement.innerHTML = format(transistorsGainedFromRestart, 0);
     bonusFromTransistorsElement.innerhtml = (data.transistorsBonus - 1) * 100;
 
-    if (transistorsGainedFromRestart < 1) {
+    if (transistorsGainedFromRestart <= 1) {
         prestigeButtonElement.style.borderColor = 'Red';
         prestigeButtonElement.style.cursor = "not-allowed";
         return;
@@ -201,7 +201,7 @@ function updateTransistorInfo() {
 }
 
 function doPrestige() {
-    if (transistorsGainedFromRestart < 1) return;
+    if (transistorsGainedFromRestart <= 1) return;
 
     data.scrap = 11;
     data.generators = [];
