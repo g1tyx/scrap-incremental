@@ -328,6 +328,9 @@ function importData() {
     }
     data = JSON.parse((atob(importedData)));
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
+    updateScrapsPerSecond();
+    updateGeneratorCost();
+    updateGeneratorInfo();
 }
 
 function exportData() {
