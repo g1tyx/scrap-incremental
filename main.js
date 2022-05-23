@@ -205,7 +205,6 @@ function updateTransistorInfo() {
         prestigeButtonElement.style.cursor = "not-allowed";
     } else {
         prestigeButtonElement.style.borderColor = 'Green';
-        prestigeButtonElement.style.transform = scale(1.1);
         prestigeButtonElement.style.cursor = "pointer";
     }
 }
