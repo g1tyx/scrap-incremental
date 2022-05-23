@@ -84,8 +84,8 @@ function updateScrapsPerSecond() {
 
 function scrapsProductionLoop(deltaTime) {
     data.scraps += scrapsPerSecond * deltaTime;
-    data.totalScraps +=  scrapsPerSecond;
-    data.scrapsThisRun +=  scrapsPerSecond;
+    data.totalScraps +=  scrapsPerSecond * deltaTime;
+    data.scrapsThisRun +=  scrapsPerSecond * deltaTime;
     transistorsGainedFromRestart = Math.floor(150 * Math.sqrt(data.scrapsThisRun/(400000000000/9)));
 }
 
