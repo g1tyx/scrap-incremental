@@ -109,6 +109,19 @@ body {
     display: block;
 }
 
+.upgrades-buttons {
+    border: 2px solid white;
+    background-color: #370D32;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    width: 400px;
+    height: 150px;
+    margin: 150px 0px 100px 240px;
+    line-height: 2.25; 
+    font-family: 'Roboto Mono';
+}
+
 .settings-buttons {
     border: 2px solid white;
     background-color: #370D32;

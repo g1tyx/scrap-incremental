@@ -14,7 +14,10 @@ let data = {
     cost: [],
     buyAmount: 1,
     transistors: 0,
-}
+    transistorsBonus: 0.02,
+    transistorsBonusUpgradeAmount: 0,
+    transistorsBonusUpgradeBaseCost: 1000
+};
 
 for (let i = 0; i < 8; i++) {
     let generator = {
@@ -27,17 +30,19 @@ for (let i = 0; i < 8; i++) {
     data.cost.push(g.baseCost * Math.pow(1.07, g.amount));
 }
 
-let transistorsBonus = 0.02;
 let scrapsPerSecond = 0;
 let lastUpdate = Date.now();
+let transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
 const settingsMenuContainerElement = document.getElementById("settings-container");
+const upgradesMenuContainerElement = document.getElementById("upgrades-container");
 
 let activeMenu = generatorsMenuContainerElement;
 prestigeMenuContainerElement.style.display = "none";
 settingsMenuContainerElement.style.display = "none";
+upgradesMenuContainerElement.style.display = "none";
 
 // UI
 //#region 
@@ -75,7 +80,7 @@ function updateScrapsPerSecond() {
         let g = data.generators[i];
         scrapsPerSecond += g.amount * g.sps;
     }
-    scrapsPerSecond *= 1 + (data.transistors * transistorsBonus);
+    scrapsPerSecond *= 1 + (data.transistors * data.transistorsBonus);
 }
 
 function scrapsProductionLoop(deltaTime) {
@@ -99,6 +104,7 @@ window.onload = function() {
     loadData();
     updateScrapsPerSecond();
     updateGeneratorInfo();
+    updateUpgradeInfo();
 }
 
 setInterval(mainLoop, 50);
@@ -192,11 +198,11 @@ const prestigeButtonElement = document.getElementById("prestige-button");
 
 function updateTransistorInfo() {
     currentTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
-    bonusPerTransistorElement.innerHTML = formatWithCommas((transistorsBonus * 100), 0);
-    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * (transistorsBonus * 100), 0);
+    bonusPerTransistorElement.innerHTML = formatWithCommas((data.transistorsBonus * 100), 0);
+    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * (data.transistorsBonus * 100), 0);
 
     gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
-    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * (transistorsBonus * 100), 0);
+    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * (data.transistorsBonus * 100), 0);
 
     if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = 'Red';
@@ -235,6 +241,38 @@ function doPrestige() {
 }
 //#endregion
 
+// UPGRADES
+//#region 
+const transistorsBonusUpgradeAmountElement =  document.getElementById("transistors-bonus-upgrade-amount");
+const transistorsBonusUpgradeCostElement =  document.getElementById("transistors-bonus-upgrade-cost");
+
+const transistorsBonusButtonElement = document.getElementById("transistors-bonus-button");
+
+function updateUpgradeInfo() {
+    transistorsBonusUpgradeAmountElement.innerHTML = data.transistorsBonusUpgradeAmount;
+    transistorsBonusUpgradeCostElement.innerHTML = format(transistorsBonusUpgradeCost);
+
+    if (data.transistors >= transistorsBonusUpgradeCost) {
+        transistorsBonusButtonElement.style.borderColor = 'Red';
+        transistorsBonusButtonElement.style.cursor = "not-allowed";
+    } else {
+        transistorsBonusButtonElement.style.borderColor = 'Green';
+        transistorsBonusButtonElement.style.cursor = "pointer";
+    }
+}
+
+function buyTransistorsBonusUpgrade() {
+    if (data.transistors >= transistorsBonusUpgradeCost) {
+        data.transistors -= transistorsBonusUpgradeCost;
+        data.transistorsBonusUpgradeAmount++;
+        data.transistorsBonus += 0.02;
+        transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
+        updateTransistorInfo();
+        updateUpgradeInfo();
+    }
+}
+//#endregion
+
 // SETTINGS
 //#region 
 
@@ -262,7 +300,9 @@ function resetData() {
     data.cost = [];
     data.buyAmount = 1;
     data.transistors = 0;
-    transistorsBonus = 0.02;
+    data.transistorsBonus = 0.02;
+    data.transistorsBonusUpgradeAmount = 0; 
+    data.transistorsBonusUpgradeBaseCost = 1000;
 
     for (let i = 0; i < 8; i++) {
         let generator = {
@@ -300,7 +340,7 @@ function exportData() {
     exportedDataText.setSelectionRange(0, 99999);
     document.execCommand("copy");
     document.body.removeChild(exportedDataText);
-    alert("Exported Data Copied! Save it to a safe place like a notepad file and email it to yourself");
+    alert("Exported Data Copied to Clipboard! Copy and Paste your Save Data String to a safe place so if you lose your data you can get back to where you were!");
 }
 //#endregion
 
