@@ -238,7 +238,6 @@ function doPrestige() {
     updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
-    updateTransistorInfo();
     updateUpgradeInfo();
 }
 //#endregion
@@ -269,7 +268,6 @@ function buyTransistorsBonusUpgrade() {
         data.transistorsBonusUpgradeAmount++;
         data.transistorsBonus += 0.02;
         transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
-        updateTransistorInfo();
         updateUpgradeInfo();
     }
 }
@@ -320,7 +318,6 @@ function resetData() {
     updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
-    updateTransistorInfo();
     updateUpgradeInfo();
 }
 
@@ -335,7 +332,6 @@ function importData() {
     updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
-    updateTransistorInfo();
     updateUpgradeInfo();
 }
 
