@@ -1,11 +1,3 @@
-// let scraps = 11;
-// let totalScraps = 11;
-// let scrapsThisRun = 0;
-// let generators = [];
-// let cost = [];
-// let transistors = 0;
-// let transistorsBonus = 1.02;
-
 let data = {
     scraps: 11,
     totalScraps: 11,
@@ -16,7 +8,10 @@ let data = {
     transistors: 0,
     transistorsBonus: 0.02,
     transistorsBonusUpgradeAmount: 0,
-    transistorsBonusUpgradeBaseCost: 1000
+    transistorsBonusUpgradeBaseCost: 1000,
+    generatorsBonusUpgradeAmount: 0,
+    generatorsBonus: 1,
+    generatorsBonusUpgradeBaseCost: 1000
 };
 
 for (let i = 0; i < 8; i++) {
@@ -33,6 +28,7 @@ for (let i = 0; i < 8; i++) {
 let scrapsPerSecond = 0;
 let lastUpdate = Date.now();
 let transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
+let generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
@@ -78,7 +74,7 @@ function updateScrapsPerSecond() {
     scrapsPerSecond = 0;
     for (let i = 0; i < 8; i++) {
         let g = data.generators[i];
-        scrapsPerSecond += g.amount * g.sps;
+        scrapsPerSecond += g.amount * g.sps * data.generatorsBonus;
     }
     scrapsPerSecond *= 1 + (data.transistors * data.transistorsBonus);
 }
@@ -136,7 +132,7 @@ function updateGeneratorInfo() {
     for (let i = 0; i < 8; i++) {
         let g = data.generators[i];
         document.getElementById("gen" + (i + 1) + "-amount").innerHTML = g.amount;
-        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(g.sps);
+        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(g.sps * data.generatorsBonus);
         document.getElementById("gen" + (i + 1) + "-cost").innerHTML = format(data.cost[i]);
     }
 }
@@ -246,12 +242,18 @@ function doPrestige() {
 //#region 
 const transistorsBonusUpgradeAmountElement =  document.getElementById("transistors-bonus-upgrade-amount");
 const transistorsBonusUpgradeCostElement =  document.getElementById("transistors-bonus-upgrade-cost");
+const generatorsBonusUpgradeAmountElement =  document.getElementById("generators-bonus-upgrade-amount");
+const generatorsBonusUpgradeCostElement =  document.getElementById("generators-bonus-upgrade-cost");
 
 const transistorsBonusButtonElement = document.getElementById("transistors-bonus-button");
+const generatorsBonusButtonElement = document.getElementById("generators-bonus-button");
 
 function updateUpgradeInfo() {
     transistorsBonusUpgradeAmountElement.innerHTML = data.transistorsBonusUpgradeAmount;
     transistorsBonusUpgradeCostElement.innerHTML = format(transistorsBonusUpgradeCost);
+
+    generatorsBonusUpgradeAmountElement.innerHTML = data.generatorsBonusUpgradeAmount;
+    generatorsBonusUpgradeCostElement.innerHTML = format(generatorsBonusUpgradeCost);    
 
     if (data.transistors >= transistorsBonusUpgradeCost) {
         transistorsBonusButtonElement.style.borderColor = 'Red';
@@ -259,6 +261,14 @@ function updateUpgradeInfo() {
     } else {
         transistorsBonusButtonElement.style.borderColor = 'Green';
         transistorsBonusButtonElement.style.cursor = "pointer";
+    }
+
+    if (data.transistors >= generatorsBonusUpgradeCost) {
+        generatorsBonusButtonElement.style.borderColor = 'Red';
+        generatorsBonusButtonElement.style.cursor = "not-allowed";
+    } else {
+        generatorsBonusButtonElement.style.borderColor = 'Green';
+        generatorsBonusButtonElement.style.cursor = "pointer";
     }
 }
 
@@ -268,6 +278,17 @@ function buyTransistorsBonusUpgrade() {
         data.transistorsBonusUpgradeAmount++;
         data.transistorsBonus += 0.02;
         transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
+        updateUpgradeInfo();
+    }
+    console.log("hi");
+}
+
+function buyGeneratorsBonusUpgrade() {
+    if (data.transistors >= generatorsBonusUpgradeCost) {
+        data.transistors -= generatorsBonusUpgradeCost;
+        data.generatorsBonusUpgradeAmount++;
+        data.generatorsBonus += 0.25;
+        generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
         updateUpgradeInfo();
     }
 }
@@ -300,9 +321,9 @@ function resetData() {
     data.cost = [];
     data.buyAmount = 1;
     data.transistors = 0;
-    data.transistorsBonus = 0.02;
-    data.transistorsBonusUpgradeAmount = 0; 
-    data.transistorsBonusUpgradeBaseCost = 1000;
+    data.generatorsBonus = 1;
+    data.generatorsBonusUpgradeAmount = 0; 
+    data.generatorsBonusUpgradeBaseCost = 1000;
 
     for (let i = 0; i < 8; i++) {
         let generator = {
