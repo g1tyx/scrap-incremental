@@ -12,6 +12,7 @@ let data = {
     scrapsThisRun: 0,
     generators: [],
     cost: [],
+    buyAmount: 1,
     transistors: 0,
 }
 
@@ -28,7 +29,6 @@ for (let i = 0; i < 8; i++) {
 
 let transistorsBonus = 0.02;
 let scrapsPerSecond = 0;
-let buyAmount = 1;
 let lastUpdate = Date.now();
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
@@ -145,7 +145,7 @@ function updateGeneratorCost() {
 function buyGenerator(i) {
     let g = data.generators[i - 1];
     let c = data.cost[i - 1];
-    for (let i = 0; i < buyAmount; i++) {
+    for (let i = 0; i < data.buyAmount; i++) {
         if (data.scraps < c) return;
         data.scraps -= c;
         g.amount++;
@@ -156,7 +156,7 @@ function buyGenerator(i) {
 }
 
 function changeBuyAmount(amount) {
-    buyAmount = amount;
+    data.buyAmount = amount;
 
     switch(amount) {
         case 1:
@@ -192,11 +192,11 @@ const prestigeButtonElement = document.getElementById("prestige-button");
 
 function updateTransistorInfo() {
     currentTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
-    bonusPerTransistorElement.innerHTML = formatWithCommas(((transistorsBonus - 1) * 100), 0);
-    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * ((transistorsBonus - 1) * 100), 0);
+    bonusPerTransistorElement.innerHTML = formatWithCommas((transistorsBonus * 100), 0);
+    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * (transistorsBonus * 100), 0);
 
     gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
-    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * ((transistorsBonus - 1) * 100), 0);
+    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * (transistorsBonus * 100), 0);
 
     if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = 'Red';
@@ -258,8 +258,9 @@ function resetData() {
     data.scrapsThisRun = 0;
     data.generators = [];
     data.cost = [];
+    data.buyAmount = 1;
     data.transistors = 0;
-    transistorsBonus = 1.02;
+    transistorsBonus = 0.02;
 
     for (let i = 0; i < 8; i++) {
         let generator = {
