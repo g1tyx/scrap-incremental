@@ -66,7 +66,7 @@ function openMenu(clickedMenu) {
 
 function updateScrapsInfo() {
     scrapsTextElement.textContent = "You have " + format(data.scraps) + " Scraps";
-    scrapsPerSecondTextElement.textContent = "You are making " + format(scrapsPerSecond * (1 + (data.transistors * data.transistorsBonus / 100))) + " Scraps/s";
+    scrapsPerSecondTextElement.textContent = "You are making " + format(scrapsPerSecond * ((data.transistors * data.transistorsBonus) + 1)) + " Scraps/s";
 }
 
 function updateScrapsPerSecond() {
@@ -78,14 +78,12 @@ function updateScrapsPerSecond() {
 }
 
 function scrapsProductionLoop(deltaTime) {
-    let scrapsToGain = scrapsPerSecond * (1 + (data.transistors * data.transistorsBonus / 100));
+    let scrapsToGain = scrapsPerSecond * ((data.transistors * data.transistorsBonus) + 1);
     data.scraps += scrapsToGain * deltaTime;
     data.scrapsThisRun +=  scrapsToGain;
     data.totalScraps +=  scrapsToGain;
     transistorsGainedFromRestart = Math.floor(150 * Math.sqrt(data.scrapsThisRun/(400000000000/9)));
 }
-
-
 
 function mainLoop() {
     const now = Date.now();
