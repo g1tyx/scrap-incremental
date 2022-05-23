@@ -90,13 +90,6 @@
         </p>
         <button onclick="doPrestige()" id="prestige-button">Yes, I want to prestige</button>
     </div>
-    <div id="settings-container">
-        <button onclick="saveData()" class="settings-buttons" id="save-data-button">Save Data</button>
-        <button onclick="resetData()" class="settings-buttons" id="reset-data-button">Reset Data</button>
-        <button onclick="importData()" class="settings-buttons" id="import-data-button">Import Data</button>
-        <button onclick="exportData()" class="settings-buttons" id="export-data-button">Export Data</button>
-        <button type="button" onclick="location.href='https://discord.gg/pHAWjcAN7T'" class="settings-buttons" id="join-the-discord-button">Join Discord!</button>
-    </div>
     <div id="upgrades-container">
         <button onclick="buyTransistorsBonusUpgrade()" class="upgrades-buttons" id="transistors-bonus-button">
             Stronger Transistors (<span id="transistors-bonus-upgrade-amount">X</span>) <br>
@@ -108,6 +101,20 @@
             +25% Generators Scrap/s <br>
             Cost: <span id="generators-bonus-upgrade-cost">X</span> Transistors
         </button>
+    </div>
+    <div id="stats-container">
+        <p id="stats-info">
+            Total Scraps: <span id="total-scraps">X</span> <br>
+            Scraps This Run: <span id="scraps-this-run">X</span> <br>
+            Total Transistors: <span id="total-transistors">X</span> <br>
+        </p> 
+    </div>
+    <div id="settings-container">
+        <button onclick="saveData()" class="settings-buttons" id="save-data-button">Save Data</button>
+        <button onclick="resetData()" class="settings-buttons" id="reset-data-button">Reset Data</button>
+        <button onclick="importData()" class="settings-buttons" id="import-data-button">Import Data</button>
+        <button onclick="exportData()" class="settings-buttons" id="export-data-button">Export Data</button>
+        <button type="button" onclick="location.href='https://discord.gg/pHAWjcAN7T'" class="settings-buttons" id="join-the-discord-button">Join Discord!</button>
     </div>
 </body>
 </html>

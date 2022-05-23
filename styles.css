@@ -122,6 +122,12 @@ body {
     font-family: 'Roboto Mono';
 }
 
+#stats-info {
+    text-align: center;
+    font-family: 'Roboto Mono';
+    font-size: 30px;
+}
+
 .settings-buttons {
     border: 2px solid white;
     background-color: #370D32;

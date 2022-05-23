@@ -1,11 +1,12 @@
 let data = {
     scraps: 11,
     totalScraps: 11,
-    scrapsThisRun: 0,
+    scrapsThisRun: 11,
     generators: [],
     cost: [],
     buyAmount: 1,
     transistors: 0,
+    totalTransistors: 0, 
     transistorsBonus: 0.02,
     transistorsBonusUpgradeAmount: 0,
     transistorsBonusUpgradeBaseCost: 1000,
@@ -34,11 +35,13 @@ const generatorsMenuContainerElement = document.getElementById("generators-conta
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
 const settingsMenuContainerElement = document.getElementById("settings-container");
 const upgradesMenuContainerElement = document.getElementById("upgrades-container");
+const statsMenuContainerElement = document.getElementById("stats-container");
 
 let activeMenu = generatorsMenuContainerElement;
 prestigeMenuContainerElement.style.display = "none";
 settingsMenuContainerElement.style.display = "none";
 upgradesMenuContainerElement.style.display = "none";
+statsMenuContainerElement.style.display = "none";
 
 // UI
 //#region 
@@ -81,8 +84,8 @@ function updateScrapsPerSecond() {
 
 function scrapsProductionLoop(deltaTime) {
     data.scraps += scrapsPerSecond * deltaTime;
-    data.scrapsThisRun +=  scrapsPerSecond;
     data.totalScraps +=  scrapsPerSecond;
+    data.scrapsThisRun +=  scrapsPerSecond;
     transistorsGainedFromRestart = Math.floor(150 * Math.sqrt(data.scrapsThisRun/(400000000000/9)));
 }
 
@@ -94,6 +97,7 @@ function mainLoop() {
     scrapsProductionLoop(deltaTime);
     updateGeneratorButtonColor();
     updateTransistorInfo();
+    updateStatsInfo();
 }
 
 window.onload = function() {
@@ -228,8 +232,9 @@ function doPrestige() {
         data.cost.push(g.baseCost * Math.pow(1.15, g.amount));
     }
 
-    data.scrapsThisRun = 0;
+    data.scrapsThisRun = 11;
     data.transistors += transistorsGainedFromRestart;
+    data.totalTransistors += transistorsGainedFromRestart;
     transistorsGainedFromRestart = 0;
 
     updateScrapsPerSecond();
@@ -294,6 +299,19 @@ function buyGeneratorsBonusUpgrade() {
 }
 //#endregion
 
+// STATS
+//#region 
+const totalScrapsElement = document.getElementById("total-scraps");
+const scrapsThisRunElement = document.getElementById("scraps-this-run");
+const totalTransistorsElement = document.getElementById("total-transistors");
+
+function updateStatsInfo() {
+    totalScrapsElement.innerHTML = format(data.totalScraps);
+    scrapsThisRunElement.innerHTML = format(data.scrapsThisRun);
+    totalTransistorsElement.innerHTML = formatWithCommas(data.totalTransistors, 0);
+}
+//#endregion
+
 // SETTINGS
 //#region 
 
@@ -316,11 +334,12 @@ function resetData() {
 
     data.scraps = 11;
     data.totalScraps = 11;
-    data.scrapsThisRun = 0;
+    data.scrapsThisRun = 11;
     data.generators = [];
     data.cost = [];
     data.buyAmount = 1;
     data.transistors = 0;
+    data.totalTransistors = 0;
     data.generatorsBonus = 1;
     data.generatorsBonusUpgradeAmount = 0; 
     data.generatorsBonusUpgradeBaseCost = 1000;
