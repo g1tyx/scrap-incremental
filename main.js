@@ -239,16 +239,16 @@ function doPrestige() {
 //#region 
 
 function autoSaveData() {
-    window.localStorage.setItem('EnergyIdleSave', JSON.stringify(data));
+    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
 }
 
 function saveData() {
-    window.localStorage.setItem('EnergyIdleSave', JSON.stringify(data));
+    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
     alert("Game saved!");
 }
 
 function loadData() {
-    let savedGame = JSON.parse(localStorage.getItem('EnergyIdleSave'));
+    let savedGame = JSON.parse(localStorage.getItem('ScrapIdleSave'));
     if (savedGame !== null) data = savedGame;
 }
 
@@ -278,6 +278,29 @@ function resetData() {
     updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
+}
+
+function importData() {
+    let importedData = prompt("Paste your save data here");
+    if (importedData.length <= 0 || importedData === undefined) {
+        alert('Error!');
+        return;
+    }
+    data = JSON.parse((atob(importedData)));
+    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
+}
+
+function exportData() {
+    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
+    let exportedData = btoa(JSON.stringify(data));
+    const exportedDataText = document.createElement("textarea");
+    exportedDataText.value = exportedData;
+    document.body.appendChild(exportedDataText);
+    exportedDataText.select();
+    exportedDataText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    document.body.removeChild(exportedDataText);
+    alert("Exported Data Copied! Save it to a safe place like a notepad file and email it to yourself");
 }
 //#endregion
 
