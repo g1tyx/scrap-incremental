@@ -347,5 +347,7 @@ function exportData() {
     document.body.removeChild(exportedDataText);
     alert("Exported Data Copied to Clipboard! Copy and Paste your Save Data String to a safe place so if you lose your data you can get back to where you were!");
 }
+
+
 //#endregion
 
