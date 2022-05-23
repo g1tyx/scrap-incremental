@@ -45,7 +45,15 @@ body {
     cursor: pointer;
     transform: scale(1.1);
     transition-duration: 0.5s;
+    background-color: white;
+    color: #370D32;
 }
+
+.menu-buttons:active {
+    background-color: #370D32;
+    color: white;
+}
+
 
 #generators-container {
     display: flex;
@@ -144,5 +152,14 @@ body {
     cursor: pointer;
     transform: scale(1.1);
     transition-duration: 0.5s;
+    background-color: white;
+    color: #370D32;
 }
+
+.settings-buttons:active {
+    background-color: #370D32;
+    color: white;
+}
+
+
 
