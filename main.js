@@ -273,23 +273,23 @@ function updateUpgradeInfo() {
 }
 
 function buyTransistorsBonusUpgrade() {
-    if (data.transistors >= transistorsBonusUpgradeCost) {
-        data.transistors -= transistorsBonusUpgradeCost;
-        data.transistorsBonusUpgradeAmount++;
-        data.transistorsBonus += 0.02;
-        transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
-        updateUpgradeInfo();
-    }
+    if (data.transistors < transistorsBonusUpgradeCost) return;
+
+    data.transistors -= transistorsBonusUpgradeCost;
+    data.transistorsBonusUpgradeAmount++;
+    data.transistorsBonus += 0.02;
+    transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
+    updateUpgradeInfo();
 }
 
 function buyGeneratorsBonusUpgrade() {
-    if (data.transistors >= generatorsBonusUpgradeCost) {
-        data.transistors -= generatorsBonusUpgradeCost;
-        data.generatorsBonusUpgradeAmount++;
-        data.generatorsBonus += 0.25;
-        generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
-        updateUpgradeInfo();
-    }
+    if (data.transistors < generatorsBonusUpgradeCost) return;
+
+    data.transistors -= generatorsBonusUpgradeCost;
+    data.generatorsBonusUpgradeAmount++;
+    data.generatorsBonus += 0.25;
+    generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
+    updateUpgradeInfo();
 }
 //#endregion
 
