@@ -75,8 +75,10 @@ function updateScrapsPerSecond() {
         let g = data.generators[i];
         scrapsPerSecond += g.amount * g.sps;
     }
-    scrapsPerSecond += (data.transistors * data.transistorsBonus);
+    scrapsPerSecond *= (data.transistors * data.transistorsBonus);
 }
+
+= 2 * 104 * 1.02
 
 function scrapsProductionLoop(deltaTime) {
     data.scraps += scrapsPerSecond * deltaTime;
