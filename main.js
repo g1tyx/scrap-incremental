@@ -13,7 +13,6 @@ let data = {
     generators: [],
     cost: [],
     transistors: 0,
-    transistorsBonus: 1.02,
 }
 
 for (let i = 0; i < 8; i++) {
@@ -27,6 +26,7 @@ for (let i = 0; i < 8; i++) {
     data.cost.push(g.baseCost * Math.pow(1.07, g.amount));
 }
 
+let transistorsBonus = 0.02;
 let scrapsPerSecond = 0;
 let buyAmount = 1;
 let lastUpdate = Date.now();
@@ -75,7 +75,7 @@ function updateScrapsPerSecond() {
         let g = data.generators[i];
         scrapsPerSecond += g.amount * g.sps;
     }
-    scrapsPerSecond += (data.transistors * data.transistorsBonus);
+    scrapsPerSecond *= 1 + (data.transistors * transistorsBonus);
 }
 
 function scrapsProductionLoop(deltaTime) {
@@ -192,11 +192,11 @@ const prestigeButtonElement = document.getElementById("prestige-button");
 
 function updateTransistorInfo() {
     currentTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
-    bonusPerTransistorElement.innerHTML = formatWithCommas(((data.transistorsBonus - 1) * 100), 0);
-    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * ((data.transistorsBonus - 1) * 100), 0);
+    bonusPerTransistorElement.innerHTML = formatWithCommas(((transistorsBonus - 1) * 100), 0);
+    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * ((transistorsBonus - 1) * 100), 0);
 
     gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
-    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * ((data.transistorsBonus - 1) * 100), 0);
+    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * ((transistorsBonus - 1) * 100), 0);
 
     if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = 'Red';
@@ -259,7 +259,7 @@ function resetData() {
     data.generators = [];
     data.cost = [];
     data.transistors = 0;
-    data.transistorsBonus = 1.02;
+    transistorsBonus = 1.02;
 
     for (let i = 0; i < 8; i++) {
         let generator = {
