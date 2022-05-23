@@ -253,6 +253,8 @@ function loadData() {
 }
 
 function resetData() {
+    if (!confirm("Are you sure you want to reset your data? ALL of your progress will be lost and you will need to start over!")) return;
+
     data.scraps = 11;
     data.totalScraps = 11;
     data.scrapsThisRun = 0;
