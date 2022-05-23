@@ -105,6 +105,7 @@ window.onload = function() {
     updateScrapsPerSecond();
     updateGeneratorInfo();
     updateUpgradeInfo();
+    changeBuyAmount(data.buyAmount);
 }
 
 setInterval(mainLoop, 50);
@@ -117,8 +118,6 @@ setInterval(autoSaveData, 15000); // saves every 15s
 const buyOneButtonElement = document.getElementById("buy-one-button");
 const buyTenButtonElement = document.getElementById("buy-ten-button");
 const buyHundredButtonElement = document.getElementById("buy-hundred-button");
-
-buyOneButtonElement.style.color = '#FBBF77';
 
 function updateGeneratorButtonColor() {
     for (let i = 0; i < 8; i++) {
