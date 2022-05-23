@@ -1,5 +1,5 @@
-// let scrap = 11;
-// let totalScrap = 11;
+// let scraps = 11;
+// let totalScraps = 11;
 // let scrapsThisRun = 0;
 // let generators = [];
 // let cost = [];
@@ -7,8 +7,8 @@
 // let transistorsBonus = 1.02;
 
 let data = {
-    scrap: 11,
-    totalScrap: 11,
+    scraps: 11,
+    totalScraps: 11,
     scrapsThisRun: 0,
     generators: [],
     cost: [],
@@ -27,7 +27,7 @@ for (let i = 0; i < 8; i++) {
     data.cost.push(g.baseCost * Math.pow(1.07, g.amount));
 }
 
-let scrapPerSecond = 0;
+let scrapsPerSecond = 0;
 let buyAmount = 1;
 let lastUpdate = Date.now();
 
@@ -42,8 +42,8 @@ settingsMenuContainerElement.style.display = "none";
 // UI
 //#region 
 
-const scrapTextElement = document.getElementById("scrap-text");
-const scrapPerSecondTextElement = document.getElementById("scrap-per-second-text");
+const scrapsTextElement = document.getElementById("scraps-text");
+const scrapsPerSecondTextElement = document.getElementById("scraps-per-second-text");
 const generatorsMenuButtonElement = document.getElementById("generators-menu-button");
 
 function format(amount) {
@@ -64,24 +64,24 @@ function openMenu(clickedMenu) {
     else activeMenu.style.display = "block";
 }
 
-function updateScrapInfo() {
-    scrapTextElement.textContent = "You have " + format(data.scrap) + " Scrap";
-    scrapPerSecondTextElement.textContent = "You are making " + format(scrapPerSecond) + " Scrap/s";
+function updateScrapsInfo() {
+    scrapsTextElement.textContent = "You have " + format(data.scraps) + " Scraps";
+    scrapsPerSecondTextElement.textContent = "You are making " + format(scrapsPerSecond * (1 + (data.transistors * data.transistorsBonus / 100))) + " Scraps/s";
 }
 
-function updateScrapPerSecond() {
-    scrapPerSecond = 0;
+function updateScrapsPerSecond() {
+    scrapsPerSecond = 0;
     for (let i = 0; i < 8; i++) {
         let g = data.generators[i];
-        scrapPerSecond += g.amount * g.sps;
+        scrapsPerSecond += g.amount * g.sps;
     }
 }
 
-function scrapProductionLoop(deltaTime) {
-    let scrapsToGain = scrapPerSecond * (1 + (data.transistors * data.transistorsBonus / 100));
-    data.scrap += scrapsToGain * deltaTime;
+function scrapsProductionLoop(deltaTime) {
+    let scrapsToGain = scrapsPerSecond * (1 + (data.transistors * data.transistorsBonus / 100));
+    data.scraps += scrapsToGain * deltaTime;
     data.scrapsThisRun +=  scrapsToGain;
-    data.totalScrap +=  scrapsToGain;
+    data.totalScraps +=  scrapsToGain;
     transistorsGainedFromRestart = Math.floor(150 * Math.sqrt(data.scrapsThisRun/(400000000000/9)));
 }
 
@@ -91,15 +91,15 @@ function mainLoop() {
     const now = Date.now();
     const deltaTime = (now - lastUpdate) / 1000;
     lastUpdate = now;
-    updateScrapInfo();
-    scrapProductionLoop(deltaTime);
+    updateScrapsInfo();
+    scrapsProductionLoop(deltaTime);
     updateGeneratorButtonColor();
     updateTransistorInfo();
 }
 
 window.onload = function() {
     loadData();
-    updateScrapPerSecond();
+    updateScrapsPerSecond();
     updateGeneratorInfo();
 }
 
@@ -118,12 +118,12 @@ buyOneButtonElement.style.color = '#FBBF77';
 
 function updateGeneratorButtonColor() {
     for (let i = 0; i < 8; i++) {
-        if (data.scrap < data.cost[i]) {
+        if (data.scraps < data.cost[i]) {
             document.getElementById("gen" + (i + 1) + "-button").style.borderColor = 'Red';
             document.getElementById("gen" + (i + 1) + "-button").style.cursor = "not-allowed";
         } else {
             document.getElementById("gen" + (i + 1) + "-button").style.borderColor = 'Green';
-            document.getElementById("gen" + (i + 1) + "-button").style.cursor = "default";
+            document.getElementById("gen" + (i + 1) + "-button").style.cursor = "pointer";
         }
     }
 }
@@ -148,10 +148,10 @@ function buyGenerator(i) {
     let g = data.generators[i - 1];
     let c = data.cost[i - 1];
     for (let i = 0; i < buyAmount; i++) {
-        if (data.scrap < c) return;
-        data.scrap -= c;
+        if (data.scraps < c) return;
+        data.scraps -= c;
         g.amount++;
-        updateScrapPerSecond();
+        updateScrapsPerSecond();
         updateGeneratorCost();
         updateGeneratorInfo();
     }
@@ -205,14 +205,15 @@ function updateTransistorInfo() {
         prestigeButtonElement.style.cursor = "not-allowed";
     } else {
         prestigeButtonElement.style.borderColor = 'Green';
-        prestigeButtonElement.style.cursor = "default";
+        prestigeButtonElement.style.transform = scale(1.1);
+        prestigeButtonElement.style.cursor = "pointer";
     }
 }
 
 function doPrestige() {
     if (transistorsGainedFromRestart < 1) return;
 
-    data.scrap = 11;
+    data.scraps = 11;
     data.generators = [];
     data.cost = [];
 
@@ -231,7 +232,7 @@ function doPrestige() {
     data.transistors += transistorsGainedFromRestart;
     transistorsGainedFromRestart = 0;
 
-    updateScrapPerSecond();
+    updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
 }
@@ -255,8 +256,8 @@ function loadData() {
 }
 
 function resetData() {
-    data.scrap = 11;
-    data.totalScrap = 11;
+    data.scraps = 11;
+    data.totalScraps = 11;
     data.scrapsThisRun = 0;
     data.generators = [];
     data.cost = [];
@@ -274,7 +275,7 @@ function resetData() {
         data.cost.push(g.baseCost * Math.pow(1.15, g.amount));
     }
 
-    updateScrapPerSecond();
+    updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
 }

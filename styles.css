@@ -9,13 +9,13 @@ body {
     text-align: center;
 }
 
-#scrap-text {
+#scraps-text {
     font-size: 50px;
     padding: 0px;
     margin: 0px;
 }
 
-#scrap-per-second-text {
+#scraps-per-second-text {
     font-size: 30px;
     padding: 0px 0px 25px 0px;
     margin: 0px;
@@ -42,11 +42,9 @@ body {
 }
 
 .menu-buttons:hover {
-    background-color: gray;
-}
-
-.menu-buttons:active {
-    background-color: #370D32;
+    cursor: pointer;
+    transform: scale(1.1);
+    transition-duration: 0.5s;
 }
 
 #generators-container {
@@ -55,7 +53,7 @@ body {
     justify-content: center;
 }
 
-.generator-button {
+.generator-buttons {
     border: 2px solid white;
     background-color: #370D32;
     text-align: center;
@@ -68,14 +66,6 @@ body {
     font-family: 'Roboto Mono';
 }
 
-.generator-button:hover {
-    background-color: gray;
-}
-
-.generator-button:active {
-    background-color: #370D32;
-}
-
 #buy-amount-text {
     font-family: 'Roboto Mono';
     color: white;
@@ -83,7 +73,7 @@ body {
     margin: 20px 0px 0px 25px;
 }
 
-.buy-amount-button {
+.buy-amount-buttons {
     font-family: 'Roboto Mono';
     color: white;
     font-size: 20px;
@@ -94,12 +84,10 @@ body {
     border: 2px solid white;
 }
 
-.buy-amount-button:hover {
-    background-color: gray;
-}
-
-.buy-amount-button:active {
-    background-color: #370D32;
+.buy-amount-buttons:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition-duration: 0.5s;
 }
 
 .prestige-info {
@@ -121,14 +109,6 @@ body {
     display: block;
 }
 
-#prestige-button:hover {
-    background-color: gray;
-}
-
-#prestige-button:active {
-    background-color: #370D32;
-}
-
 .settings-buttons {
     border: 2px solid white;
     background-color: #370D32;
@@ -141,9 +121,8 @@ body {
 }
 
 .settings-buttons:hover {
-    background-color: gray;
+    cursor: pointer;
+    transform: scale(1.1);
+    transition-duration: 0.5s;
 }
 
-.settings-buttons:active {
-    background-color: #370D32;
-}
