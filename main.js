@@ -255,7 +255,7 @@ function updateUpgradeInfo() {
     generatorsBonusUpgradeAmountElement.innerHTML = data.generatorsBonusUpgradeAmount;
     generatorsBonusUpgradeCostElement.innerHTML = format(generatorsBonusUpgradeCost);    
 
-    if (data.transistors >= transistorsBonusUpgradeCost) {
+    if (data.transistors < transistorsBonusUpgradeCost) {
         transistorsBonusButtonElement.style.borderColor = 'Red';
         transistorsBonusButtonElement.style.cursor = "not-allowed";
     } else {
@@ -263,7 +263,7 @@ function updateUpgradeInfo() {
         transistorsBonusButtonElement.style.cursor = "pointer";
     }
 
-    if (data.transistors >= generatorsBonusUpgradeCost) {
+    if (data.transistors < generatorsBonusUpgradeCost) {
         generatorsBonusButtonElement.style.borderColor = 'Red';
         generatorsBonusButtonElement.style.cursor = "not-allowed";
     } else {
@@ -280,7 +280,6 @@ function buyTransistorsBonusUpgrade() {
         transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
         updateUpgradeInfo();
     }
-    console.log("hi");
 }
 
 function buyGeneratorsBonusUpgrade() {
