@@ -238,6 +238,8 @@ function doPrestige() {
     updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
+    updateTransistorInfo();
+    updateUpgradeInfo();
 }
 //#endregion
 
@@ -318,6 +320,8 @@ function resetData() {
     updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
+    updateTransistorInfo();
+    updateUpgradeInfo();
 }
 
 function importData() {
@@ -331,6 +335,8 @@ function importData() {
     updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
+    updateTransistorInfo();
+    updateUpgradeInfo();
 }
 
 function exportData() {
