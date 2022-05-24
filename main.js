@@ -113,6 +113,8 @@ function calculateOfflineProgress() {
     let seconds = delta % 60;
 
     data.scraps += scrapsToGain;
+    data.totalScraps += scrapsToGain;
+    data.scrapsThisRun += scrapsToGain;
 
     alert("Welcome back! \nYou were gone for " 
     + formatWithCommas(days, 0) + " days, " + formatWithCommas(hours, 0) + " hours, " + formatWithCommas(minutes, 0) + " minutes, and " + formatWithCommas(seconds, 0) + " seconds.\n" 
