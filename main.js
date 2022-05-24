@@ -253,10 +253,7 @@ const generatorsBonusButtonElement = document.getElementById("generators-bonus-b
 
 function updateUpgradeInfo() {
     let transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
-let generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
-
-console.log(data.transistorsBonusUpgradeAmount);
-console.log(data.generatorsBonusUpgradeAmount);
+    let generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
 
     transistorsBonusUpgradeAmountElement.innerHTML = data.transistorsBonusUpgradeAmount;
     transistorsBonusUpgradeCostElement.innerHTML = format(transistorsBonusUpgradeCost);
