@@ -78,9 +78,9 @@ function updateScrapsPerSecond() {
     for (let i = 0; i < 8; i++) {
         let g = data.generators[i];
         let amountBoost = ((Math.floor(g.amount / 25) * 0.25) + 1);
-        scrapsPerSecond += g.amount * g.sps * data.generatorsBonus * amountBoost;
+        let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
+        scrapsPerSecond += g.amount * g.sps * data.generatorsBonus * amountBoost * transistorsBoost;
     }
-    scrapsPerSecond *= 1 + (data.transistors * data.transistorsBonus);
 }
 
 function scrapsProductionLoop(deltaTime) {
@@ -118,7 +118,7 @@ setInterval(autoSaveData, 15000); // saves every 15s
 //#region
 
 const buyOneButtonElement = document.getElementById("buy-one-button");
-const buyTenButtonElement = document.getElementById("buy-ten-button");
+const buyTwentyFiveButtonElement = document.getElementById("buy-twentyfive-button");
 const buyHundredButtonElement = document.getElementById("buy-hundred-button");
 
 function updateGeneratorButtonColor() {
@@ -137,8 +137,9 @@ function updateGeneratorInfo() {
     for (let i = 0; i < 8; i++) {
         let g = data.generators[i];
         let amountBoost = ((Math.floor(g.amount / 25) * 0.25) + 1);
+        let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
         document.getElementById("gen" + (i + 1) + "-amount").innerHTML = g.amount;
-        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(g.sps * data.generatorsBonus * amountBoost);
+        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(g.sps * data.generatorsBonus * amountBoost * transistorsBoost);
         document.getElementById("gen" + (i + 1) + "-cost").innerHTML = format(data.cost[i]);
     }
 }
@@ -169,17 +170,17 @@ function changeBuyAmount(amount) {
     switch(amount) {
         case 1:
             buyOneButtonElement.style.color = '#FBBF77';
-            buyTenButtonElement.style.color = 'White';
+            buyTwentyFiveButtonElement.style.color = 'White';
             buyHundredButtonElement.style.color = 'White';
             break;
-        case 10:
+        case 25:
             buyOneButtonElement.style.color = 'White';
-            buyTenButtonElement.style.color = '#FBBF77';
+            buyTwentyFiveButtonElement.style.color = '#FBBF77';
             buyHundredButtonElement.style.color = 'White';
             break;
         case 100:
             buyOneButtonElement.style.color = 'White';
-            buyTenButtonElement.style.color = 'White';
+            buyTwentyFiveButtonElement.style.color = 'White';
             buyHundredButtonElement.style.color = '#FBBF77';
             break;
     }
@@ -321,6 +322,12 @@ function updateStatsInfo() {
     totalScrapsElement.innerHTML = format(data.totalScraps);
     scrapsThisRunElement.innerHTML = format(data.scrapsThisRun);
     totalTransistorsElement.innerHTML = formatWithCommas(data.totalTransistors, 0);
+
+    for (let i = 0; i < 8; i++) {
+        let g = data.generators[i];
+        let amountBoost = ((Math.floor(g.amount / 25) * 0.25) + 1);
+        document.getElementById("gen" + (i + 1) + "-amount-bonus").innerHTML = amountBoost;
+    }
 }
 //#endregion
 
