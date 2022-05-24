@@ -196,6 +196,7 @@ const prestigeButtonElement = document.getElementById("prestige-button");
 function updateTransistorInfo() {
     currentTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
     bonusPerTransistorElement.innerHTML = formatWithCommas((data.transistorsBonus * 100), 0);
+    console.log(data.transistorsBonus);
     bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * (data.transistorsBonus * 100), 0);
 
     gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
@@ -287,8 +288,6 @@ function buyTransistorsBonusUpgrade() {
     transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
     updateUpgradeInfo();
     updateGeneratorInfo();
-    console.log(data.transistorsBonusUpgradeAmount);
-console.log(data.generatorsBonusUpgradeAmount);
 }
 
 function buyGeneratorsBonusUpgrade() {
@@ -300,8 +299,6 @@ function buyGeneratorsBonusUpgrade() {
     generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
     updateUpgradeInfo();
     updateGeneratorInfo();
-    console.log(data.transistorsBonusUpgradeAmount);
-console.log(data.generatorsBonusUpgradeAmount);
 }
 //#endregion
 
@@ -346,6 +343,7 @@ function resetData() {
     data.buyAmount = 1;
     data.transistors = 0;
     data.totalTransistors = 0;
+    data.transistorsBonus = 0.02;
     data.transistorsBonusUpgradeAmount = 0,
     data.transistorsBonusUpgradeBaseCost = 1000,
     data.generatorsBonus = 1;
