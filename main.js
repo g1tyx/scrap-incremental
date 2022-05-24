@@ -77,7 +77,7 @@ function updateScrapsPerSecond() {
     scrapsPerSecond = 0;
     for (let i = 0; i < 8; i++) {
         let g = data.generators[i];
-        scrapsPerSecond += g.amount * g.sps * data.generatorsBonus;
+        scrapsPerSecond += g.amount * g.sps * data.generatorsBonus * ((Math.floor(g.amount / 25) * 0.25) + 1);
     }
     scrapsPerSecond *= 1 + (data.transistors * data.transistorsBonus);
 }
@@ -136,8 +136,10 @@ function updateGeneratorInfo() {
     for (let i = 0; i < 8; i++) {
         let g = data.generators[i];
         document.getElementById("gen" + (i + 1) + "-amount").innerHTML = g.amount;
-        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(g.sps * data.generatorsBonus);
+        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(g.sps * data.generatorsBonus * (((Math.floor(g.amount / 25) * 0.25) + 1)));
         document.getElementById("gen" + (i + 1) + "-cost").innerHTML = format(data.cost[i]);
+        console.log(g.amount);
+        console.log(((Math.floor(g.amount / 25) * 0.25) + 1));
     }
 }
 
