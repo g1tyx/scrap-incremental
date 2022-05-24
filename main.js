@@ -1,4 +1,6 @@
 let data = {
+    time: Date.now(),
+    firstTime: true,
     scraps: 11,
     totalScraps: 11,
     scrapsThisRun: 11,
@@ -90,6 +92,33 @@ function scrapsProductionLoop(deltaTime) {
     transistorsGainedFromRestart = Math.floor(150 * Math.sqrt(data.scrapsThisRun/(400000000000/9)));
 }
 
+function calculateOfflineProgress() {
+    if (data.firstTime) {
+        data.firstTime = false;
+        return;
+    }
+
+    const now = Date.now();
+    let delta = (now - data.time) / 1000;
+    data.time = Date.now();
+    let scrapsToGain = 0;
+    scrapsToGain += scrapsPerSecond * delta;
+
+    let days =  Math.floor(delta / 86400);
+    delta -= days * 86400;
+    let hours = Math.floor(delta / 3600) % 24;
+    delta -= hours * 3600;
+    let minutes = Math.floor(delta / 60) % 60;
+    delta -= minutes * 60;
+    let seconds = delta % 60;
+
+    data.scraps += scrapsToGain;
+
+    alert(`Welcome back!
+You were gone for ${formatWithCommas(days, 0)} days, ${formatWithCommas(hours, 0)} hours, ${formatWithCommas(minutes, 0)} minutes, and ${formatWithCommas(seconds, 0)} seconds.
+You gained ${format(scrapsToGain)} Scraps.`);
+}
+
 function mainLoop() {
     const now = Date.now();
     const deltaTime = (now - lastUpdate) / 1000;
@@ -108,6 +137,7 @@ window.onload = function() {
     updateUpgradeCost();
     updateUpgradeInfo();
     changeBuyAmount(data.buyAmount);
+    calculateOfflineProgress();
 }
 
 setInterval(mainLoop, 50);
@@ -351,6 +381,8 @@ function loadData() {
 function resetData() {
     if (!confirm("Are you sure you want to reset your data? ALL of your progress will be lost and you will need to start over!")) return;
 
+    data.time = Date.now();
+    data.firstTime = true;
     data.scraps = 11;
     data.totalScraps = 11;
     data.scrapsThisRun = 11;
