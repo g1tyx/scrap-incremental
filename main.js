@@ -114,9 +114,9 @@ function calculateOfflineProgress() {
 
     data.scraps += scrapsToGain;
 
-    alert(`Welcome back!
-You were gone for ${formatWithCommas(days, 0)} days, ${formatWithCommas(hours, 0)} hours, ${formatWithCommas(minutes, 0)} minutes, and ${formatWithCommas(seconds, 0)} seconds.
-You gained ${format(scrapsToGain)} Scraps.`);
+    alert("Welcome back! \nYou were gone for " 
+    + formatWithCommas(days, 0) + " days, " + formatWithCommas(hours, 0) + " hours, " + formatWithCommas(minutes, 0) + " minutes, and " + formatWithCommas(seconds, 0) + " seconds.\n" 
+    + "You gained " + format(scrapsToGain) + " Scraps.");
 }
 
 function mainLoop() {
