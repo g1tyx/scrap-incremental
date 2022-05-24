@@ -285,6 +285,7 @@ function buyTransistorsBonusUpgrade() {
     data.transistorsBonus += 0.02;
     transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
     updateUpgradeInfo();
+    updateGeneratorInfo();
 }
 
 function buyGeneratorsBonusUpgrade() {
@@ -295,6 +296,7 @@ function buyGeneratorsBonusUpgrade() {
     data.generatorsBonus += 0.25;
     generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
     updateUpgradeInfo();
+    updateGeneratorInfo();
 }
 //#endregion
 
