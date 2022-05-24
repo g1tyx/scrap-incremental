@@ -104,9 +104,9 @@ window.onload = function() {
     loadData();
     updateScrapsPerSecond();
     updateGeneratorInfo();
+    updateUpgradeCost();
     updateUpgradeInfo();
     changeBuyAmount(data.buyAmount);
-    updateUpgradeCost();
 }
 
 setInterval(mainLoop, 50);
@@ -240,8 +240,8 @@ function doPrestige() {
     updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
-    updateUpgradeInfo();
     updateUpgradeCost();
+    updateUpgradeInfo();
 }
 //#endregion
 
@@ -291,9 +291,9 @@ function buyTransistorsBonusUpgrade() {
     data.transistorsBonusUpgradeAmount++;
     data.transistorsBonus += 0.02;
     transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
-    updateUpgradeInfo();
     updateGeneratorInfo();
     updateUpgradeCost();
+    updateUpgradeInfo();
 }
 
 function buyGeneratorsBonusUpgrade() {
@@ -303,9 +303,9 @@ function buyGeneratorsBonusUpgrade() {
     data.generatorsBonusUpgradeAmount++;
     data.generatorsBonus += 0.25;
     generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
-    updateUpgradeInfo();
     updateGeneratorInfo();
     updateUpgradeCost();
+    updateUpgradeInfo();
 }
 //#endregion
 
@@ -371,8 +371,8 @@ function resetData() {
     updateScrapsPerSecond();
     updateGeneratorCost();
     updateGeneratorInfo();
-    updateUpgradeInfo();
     updateUpgradeCost();
+    updateUpgradeInfo();
 }
 
 function importData() {
