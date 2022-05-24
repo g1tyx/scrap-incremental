@@ -28,6 +28,8 @@ for (let i = 0; i < 8; i++) {
 
 let scrapsPerSecond = 0;
 let lastUpdate = Date.now();
+let transistorsBonusUpgradeCost = 0;
+let generatorsBonusUpgradeCost = 0;
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
@@ -104,6 +106,7 @@ window.onload = function() {
     updateGeneratorInfo();
     updateUpgradeInfo();
     changeBuyAmount(data.buyAmount);
+    updateUpgradeCost();
 }
 
 setInterval(mainLoop, 50);
@@ -196,7 +199,6 @@ const prestigeButtonElement = document.getElementById("prestige-button");
 function updateTransistorInfo() {
     currentTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
     bonusPerTransistorElement.innerHTML = formatWithCommas((data.transistorsBonus * 100), 0);
-    console.log(data.transistorsBonus);
     bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * (data.transistorsBonus * 100), 0);
 
     gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
@@ -239,6 +241,7 @@ function doPrestige() {
     updateGeneratorCost();
     updateGeneratorInfo();
     updateUpgradeInfo();
+    updateUpgradeCost();
 }
 //#endregion
 
@@ -252,10 +255,12 @@ const generatorsBonusUpgradeCostElement =  document.getElementById("generators-b
 const transistorsBonusButtonElement = document.getElementById("transistors-bonus-button");
 const generatorsBonusButtonElement = document.getElementById("generators-bonus-button");
 
-function updateUpgradeInfo() {
-    let transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
-    let generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
+function updateUpgradeCost() {
+    transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
+    generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
+}
 
+function updateUpgradeInfo() {
     transistorsBonusUpgradeAmountElement.innerHTML = data.transistorsBonusUpgradeAmount;
     transistorsBonusUpgradeCostElement.innerHTML = format(transistorsBonusUpgradeCost);
 
@@ -288,6 +293,7 @@ function buyTransistorsBonusUpgrade() {
     transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
     updateUpgradeInfo();
     updateGeneratorInfo();
+    updateUpgradeCost();
 }
 
 function buyGeneratorsBonusUpgrade() {
@@ -299,6 +305,7 @@ function buyGeneratorsBonusUpgrade() {
     generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
     updateUpgradeInfo();
     updateGeneratorInfo();
+    updateUpgradeCost();
 }
 //#endregion
 
@@ -365,6 +372,7 @@ function resetData() {
     updateGeneratorCost();
     updateGeneratorInfo();
     updateUpgradeInfo();
+    updateUpgradeCost();
 }
 
 function importData() {
@@ -379,6 +387,7 @@ function importData() {
     updateGeneratorCost();
     updateGeneratorInfo();
     updateUpgradeInfo();
+    updateUpgradeCost();
 }
 
 function exportData() {
