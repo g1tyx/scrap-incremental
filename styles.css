@@ -122,6 +122,11 @@ body {
     display: block;
 }
 
+.prestige-buttons:hover {
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+}
+
 .upgrades-buttons {
     border: 2px solid white;
     background-color: #370D32;
@@ -133,6 +138,11 @@ body {
     margin: 150px 0px 100px 275px;
     line-height: 2.25; 
     font-family: 'Roboto Mono';
+}
+
+.upgrades-buttons:hover {
+    transform: scale(1.1);
+    transition-duration: 0.5s;
 }
 
 #stats-info {
