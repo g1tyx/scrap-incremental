@@ -28,8 +28,6 @@ for (let i = 0; i < 8; i++) {
 
 let scrapsPerSecond = 0;
 let lastUpdate = Date.now();
-let transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
-let generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
@@ -254,6 +252,12 @@ const transistorsBonusButtonElement = document.getElementById("transistors-bonus
 const generatorsBonusButtonElement = document.getElementById("generators-bonus-button");
 
 function updateUpgradeInfo() {
+    let transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
+let generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
+
+console.log(data.transistorsBonusUpgradeAmount);
+console.log(data.generatorsBonusUpgradeAmount);
+
     transistorsBonusUpgradeAmountElement.innerHTML = data.transistorsBonusUpgradeAmount;
     transistorsBonusUpgradeCostElement.innerHTML = format(transistorsBonusUpgradeCost);
 
@@ -286,6 +290,8 @@ function buyTransistorsBonusUpgrade() {
     transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
     updateUpgradeInfo();
     updateGeneratorInfo();
+    console.log(data.transistorsBonusUpgradeAmount);
+console.log(data.generatorsBonusUpgradeAmount);
 }
 
 function buyGeneratorsBonusUpgrade() {
@@ -297,6 +303,8 @@ function buyGeneratorsBonusUpgrade() {
     generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
     updateUpgradeInfo();
     updateGeneratorInfo();
+    console.log(data.transistorsBonusUpgradeAmount);
+console.log(data.generatorsBonusUpgradeAmount);
 }
 //#endregion
 
@@ -341,6 +349,8 @@ function resetData() {
     data.buyAmount = 1;
     data.transistors = 0;
     data.totalTransistors = 0;
+    data.transistorsBonusUpgradeAmount = 0,
+    data.transistorsBonusUpgradeBaseCost = 1000,
     data.generatorsBonus = 1;
     data.generatorsBonusUpgradeAmount = 0; 
     data.generatorsBonusUpgradeBaseCost = 1000;
