@@ -148,7 +148,8 @@ body {
 #stats-info {
     text-align: center;
     font-family: 'Roboto Mono';
-    font-size: 30px;
+    font-size: 25px;
+    margin: 0 auto;
 }
 
 .settings-buttons {

@@ -5,6 +5,8 @@ let data = {
     totalScraps: 11,
     scrapsThisRun: 11,
     generators: [],
+    highestTotalGenerators: 0,
+    highestTotalScrapsPerSecond: 0,
     cost: [],
     buyAmount: 1,
     transistors: 0,
@@ -32,6 +34,7 @@ let scrapsPerSecond = 0;
 let lastUpdate = Date.now();
 let transistorsBonusUpgradeCost = 0;
 let generatorsBonusUpgradeCost = 0;
+let transistorsGainedFromRestart = 0;
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
@@ -83,6 +86,8 @@ function updateScrapsPerSecond() {
         let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
         scrapsPerSecond += g.amount * g.sps * data.generatorsBonus * amountBoost * transistorsBoost;
     }
+    if (scrapsPerSecond >= data.highestTotalScrapsPerSecond) data.highestTotalScrapsPerSecond = scrapsPerSecond;
+    console.log(data.highestTotalScrapsPerSecond);
 }
 
 function scrapsProductionLoop(deltaTime) {
@@ -135,7 +140,6 @@ function mainLoop() {
 window.onload = function() {
     loadData();
     updateScrapsInfo();
-    updateScrapsPerSecond();
     updateGeneratorInfo();
     updateUpgradeCost();
     updateUpgradeInfo();
@@ -189,14 +193,17 @@ function updateGeneratorCost() {
 function buyGenerator(i) {
     let g = data.generators[i - 1];
     let c = data.cost[i - 1];
+    let totalGeneratorAmount = 0;
     for (let i = 0; i < data.buyAmount; i++) {
         if (data.scraps < c) return;
         data.scraps -= c;
         g.amount++;
-        updateScrapsPerSecond();
-        updateGeneratorCost();
-        updateGeneratorInfo();
+        totalGeneratorAmount += g.amount;
     }
+    if (totalGeneratorAmount >= data.highestTotalGenerators) data.highestTotalGenerators = totalGeneratorAmount;
+    updateScrapsPerSecond();
+    updateGeneratorCost();
+    updateGeneratorInfo();
 }
 
 function changeBuyAmount(amount) {
@@ -350,14 +357,18 @@ function buyGeneratorsBonusUpgrade() {
 // STATS
 //#region 
 const totalScrapsElement = document.getElementById("total-scraps");
-const scrapsThisRunElement = document.getElementById("scraps-this-run");
+const highestTotalScrapsPerSecondElement = document.getElementById("highest-total-scrapsPerSecond");
 const totalTransistorsElement = document.getElementById("total-transistors");
+const highestTotalGeneratorsElement = document.getElementById("highest-total-generators");
+const scrapsThisRunElement = document.getElementById("scraps-this-run");
 
 function updateStatsInfo() {
     totalScrapsElement.innerHTML = format(data.totalScraps);
-    scrapsThisRunElement.innerHTML = format(data.scrapsThisRun);
+    highestTotalScrapsPerSecondElement.innerHTML = format(data.highestTotalScrapsPerSecond);
     totalTransistorsElement.innerHTML = formatWithCommas(data.totalTransistors, 0);
+    highestTotalGeneratorsElement.innerHTML = formatWithCommas(data.highestTotalGenerators, 0);
 
+    scrapsThisRunElement.innerHTML = format(data.scrapsThisRun);
     for (let i = 0; i < 8; i++) {
         let g = data.generators[i];
         let amountBoost = ((Math.floor(g.amount / 25) * 0.25) + 1);
@@ -392,6 +403,8 @@ function resetData() {
     data.totalScraps = 11;
     data.scrapsThisRun = 11;
     data.generators = [];
+    data.highestTotalGenerators = 0,
+    data.highestTotalScrapsPerSecond = 0,
     data.cost = [];
     data.buyAmount = 1;
     data.transistors = 0;
