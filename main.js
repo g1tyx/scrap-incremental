@@ -199,11 +199,11 @@ function buyGenerator(i) {
         data.scraps -= c;
         g.amount++;
         totalGeneratorAmount += g.amount;
+        updateScrapsPerSecond();
+        updateGeneratorCost();
+        updateGeneratorInfo();
     }
     if (totalGeneratorAmount >= data.highestTotalGenerators) data.highestTotalGenerators = totalGeneratorAmount;
-    updateScrapsPerSecond();
-    updateGeneratorCost();
-    updateGeneratorInfo();
 }
 
 function changeBuyAmount(amount) {
