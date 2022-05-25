@@ -140,6 +140,7 @@ function mainLoop() {
 window.onload = function() {
     loadData();
     updateScrapsInfo();
+    updateScrapsPerSecond();
     updateGeneratorInfo();
     updateUpgradeCost();
     updateUpgradeInfo();
