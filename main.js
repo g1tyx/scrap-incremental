@@ -5,7 +5,7 @@ let data = {
     totalScraps: 11,
     scrapsThisRun: 11,
     generators: [],
-    highestTotalGenerators: 0,
+    totalGeneratorAmount: 0,
     highestTotalScrapsPerSecond: 0,
     cost: [],
     buyAmount: 1,
@@ -35,6 +35,7 @@ let lastUpdate = Date.now();
 let transistorsBonusUpgradeCost = 0;
 let generatorsBonusUpgradeCost = 0;
 let transistorsGainedFromRestart = 0;
+let highestTotalGenerators = data.totalGeneratorAmount;
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
@@ -191,20 +192,20 @@ function updateGeneratorCost() {
     }
 }
 
-function buyGenerator(i) {
-    let g = data.generators[i - 1];
-    let c = data.cost[i - 1];
-    let totalGeneratorAmount = 0;
+function buyGenerator(generatorIndex) {
+    let g = data.generators[generatorIndex - 1];
     for (let i = 0; i < data.buyAmount; i++) {
+        let c = data.cost[generatorIndex - 1];
         if (data.scraps < c) return;
         data.scraps -= c;
         g.amount++;
-        totalGeneratorAmount += g.amount;
+        data.totalGeneratorAmount++;
+        updateScrapsInfo();
         updateScrapsPerSecond();
         updateGeneratorCost();
         updateGeneratorInfo();
     }
-    if (totalGeneratorAmount >= data.highestTotalGenerators) data.highestTotalGenerators = totalGeneratorAmount;
+    if (data.totalGeneratorAmount >= highestTotalGenerators) highestTotalGenerators = data.totalGeneratorAmount;
 }
 
 function changeBuyAmount(amount) {
@@ -404,7 +405,7 @@ function resetData() {
     data.totalScraps = 11;
     data.scrapsThisRun = 11;
     data.generators = [];
-    data.highestTotalGenerators = 0,
+    data.totalGeneratorAmount = 0,
     data.highestTotalScrapsPerSecond = 0,
     data.cost = [];
     data.buyAmount = 1;
@@ -443,11 +444,14 @@ function importData() {
     }
     data = JSON.parse((atob(importedData)));
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
+    updateScrapsInfo();
     updateScrapsPerSecond();
-    updateGeneratorCost();
     updateGeneratorInfo();
-    updateUpgradeInfo();
     updateUpgradeCost();
+    updateUpgradeInfo();
+    updateTransistorInfo();
+    updateStatsInfo();
+    changeBuyAmount(data.buyAmount);
 }
 
 function exportData() {
