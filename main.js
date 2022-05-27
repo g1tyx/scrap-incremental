@@ -5,8 +5,8 @@ let data = {
     totalScraps: 11,
     scrapsThisRun: 11,
     generators: [],
-    totalGeneratorAmount: 0,
     highestTotalScrapsPerSecond: 0,
+    highestTotalGenerators: 0,
     cost: [],
     buyAmount: 1,
     transistors: 0,
@@ -35,7 +35,12 @@ let lastUpdate = Date.now();
 let transistorsBonusUpgradeCost = 0;
 let generatorsBonusUpgradeCost = 0;
 let transistorsGainedFromRestart = 0;
-let highestTotalGenerators = data.totalGeneratorAmount;
+
+for (let i = 0; i < 8; i++) {
+    data.highestTotalGenerators = 0;
+    let g = data.generators[i];
+    data.highestTotalGenerators += g.amount;
+}
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
@@ -88,7 +93,6 @@ function updateScrapsPerSecond() {
         scrapsPerSecond += g.amount * g.sps * data.generatorsBonus * amountBoost * transistorsBoost;
     }
     if (scrapsPerSecond >= data.highestTotalScrapsPerSecond) data.highestTotalScrapsPerSecond = scrapsPerSecond;
-    console.log(data.highestTotalScrapsPerSecond);
 }
 
 function scrapsProductionLoop(deltaTime) {
@@ -192,6 +196,15 @@ function updateGeneratorCost() {
     }
 }
 
+function calculateHighestGeneratorAmounts() {
+    let totalGeneratorAmount = 0;
+    for (let i = 0; i < 8; i++) {
+        let g = data.generators[i];
+        totalGeneratorAmount += g.amount;
+    }
+    if (data.highestTotalGenerators <= totalGeneratorAmount) data.highestTotalGenerators = totalGeneratorAmount;
+}
+
 function buyGenerator(generatorIndex) {
     let g = data.generators[generatorIndex - 1];
     for (let i = 0; i < data.buyAmount; i++) {
@@ -199,13 +212,12 @@ function buyGenerator(generatorIndex) {
         if (data.scraps < c) return;
         data.scraps -= c;
         g.amount++;
-        data.totalGeneratorAmount++;
+        calculateHighestGeneratorAmounts();
         updateScrapsInfo();
         updateScrapsPerSecond();
         updateGeneratorCost();
         updateGeneratorInfo();
     }
-    if (data.totalGeneratorAmount >= highestTotalGenerators) highestTotalGenerators = data.totalGeneratorAmount;
 }
 
 function changeBuyAmount(amount) {
@@ -405,8 +417,8 @@ function resetData() {
     data.totalScraps = 11;
     data.scrapsThisRun = 11;
     data.generators = [];
-    data.totalGeneratorAmount = 0,
     data.highestTotalScrapsPerSecond = 0,
+    data.highestTotalGenerators = 0,
     data.cost = [];
     data.buyAmount = 1;
     data.transistors = 0;
