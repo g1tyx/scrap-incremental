@@ -110,7 +110,6 @@ function calculateOfflineProgress() {
 
     const now = Date.now();
     let delta = (now - data.time) / 1000;
-    data.time = Date.now();
     let scrapsToGain = 0;
     scrapsToGain += scrapsPerSecond * delta;
 
@@ -395,10 +394,12 @@ function updateStatsInfo() {
 //#region 
 
 function autoSaveData() {
+    data.time = Date.now();
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
 }
 
 function saveData() {
+    data.time = Date.now();
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
     alert("Game saved!");
 }
