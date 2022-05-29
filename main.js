@@ -44,22 +44,34 @@ for (let i = 0; i < 8; i++) {
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
-const settingsMenuContainerElement = document.getElementById("settings-container");
 const upgradesMenuContainerElement = document.getElementById("upgrades-container");
 const statsMenuContainerElement = document.getElementById("stats-container");
+const settingsMenuContainerElement = document.getElementById("settings-container");
 
 let activeMenu = generatorsMenuContainerElement;
 prestigeMenuContainerElement.style.display = "none";
-settingsMenuContainerElement.style.display = "none";
 upgradesMenuContainerElement.style.display = "none";
 statsMenuContainerElement.style.display = "none";
+settingsMenuContainerElement.style.display = "none";
+
+const generatorsMenuButtonElement = document.getElementById("generators-menu-button");
+const prestigeMenuButtonElement = document.getElementById("prestige-menu-button");
+const upgradesMenuButtonElement = document.getElementById("upgrades-menu-button");
+const statsMenuButtonElement = document.getElementById("stats-menu-button");
+const settingsMenuButtonElement = document.getElementById("settings-menu-button");
+
+let activeMenuButton = generatorsMenuButtonElement;
+generatorsMenuButtonElement.style.borderColor = 'Orange';
+prestigeMenuButtonElement.style.borderColor = 'White';
+upgradesMenuButtonElement.style.borderColor = 'White';
+statsMenuButtonElement.style.borderColor = 'White';
+settingsMenuButtonElement.style.borderColor = 'White';
 
 // UI
 //#region 
 
 const scrapsTextElement = document.getElementById("scraps-text");
 const scrapsPerSecondTextElement = document.getElementById("scraps-per-second-text");
-const generatorsMenuButtonElement = document.getElementById("generators-menu-button");
 
 function format(amount) {
     let power = Math.floor(Math.log10(amount));
@@ -72,9 +84,12 @@ function formatWithCommas(amount, numDigits = 2) {
     return amount.toFixed(numDigits).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function openMenu(clickedMenu) {
+function openMenu(clickedMenu, clickedMenuButton) {
     activeMenu.style.display = "none";
+    activeMenuButton.style.borderColor = 'White';
     activeMenu = clickedMenu;
+    activeMenuButton = clickedMenuButton;
+    clickedMenuButton.style.borderColor = 'Orange';
     if (activeMenu == generatorsMenuContainerElement) activeMenu.style.display = "flex";
     else activeMenu.style.display = "block";
 }
