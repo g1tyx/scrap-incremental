@@ -348,7 +348,7 @@ function buyTransistorsBonusUpgrade() {
     data.transistors -= transistorsBonusUpgradeCost;
     data.transistorsBonusUpgradeAmount++;
     data.transistorsBonus += 0.02;
-    transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
+    transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(5, data.transistorsBonusUpgradeAmount);
     updateGeneratorInfo();
     updateUpgradeCost();
     updateUpgradeInfo();
@@ -360,7 +360,7 @@ function buyGeneratorsBonusUpgrade() {
     data.transistors -= generatorsBonusUpgradeCost;
     data.generatorsBonusUpgradeAmount++;
     data.generatorsBonus += 0.25;
-    generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(8.5, data.generatorsBonusUpgradeAmount);
+    generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(5, data.generatorsBonusUpgradeAmount);
     updateGeneratorInfo();
     updateUpgradeCost();
     updateUpgradeInfo();
