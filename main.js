@@ -443,13 +443,13 @@ function updateGoalsInfo() {
     if (data.totalScraps >= data.totalScrapsRequirement && data.totalScrapsLevel <= 4) {
         data.totalScrapsLevel++;
         data.goalBoost += 0.25;
-        data.totalScrapsRequirement += 1e6;
+        data.totalScrapsRequirement *= 1e6;
     }
 
     if (data.highestTotalScrapsPerSecond >= data.highestTotalScrapsPerSecondRequirement && data.highestTotalScrapsPerSecondLevel <= 4) {
         data.highestTotalScrapsPerSecondLevel++;
         data.goalBoost += 0.25;
-        data.highestTotalScrapsPerSecondRequirement += 1e3;
+        data.highestTotalScrapsPerSecondRequirement *= 1e3;
     }
 
     if (data.highestTotalGenerators >= data.highestTotalGeneratorsRequirement && data.highestTotalGeneratorsLevel <= 4) {
