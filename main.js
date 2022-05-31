@@ -1,22 +1,46 @@
 let data = {
+    // UI
     time: Date.now(),
     firstTime: true,
     scraps: 11,
-    totalScraps: 11,
-    scrapsThisRun: 11,
+
+    // GENERATORS
     generators: [],
-    highestTotalScrapsPerSecond: 0,
-    highestTotalGenerators: 0,
     cost: [],
     buyAmount: 1,
+
+    // PRESTIGE
     transistors: 0,
-    totalTransistors: 0, 
-    transistorsBonus: 0.02,
+
+    // UPGRADES
     transistorsBonusUpgradeAmount: 0,
+    transistorsBonus: 0.02,
     transistorsBonusUpgradeBaseCost: 1000,
+
     generatorsBonusUpgradeAmount: 0,
     generatorsBonus: 1,
-    generatorsBonusUpgradeBaseCost: 1000
+    generatorsBonusUpgradeBaseCost: 1000,
+
+    // STATS
+    scrapsThisRun: 11,
+    goalBoost: 1, 
+
+    // GOALS
+    totalScrapsLevel: 0,
+    totalScraps: 11,
+    totalScrapsRequirement: 1e6,
+
+    highestTotalScrapsPerSecondLevel: 0,
+    highestTotalScrapsPerSecond: 0,
+    highestTotalScrapsPerSecondRequirement: 1e3,
+
+    highestTotalGeneratorsLevel: 0, 
+    highestTotalGenerators: 0,
+    highestTotalGeneratorsRequirement: 500,
+
+    totalTransistorsLevel: 0,
+    totalTransistors: 0, 
+    totalTransistorsRequirement: 1000
 };
 
 for (let i = 0; i < 8; i++) {
@@ -45,18 +69,21 @@ for (let i = 0; i < 8; i++) {
 const generatorsMenuContainerElement = document.getElementById("generators-container");
 const prestigeMenuContainerElement = document.getElementById("prestige-container");
 const upgradesMenuContainerElement = document.getElementById("upgrades-container");
+const goalsMenuContainerElement = document.getElementById("goals-container");
 const statsMenuContainerElement = document.getElementById("stats-container");
 const settingsMenuContainerElement = document.getElementById("settings-container");
 
 let activeMenu = generatorsMenuContainerElement;
 prestigeMenuContainerElement.style.display = "none";
 upgradesMenuContainerElement.style.display = "none";
+goalsMenuContainerElement.style.display = "none";
 statsMenuContainerElement.style.display = "none";
 settingsMenuContainerElement.style.display = "none";
 
 const generatorsMenuButtonElement = document.getElementById("generators-menu-button");
 const prestigeMenuButtonElement = document.getElementById("prestige-menu-button");
 const upgradesMenuButtonElement = document.getElementById("upgrades-menu-button");
+const goalsMenuButtonElement = document.getElementById("goals-menu-button");
 const statsMenuButtonElement = document.getElementById("stats-menu-button");
 const settingsMenuButtonElement = document.getElementById("settings-menu-button");
 
@@ -64,6 +91,7 @@ let activeMenuButton = generatorsMenuButtonElement;
 generatorsMenuButtonElement.style.borderColor = 'Orange';
 prestigeMenuButtonElement.style.borderColor = 'White';
 upgradesMenuButtonElement.style.borderColor = 'White';
+goalsMenuButtonElement.style.borderColor = 'White';
 statsMenuButtonElement.style.borderColor = 'White';
 settingsMenuButtonElement.style.borderColor = 'White';
 
@@ -80,8 +108,8 @@ function format(amount) {
     else return mantissa.toFixed(2) + "e" + power;
 }
 
-function formatWithCommas(amount, numDigits = 2) {
-    return amount.toFixed(numDigits).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function formatWithCommas(amount) {
+    return amount.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function openMenu(clickedMenu, clickedMenuButton) {
@@ -105,7 +133,7 @@ function updateScrapsPerSecond() {
         let g = data.generators[i];
         let amountBoost = ((Math.floor(g.amount / 25) * 0.25) + 1);
         let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
-        scrapsPerSecond += g.amount * g.sps * data.generatorsBonus * amountBoost * transistorsBoost;
+        scrapsPerSecond += g.amount * g.sps * data.generatorsBonus * amountBoost * transistorsBoost * data.goalBoost;
     }
     if (scrapsPerSecond >= data.highestTotalScrapsPerSecond) data.highestTotalScrapsPerSecond = scrapsPerSecond;
 }
@@ -141,7 +169,7 @@ function calculateOfflineProgress() {
     data.scrapsThisRun += scrapsToGain;
 
     alert("Welcome back! \nYou were gone for " 
-    + formatWithCommas(days, 0) + " days, " + formatWithCommas(hours, 0) + " hours, " + formatWithCommas(minutes, 0) + " minutes, and " + formatWithCommas(seconds, 0) + " seconds.\n" 
+    + formatWithCommas(days) + " days, " + formatWithCommas(hours) + " hours, " + formatWithCommas(minutes) + " minutes, and " + formatWithCommas(seconds) + " seconds.\n" 
     + "You gained " + format(scrapsToGain) + " Scraps.");
 }
 
@@ -153,6 +181,7 @@ function mainLoop() {
     scrapsProductionLoop(deltaTime);
     updateGeneratorButtonColor();
     updateTransistorInfo();
+    updateGoalsInfo();
     updateStatsInfo();
 }
 
@@ -164,6 +193,7 @@ window.onload = function() {
     updateUpgradeCost();
     updateUpgradeInfo();
     updateTransistorInfo();
+    updateGoalsInfo();
     updateStatsInfo();
     changeBuyAmount(data.buyAmount);
     calculateOfflineProgress();
@@ -270,12 +300,12 @@ const bonusFromTransistorsAfterPrestigeElement = document.getElementById("bonus-
 const prestigeButtonElement = document.getElementById("prestige-button");
 
 function updateTransistorInfo() {
-    currentTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
-    bonusPerTransistorElement.innerHTML = formatWithCommas((data.transistorsBonus * 100), 0);
-    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * (data.transistorsBonus * 100), 0);
+    currentTransistorsElement.innerHTML = formatWithCommas(data.transistors);
+    bonusPerTransistorElement.innerHTML = formatWithCommas((data.transistorsBonus * 100));
+    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * (data.transistorsBonus * 100));
 
-    gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
-    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * (data.transistorsBonus * 100), 0);
+    gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart);
+    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * (data.transistorsBonus * 100));
 
     if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = 'Red';
@@ -382,26 +412,65 @@ function buyGeneratorsBonusUpgrade() {
 }
 //#endregion
 
+// GOALS
+//#region 
+const totalScrapsLevelElement = document.getElementById("total-scraps-level");
+const totalScrapsProgressElement = document.getElementById("total-scraps-progress");
+
+const highestTotalScrapsPerSecondLevelElement = document.getElementById("highest-total-scrapsPerSecond-level");
+const highestTotalScrapsPerSecondProgressElement = document.getElementById("highest-total-scrapsPerSecond-progress");
+
+const highestTotalGeneratorsLevelElement = document.getElementById("highest-total-generators-level");
+const highestTotalGeneratorsProgressElement = document.getElementById("highest-total-generators-progress");
+
+const totalTransistorsLevelElement = document.getElementById("total-transistors-level");
+const totalTransistorsProgressElement = document.getElementById("total-transistors-progress");
+
+function updateGoalsInfo() {
+    if (data.totalScraps >= data.totalScrapsRequirement && data.totalScrapsLevel <= 4) {
+        data.totalScrapsLevel++;
+        totalScrapsLevelElement.innerHTML = data.totalScrapsLevel;
+        data.totalScrapsRequirement += 1e6;
+        if (data.totalScrapsLevel == 5) totalScrapsProgressElement.innerHTML = "[MAXED]";
+        else totalScrapsProgressElement.innerHTML = format(data.totalScraps) + "/" + format(data.totalScrapsRequirement);
+    }
+
+    if (data.highestTotalScrapsPerSecond >= data.highestTotalScrapsPerSecondRequirement && data.highestTotalScrapsPerSecondLevel <= 4) {
+        data.highestTotalScrapsPerSecondLevel++;
+        highestTotalScrapsPerSecondLevelElement.innerHTML = data.highestTotalScrapsPerSecondLevel;
+        data.highestTotalScrapsPerSecondRequirement += 1e3;
+        if (data.highestTotalScrapsPerSecondLevel == 5) highestTotalScrapsPerSecondProgressElement.innerHTML = "[MAXED]";
+        else highestTotalScrapsPerSecondProgressElement.innerHTML = format(data.highestTotalScrapsPerSecond) + "/" + format(data.highestTotalScrapsPerSecondRequirement);
+    }
+
+    if (data.highestTotalGenerators >= data.highestTotalGeneratorsRequirement && data.highestTotalGeneratorsLevel <= 4) {
+        data.highestTotalGeneratorsLevel++;
+        highestTotalGeneratorsLevelElement.innerHTML = data.highestTotalGeneratorsLevel;
+        data.highestTotalGeneratorsRequirement += 500;
+        if (data.highestTotalGeneratorsLevel == 5) highestTotalGeneratorsProgressElement.innerHTML = "[MAXED]";
+        else highestTotalGeneratorsProgressElement.innerHTML = formatWithCommas(data.highestTotalGenerators) + "/" + formatWithCommas(data.highestTotalGeneratorsRequirement);
+
+    if (data.totalTransistors >= data.totalTransistorsRequirement && data.totalTransistorsLevel <= 4) {
+        data.totalTransistorsLevel++;
+        totalTransistorsLevelElement.innerHTML = data.totalTransistorsLevel;
+        data.totalTransistorsRequirement *= 10;
+        if (data.totalTransistorsLevel == 5) totalTransistorsProgressElement.innerHTML = "[MAXED]";
+        else totalTransistorsProgressElement.innerHTML = format(data.totalTransistors) + "/" + format(data.totalTransistorsRequirement);
+    }
+}
+
+
+}
+//#endregion
+
 // STATS
 //#region 
-const totalScrapsElement = document.getElementById("total-scraps");
-const highestTotalScrapsPerSecondElement = document.getElementById("highest-total-scrapsPerSecond");
-const totalTransistorsElement = document.getElementById("total-transistors");
-const highestTotalGeneratorsElement = document.getElementById("highest-total-generators");
 const scrapsThisRunElement = document.getElementById("scraps-this-run");
+const goalBoostElement = document.getElementById("goal-boost");
 
 function updateStatsInfo() {
-    totalScrapsElement.innerHTML = format(data.totalScraps);
-    highestTotalScrapsPerSecondElement.innerHTML = format(data.highestTotalScrapsPerSecond);
-    totalTransistorsElement.innerHTML = formatWithCommas(data.totalTransistors, 0);
-    highestTotalGeneratorsElement.innerHTML = formatWithCommas(data.highestTotalGenerators, 0);
-
     scrapsThisRunElement.innerHTML = format(data.scrapsThisRun);
-    for (let i = 0; i < 8; i++) {
-        let g = data.generators[i];
-        let amountBoost = ((Math.floor(g.amount / 25) * 0.25) + 1);
-        document.getElementById("gen" + (i + 1) + "-amount-bonus").innerHTML = amountBoost;
-    }
+    goalBoostElement.innerHTML = format(data.goalBoost);
 }
 //#endregion
 
@@ -427,24 +496,48 @@ function loadData() {
 function resetData() {
     if (!confirm("Are you sure you want to reset your data? ALL of your progress will be lost and you will need to start over!")) return;
 
-    data.time = Date.now();
-    data.firstTime = true;
-    data.scraps = 11;
-    data.totalScraps = 11;
-    data.scrapsThisRun = 11;
-    data.generators = [];
-    data.highestTotalScrapsPerSecond = 0,
-    data.highestTotalGenerators = 0,
-    data.cost = [];
-    data.buyAmount = 1;
-    data.transistors = 0;
-    data.totalTransistors = 0;
-    data.transistorsBonus = 0.02;
-    data.transistorsBonusUpgradeAmount = 0,
-    data.transistorsBonusUpgradeBaseCost = 1000,
-    data.generatorsBonus = 1;
-    data.generatorsBonusUpgradeAmount = 0; 
-    data.generatorsBonusUpgradeBaseCost = 1000;
+    // UI
+    time = Date.now();
+    firstTime = true;
+    scraps = 11;
+
+    // GENERATORS
+    generators = [];
+    cost = [];
+    buyAmount = 1;
+
+    // PRESTIGE
+    transistors = 0;
+
+    // UPGRADES
+    transistorsBonusUpgradeAmount = 0;
+    transistorsBonus = 0.02;
+    transistorsBonusUpgradeBaseCost = 1000;
+
+    generatorsBonusUpgradeAmount = 0;
+    generatorsBonus = 1;
+    generatorsBonusUpgradeBaseCost = 1000;
+
+    // STATS
+    scrapsThisRun = 11;
+    goalBoost = 1; 
+
+    // GOALS
+    totalScrapsLevel = 0;
+    totalScraps = 11;
+    totalScrapsRequirement = 1e6;
+
+    highestTotalScrapsPerSecondLevel = 0;
+    highestTotalScrapsPerSecond = 0;
+    highestTotalScrapsPerSecondRequirement = 1e3;
+
+    highestTotalGeneratorsLevel = 0; 
+    highestTotalGenerators = 0;
+    highestTotalGeneratorsRequirement = 500;
+
+    totalTransistorsLevel = 0;
+    totalTransistors = 0; 
+    totalTransistorsRequirement = 1000;
 
     for (let i = 0; i < 8; i++) {
         let generator = {
@@ -495,3 +588,4 @@ function exportData() {
     alert("Exported Data Copied to Clipboard! Copy and Paste your Save Data String to a safe place so if you lose your data you can get back to where you were!");
 }
 //#endregion
+

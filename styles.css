@@ -145,6 +145,13 @@ body {
     transition-duration: 0.5s;
 }
 
+#goals-container {
+    text-align: center;
+    font-family: 'Roboto Mono';
+    font-size: 25px;
+    margin: 0 auto;
+}
+
 #stats-container {
     text-align: center;
     font-family: 'Roboto Mono';
