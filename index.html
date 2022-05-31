@@ -26,42 +26,50 @@
         <div id="generator-buttons-container">
             <button onclick="buyGenerator(1)" class="generator-buttons" id="gen1-button">
                 Robot Type-A (<span id="gen1-amount">X</span>) <br>
-            +<span id="gen1-sps">X</span> Scraps/s <br>
+                +<span id="gen1-sps">X</span> Scraps/s <br>
+                Amount Bonus: <span id="gen1-amount-bonus">X</span>x <br>
                 Cost: <span id="gen1-cost">X</span> Scraps
             </button>
             <button onclick="buyGenerator(2)" class="generator-buttons" id="gen2-button">
                 Robot Type-B (<span id="gen2-amount">X</span>) <br>
-            +<span id="gen2-sps">X</span> Scraps/s <br>
+                +<span id="gen2-sps">X</span> Scraps/s <br>
+                Amount Bonus: <span id="gen2-amount-bonus">X</span>x <br>
                 Cost: <span id="gen2-cost">X</span> Scraps
             </button>
             <button onclick="buyGenerator(3)" class="generator-buttons" id="gen3-button">
                 Robot Type-C (<span id="gen3-amount">X</span>) <br>
-            +<span id="gen3-sps">X</span> Scraps/s <br>
+                +<span id="gen3-sps">X</span> Scraps/s <br>
+                Amount Bonus: <span id="gen3-amount-bonus">X</span>x <br>
                 Cost: <span id="gen3-cost">X</span> Scraps
             </button>
             <button onclick="buyGenerator(4)" class="generator-buttons" id="gen4-button">
                 Robot Type-D (<span id="gen4-amount">X</span>) <br>
-            +<span id="gen4-sps">X</span> Scraps/s <br>
+                +<span id="gen4-sps">X</span> Scraps/s <br>
+                Amount Bonus: <span id="gen4-amount-bonus">X</span>x <br>
                 Cost: <span id="gen4-cost">X</span> Scraps
             </button> <br>
             <button onclick="buyGenerator(5)" class="generator-buttons" id="gen5-button">
                 Robot Type-E (<span id="gen5-amount">X</span>) <br>
                 +<span id="gen5-sps">X</span> Scraps/s <br>
+                Amount Bonus: <span id="gen5-amount-bonus">X</span>x <br>
                 Cost: <span id="gen5-cost">X</span> Scraps
             </button>
             <button onclick="buyGenerator(6)" class="generator-buttons" id="gen6-button">
                 Robot Type-F (<span id="gen6-amount">X</span>) <br>
-            +<span id="gen6-sps">X</span> Scraps/s <br>
+                +<span id="gen6-sps">X</span> Scraps/s <br>
+                Amount Bonus: <span id="gen6-amount-bonus">X</span>x <br>
                 Cost: <span id="gen6-cost">X</span> Scraps
             </button>
             <button onclick="buyGenerator(7)" class="generator-buttons" id="gen7-button">
                 Robot Type-G (<span id="gen7-amount">X</span>) <br>
-            +<span id="gen7-sps">X</span> Scraps/s <br>
+                +<span id="gen7-sps">X</span> Scraps/s <br>
+                Amount Bonus: <span id="gen7-amount-bonus">X</span>x <br>
                 Cost: <span id="gen7-cost">X</span> Scraps
             </button>
             <button onclick="buyGenerator(8)" class="generator-buttons" id="gen8-button">
                 Robot Type-H (<span id="gen8-amount">X</span>) <br>
-            +<span id="gen8-sps">X</span> Scraps/s <br>
+                +<span id="gen8-sps">X</span> Scraps/s <br>
+                Amount Bonus: <span id="gen8-amount-bonus">X</span>x <br>
                 Cost: <span id="gen8-cost">X</span> Scraps
             </button> <br>
             <p id="buy-amount-text">
@@ -102,22 +110,15 @@
             Cost: <span id="generators-bonus-upgrade-cost">X</span> Transistors
         </button>
     </div>
+    <div id="goals-container">
+        
+    </div>
     <div id="stats-container">
-        <p id="stats-info">
-            Total Scraps: <span id="total-scraps">X</span> <br>
-            Highest Total Scraps/s: <span id="highest-total-scrapsPerSecond">X</span> <br>
-            Total Transistors: <span id="total-transistors">X</span> <br>
-            Highest Total Generators: <span id="highest-total-generators">X</span> <br>
-            Scraps This Run: <span id="scraps-this-run">X</span> <br>
-            Robot Type-A (Amount) Bonus: <span id="gen1-amount-bonus">X</span>x <br>
-            Robot Type-B (Amount) Bonus: <span id="gen2-amount-bonus">X</span>x <br>
-            Robot Type-C (Amount) Bonus: <span id="gen3-amount-bonus">X</span>x <br>
-            Robot Type-D (Amount) Bonus: <span id="gen4-amount-bonus">X</span>x <br>
-            Robot Type-E (Amount) Bonus: <span id="gen5-amount-bonus">X</span>x <br>
-            Robot Type-F (Amount) Bonus: <span id="gen6-amount-bonus">X</span>x <br>
-            Robot Type-G (Amount) Bonus: <span id="gen7-amount-bonus">X</span>x <br>
-            Robot Type-H (Amount) Bonus: <span id="gen8-amount-bonus">X</span>x 
-        </p> 
+        Total Scraps: <span id="total-scraps">X</span> <br>
+        Highest Total Scraps/s: <span id="highest-total-scrapsPerSecond">X</span> <br>
+        Total Transistors: <span id="total-transistors">X</span> <br>
+        Highest Total Generators: <span id="highest-total-generators">X</span> <br>
+        Scraps This Run: <span id="scraps-this-run">X</span> <br>
     </div>
     <div id="settings-container">
         <button onclick="saveData()" class="settings-buttons" id="save-data-button">Save Data</button>
