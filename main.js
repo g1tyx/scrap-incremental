@@ -177,8 +177,8 @@ function mainLoop() {
     const now = Date.now();
     const deltaTime = (now - lastUpdate) / 1000;
     lastUpdate = now;
-    updateScrapsInfo();
     scrapsProductionLoop(deltaTime);
+    updateScrapsInfo();
     updateGeneratorButtonColor();
     updateTransistorInfo();
     updateGoalsInfo();
@@ -187,14 +187,10 @@ function mainLoop() {
 
 window.onload = function() {
     loadData();
-    updateScrapsInfo();
     updateScrapsPerSecond();
     updateGeneratorInfo();
     updateUpgradeCost();
     updateUpgradeInfo();
-    updateTransistorInfo();
-    updateGoalsInfo();
-    updateStatsInfo();
     changeBuyAmount(data.buyAmount);
     calculateOfflineProgress();
 }
