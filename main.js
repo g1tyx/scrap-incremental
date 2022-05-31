@@ -423,8 +423,25 @@ const totalTransistorsLevelElement = document.getElementById("total-transistors-
 const totalTransistorsProgressElement = document.getElementById("total-transistors-progress");
 
 function updateGoalsInfo() {
+    totalScrapsLevelElement.innerHTML = data.totalScrapsLevel;
+    if (data.totalScrapsLevel == 5) totalScrapsProgressElement.innerHTML = "[MAXED]";
+    else totalScrapsProgressElement.innerHTML = format(data.totalScraps) + "/" + format(data.totalScrapsRequirement);
+
+    highestTotalScrapsPerSecondLevelElement.innerHTML = data.highestTotalScrapsPerSecondLevel;
+    if (data.highestTotalScrapsPerSecondLevel == 5) highestTotalScrapsPerSecondProgressElement.innerHTML = "[MAXED]";
+    else highestTotalScrapsPerSecondProgressElement.innerHTML = format(data.highestTotalScrapsPerSecond) + "/" + format(data.highestTotalScrapsPerSecondRequirement);
+
+    highestTotalGeneratorsLevelElement.innerHTML = data.highestTotalGeneratorsLevel;
+    if (data.highestTotalGeneratorsLevel == 5) highestTotalGeneratorsProgressElement.innerHTML = "[MAXED]";
+    else highestTotalGeneratorsProgressElement.innerHTML = formatWithCommas(data.highestTotalGenerators) + "/" + formatWithCommas(data.highestTotalGeneratorsRequirement);
+
+    totalTransistorsLevelElement.innerHTML = data.totalTransistorsLevel;
+    if (data.totalTransistorsLevel == 5) totalTransistorsProgressElement.innerHTML = "[MAXED]";
+    else totalTransistorsProgressElement.innerHTML = format(data.totalTransistors) + "/" + format(data.totalTransistorsRequirement);
+
     if (data.totalScraps >= data.totalScrapsRequirement && data.totalScrapsLevel <= 4) {
         data.totalScrapsLevel++;
+        data.goalBoost += 0.25;
         totalScrapsLevelElement.innerHTML = data.totalScrapsLevel;
         data.totalScrapsRequirement += 1e6;
         if (data.totalScrapsLevel == 5) totalScrapsProgressElement.innerHTML = "[MAXED]";
@@ -433,6 +450,7 @@ function updateGoalsInfo() {
 
     if (data.highestTotalScrapsPerSecond >= data.highestTotalScrapsPerSecondRequirement && data.highestTotalScrapsPerSecondLevel <= 4) {
         data.highestTotalScrapsPerSecondLevel++;
+        data.goalBoost += 0.25;
         highestTotalScrapsPerSecondLevelElement.innerHTML = data.highestTotalScrapsPerSecondLevel;
         data.highestTotalScrapsPerSecondRequirement += 1e3;
         if (data.highestTotalScrapsPerSecondLevel == 5) highestTotalScrapsPerSecondProgressElement.innerHTML = "[MAXED]";
@@ -441,6 +459,7 @@ function updateGoalsInfo() {
 
     if (data.highestTotalGenerators >= data.highestTotalGeneratorsRequirement && data.highestTotalGeneratorsLevel <= 4) {
         data.highestTotalGeneratorsLevel++;
+        data.goalBoost += 0.25;
         highestTotalGeneratorsLevelElement.innerHTML = data.highestTotalGeneratorsLevel;
         data.highestTotalGeneratorsRequirement += 500;
         if (data.highestTotalGeneratorsLevel == 5) highestTotalGeneratorsProgressElement.innerHTML = "[MAXED]";
@@ -448,10 +467,11 @@ function updateGoalsInfo() {
 
     if (data.totalTransistors >= data.totalTransistorsRequirement && data.totalTransistorsLevel <= 4) {
         data.totalTransistorsLevel++;
+        data.goalBoost += 0.25;
         totalTransistorsLevelElement.innerHTML = data.totalTransistorsLevel;
         data.totalTransistorsRequirement *= 10;
         if (data.totalTransistorsLevel == 5) totalTransistorsProgressElement.innerHTML = "[MAXED]";
-        else totalTransistorsProgressElement.innerHTML = format(data.totalTransistors) + "/" + format(data.totalTransistorsRequirement);
+        else totalTransistorsProgressElement.innerHTML = formatWithCommas(data.totalTransistors) + "/" + formatWithCommas(data.totalTransistorsRequirement);
     }
 }
 
@@ -493,47 +513,47 @@ function resetData() {
     if (!confirm("Are you sure you want to reset your data? ALL of your progress will be lost and you will need to start over!")) return;
 
     // UI
-    time = Date.now();
-    firstTime = true;
-    scraps = 11;
+    data.time = Date.now();
+    data.firstTime = true;
+    data.scraps = 11;
 
     // GENERATORS
-    generators = [];
-    cost = [];
-    buyAmount = 1;
+    data.generators = [];
+    data.cost = [];
+    data.buyAmount = 1;
 
     // PRESTIGE
-    transistors = 0;
+    data.transistors = 0;
 
     // UPGRADES
-    transistorsBonusUpgradeAmount = 0;
-    transistorsBonus = 0.02;
-    transistorsBonusUpgradeBaseCost = 1000;
+    data.transistorsBonusUpgradeAmount = 0;
+    data.transistorsBonus = 0.02;
+    data.transistorsBonusUpgradeBaseCost = 1000;
 
-    generatorsBonusUpgradeAmount = 0;
-    generatorsBonus = 1;
-    generatorsBonusUpgradeBaseCost = 1000;
+    data.generatorsBonusUpgradeAmount = 0;
+    data.generatorsBonus = 1;
+    data.generatorsBonusUpgradeBaseCost = 1000;
 
     // STATS
-    scrapsThisRun = 11;
-    goalBoost = 1; 
+    data.scrapsThisRun = 11;
+    data.goalBoost = 1; 
 
     // GOALS
-    totalScrapsLevel = 0;
-    totalScraps = 11;
-    totalScrapsRequirement = 1e6;
+    data.totalScrapsLevel = 0;
+    data.totalScraps = 11;
+    data.totalScrapsRequirement = 1e6;
 
-    highestTotalScrapsPerSecondLevel = 0;
-    highestTotalScrapsPerSecond = 0;
-    highestTotalScrapsPerSecondRequirement = 1e3;
+    data.highestTotalScrapsPerSecondLevel = 0;
+    data.highestTotalScrapsPerSecond = 0;
+    data.highestTotalScrapsPerSecondRequirement = 1e3;
 
-    highestTotalGeneratorsLevel = 0; 
-    highestTotalGenerators = 0;
-    highestTotalGeneratorsRequirement = 500;
+    data.highestTotalGeneratorsLevel = 0; 
+    data.highestTotalGenerators = 0;
+    data.highestTotalGeneratorsRequirement = 500;
 
-    totalTransistorsLevel = 0;
-    totalTransistors = 0; 
-    totalTransistorsRequirement = 1000;
+    data.totalTransistorsLevel = 0;
+    data.totalTransistors = 0; 
+    data.totalTransistorsRequirement = 1000;
 
     for (let i = 0; i < 8; i++) {
         let generator = {
