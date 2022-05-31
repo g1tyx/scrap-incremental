@@ -225,7 +225,7 @@ function updateGeneratorInfo() {
         let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
         document.getElementById("gen" + (i + 1) + "-amount").innerHTML = g.amount;
         document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(g.sps * data.generatorsBonus * amountBoost * transistorsBoost);
-        document.getElementById("gen" + (i + 1) + "-amount-bonus").innerHTML = formatWithCommas(amountBoost);
+        document.getElementById("gen" + (i + 1) + "-amount-bonus").innerHTML = format(amountBoost);
         document.getElementById("gen" + (i + 1) + "-cost").innerHTML = format(data.cost[i]);
     }
 }
