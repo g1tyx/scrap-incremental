@@ -2,6 +2,7 @@ let data = {
     // UI
     time: Date.now(),
     firstTime: true,
+    AFKGains: true,
     scraps: 11,
 
     // GENERATORS
@@ -145,11 +146,13 @@ function scrapsProductionLoop(deltaTime) {
     transistorsGainedFromRestart = Math.floor(150 * Math.sqrt(data.scrapsThisRun/(400000000000/9)));
 }
 
-function calculateOfflineProgress() {
+function calculateAFKGains() {
     if (data.firstTime) {
         data.firstTime = false;
         return;
     }
+
+    if (!data.AFKGains) return;
 
     const now = Date.now();
     let delta = (now - data.time) / 1000;
@@ -192,7 +195,8 @@ window.onload = function() {
     updateUpgradeCost();
     updateUpgradeInfo();
     changeBuyAmount(data.buyAmount);
-    calculateOfflineProgress();
+    calculateAFKGains();
+    updateAFKGainsButtonInfo();
 }
 
 setInterval(mainLoop, 50);
@@ -480,6 +484,8 @@ function updateStatsInfo() {
 // SETTINGS
 //#region 
 
+const toggleAFKGainsButtonElement = document.getElementById("toggle-afk-gains-button");
+
 function autoSaveData() {
     data.time = Date.now();
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
@@ -501,7 +507,6 @@ function resetData() {
 
     // UI
     data.time = Date.now();
-    data.firstTime = true;
     data.scraps = 11;
 
     // GENERATORS
@@ -589,6 +594,21 @@ function exportData() {
     document.execCommand("copy");
     document.body.removeChild(exportedDataText);
     alert("Exported Data Copied to Clipboard! Copy and Paste your Save Data String to a safe place so if you lose your data you can get back to where you were!");
+}
+
+function updateAFKGainsButtonInfo() {
+    if (data.AFKGains) toggleAFKGainsButtonElement.innerHTML = "AFK Gains: ON";
+    else toggleAFKGainsButtonElement.innerHTML = "AFK Gains: OFF";
+}
+
+function toggleAFKGains() {
+    if (data.AFKGains) {
+        data.AFKGains = false;
+        toggleAFKGainsButtonElement.innerHTML = "AFK Gains: OFF";
+    } else {
+        data.AFKGains = true;
+        toggleAFKGainsButtonElement.innerHTML = "AFK Gains: ON";
+    }
 }
 //#endregion
 
