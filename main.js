@@ -405,7 +405,7 @@ function buyGeneratorsBonusUpgrade() {
 
     data.transistors -= generatorsBonusUpgradeCost;
     data.generatorsBonusUpgradeAmount++;
-    data.generatorsBonus += 0.25;
+    data.generatorsBonus += 0.50;
     generatorsBonusUpgradeCost = data.generatorsBonusUpgradeBaseCost * Math.pow(5, data.generatorsBonusUpgradeAmount);
     updateGeneratorInfo();
     updateUpgradeCost();
