@@ -105,12 +105,12 @@ const scrapsPerSecondTextElement = document.getElementById("scraps-per-second-te
 function format(amount) {
     let power = Math.floor(Math.log10(amount));
     let mantissa = amount/Math.pow(10, power);
-    if (power < 6) return amount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if (power < 6) return formatWithCommas(amount, 2);
     else return mantissa.toFixed(2) + "e" + power;
 }
 
-function formatWithCommas(amount) {
-    return amount.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function formatWithCommas(amount, numFloatingDigits) {
+    return amount.toFixed(numFloatingDigits).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function openMenu(clickedMenu, clickedMenuButton) {
@@ -172,7 +172,7 @@ function calculateAFKGains() {
     data.scrapsThisRun += scrapsToGain;
 
     alert("Welcome back! \nYou were gone for " 
-    + formatWithCommas(days) + " days, " + formatWithCommas(hours) + " hours, " + formatWithCommas(minutes) + " minutes, and " + formatWithCommas(seconds) + " seconds.\n" 
+    + formatWithCommas(days, 0) + " days, " + formatWithCommas(hours, 0) + " hours, " + formatWithCommas(minutes, 0) + " minutes, and " + formatWithCommas(seconds, 0) + " seconds.\n" 
     + "You gained " + format(scrapsToGain) + " Scraps.");
 }
 
@@ -301,12 +301,12 @@ const bonusFromTransistorsAfterPrestigeElement = document.getElementById("bonus-
 const prestigeButtonElement = document.getElementById("prestige-button");
 
 function updateTransistorInfo() {
-    currentTransistorsElement.innerHTML = formatWithCommas(data.transistors);
-    bonusPerTransistorElement.innerHTML = formatWithCommas((data.transistorsBonus * 100));
-    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * (data.transistorsBonus * 100));
+    currentTransistorsElement.innerHTML = formatWithCommas(data.transistors, 0);
+    bonusPerTransistorElement.innerHTML = formatWithCommas((data.transistorsBonus * 100), 0);
+    bonusFromCurrentTransistorsElement.innerHTML = formatWithCommas(data.transistors * (data.transistorsBonus * 100), 0);
 
-    gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart);
-    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * (data.transistorsBonus * 100));
+    gainedFromRestartElement.innerHTML = formatWithCommas(transistorsGainedFromRestart, 0);
+    bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * (data.transistorsBonus * 100), 0);
 
     if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = 'Red';
@@ -438,11 +438,11 @@ function updateGoalsInfo() {
 
     highestTotalGeneratorsLevelElement.innerHTML = data.highestTotalGeneratorsLevel;
     if (data.highestTotalGeneratorsLevel == 5) highestTotalGeneratorsProgressElement.innerHTML = "[MAXED]";
-    else highestTotalGeneratorsProgressElement.innerHTML = formatWithCommas(data.highestTotalGenerators) + "/" + formatWithCommas(data.highestTotalGeneratorsRequirement);
+    else highestTotalGeneratorsProgressElement.innerHTML = formatWithCommas(data.highestTotalGenerators, 0) + "/" + formatWithCommas(data.highestTotalGeneratorsRequirement, 0);
 
     totalTransistorsLevelElement.innerHTML = data.totalTransistorsLevel;
     if (data.totalTransistorsLevel == 5) totalTransistorsProgressElement.innerHTML = "[MAXED]";
-    else totalTransistorsProgressElement.innerHTML = formatWithCommas(data.totalTransistors) + "/" + formatWithCommas(data.totalTransistorsRequirement);
+    else totalTransistorsProgressElement.innerHTML = formatWithCommas(data.totalTransistors, 0) + "/" + formatWithCommas(data.totalTransistorsRequirement, 0);
 
     if (data.totalScraps >= data.totalScrapsRequirement && data.totalScrapsLevel <= 4) {
         data.totalScrapsLevel++;
