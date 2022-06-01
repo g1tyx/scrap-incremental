@@ -366,10 +366,10 @@ function updateUpgradeCost() {
 
 function updateUpgradeInfo() {
     transistorsBonusUpgradeAmountElement.innerHTML = data.transistorsBonusUpgradeAmount;
-    transistorsBonusUpgradeCostElement.innerHTML = format(transistorsBonusUpgradeCost);
+    transistorsBonusUpgradeCostElement.innerHTML = formatWithCommas(transistorsBonusUpgradeCost, 0);
 
     generatorsBonusUpgradeAmountElement.innerHTML = data.generatorsBonusUpgradeAmount;
-    generatorsBonusUpgradeCostElement.innerHTML = format(generatorsBonusUpgradeCost);    
+    generatorsBonusUpgradeCostElement.innerHTML = formatWithCommas(generatorsBonusUpgradeCost, 0);    
 
     if (data.transistors < transistorsBonusUpgradeCost) {
         transistorsBonusButtonElement.style.borderColor = 'Red';
