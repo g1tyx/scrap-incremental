@@ -105,7 +105,7 @@ const scrapsPerSecondTextElement = document.getElementById("scraps-per-second-te
 function format(amount) {
     let power = Math.floor(Math.log10(amount));
     let mantissa = amount/Math.pow(10, power);
-    if (power < 6) return amount.toFixed(2);
+    if (power < 6) return amount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     else return mantissa.toFixed(2) + "e" + power;
 }
 
