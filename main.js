@@ -253,9 +253,9 @@ function calculateHighestGeneratorAmounts() {
 function buyGenerator(generatorIndex) {
     let generators = data.generators[generatorIndex - 1];
     for (let i = 0; i < data.buyAmount; i++) {
-        let c = data.cost[generatorIndex - 1];
-        if (data.scraps < c) return;
-        data.scraps -= c;
+        let cost = data.cost[generatorIndex - 1];
+        if (data.scraps < cost) return;
+        data.scraps -= cost;
         generators.amount++;
         calculateHighestGeneratorAmounts();
         updateScrapsInfo();
