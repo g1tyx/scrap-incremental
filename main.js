@@ -263,7 +263,6 @@ function buyGenerator(generatorIndex) {
         updateGeneratorCost();
         updateGeneratorInfo();
     }
-    console.log(generators);
 }
 
 function changeBuyAmount(amount) {
