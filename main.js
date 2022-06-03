@@ -41,7 +41,7 @@ let data = {
 
     totalTransistorsLevel: 0,
     totalTransistors: 0, 
-    totalTransistorsRequirement: 1000
+    totalTransistorsRequirement: 100
 };
 
 for (let i = 0; i < 8; i++) {
@@ -263,6 +263,7 @@ function buyGenerator(generatorIndex) {
         updateGeneratorCost();
         updateGeneratorInfo();
     }
+    console.log(generators);
 }
 
 function changeBuyAmount(amount) {
@@ -545,7 +546,7 @@ function resetData() {
 
     data.totalTransistorsLevel = 0;
     data.totalTransistors = 0; 
-    data.totalTransistorsRequirement = 1000;
+    data.totalTransistorsRequirement = 100;
 
     for (let i = 0; i < 8; i++) {
         let generator = {
