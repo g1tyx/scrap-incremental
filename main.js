@@ -29,7 +29,7 @@ let data = {
     // GOALS
     totalScrapsLevel: 0,
     totalScraps: 11,
-    totalScrapsRequirement: 1e6,
+    totalScrapsRequirement: 1e4,
 
     highestTotalScrapsPerSecondLevel: 0,
     highestTotalScrapsPerSecond: 0,
@@ -37,7 +37,7 @@ let data = {
 
     highestTotalGeneratorsLevel: 0, 
     highestTotalGenerators: 0,
-    highestTotalGeneratorsRequirement: 500,
+    highestTotalGeneratorsRequirement: 300,
 
     totalTransistorsLevel: 0,
     totalTransistors: 0, 
@@ -51,8 +51,8 @@ for (let i = 0; i < 8; i++) {
         baseCost: 11 * Math.pow(10.5, i),
     };
     data.generators.push(generator);
-    let g = data.generators[i];
-    data.cost.push(g.baseCost * Math.pow(1.07, g.amount));
+    let generators = data.generators[i];
+    data.cost.push(generators.baseCost * Math.pow(1.07, generators.amount));
 }
 
 let scrapsPerSecond = 0;
@@ -63,8 +63,8 @@ let transistorsGainedFromRestart = 0;
 
 for (let i = 0; i < 8; i++) {
     data.highestTotalGenerators = 0;
-    let g = data.generators[i];
-    data.highestTotalGenerators += g.amount;
+    let generators = data.generators[i];
+    data.highestTotalGenerators += generators.amount;
 }
 
 const generatorsMenuContainerElement = document.getElementById("generators-container");
@@ -131,10 +131,10 @@ function updateScrapsInfo() {
 function updateScrapsPerSecond() {
     scrapsPerSecond = 0;
     for (let i = 0; i < 8; i++) {
-        let g = data.generators[i];
-        let amountBoost = ((Math.floor(g.amount / 25) * 0.25) + 1);
+        let generators = data.generators[i];
+        let amountBoost = ((Math.floor(generators.amount / 25) * 0.25) + 1);
         let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
-        scrapsPerSecond += g.amount * g.sps * data.generatorsBonus * amountBoost * transistorsBoost * data.goalBoost;
+        scrapsPerSecond += generators.amount * generators.sps * data.generatorsBonus * amountBoost * transistorsBoost * data.goalBoost;
     }
     if (scrapsPerSecond >= data.highestTotalScrapsPerSecond) data.highestTotalScrapsPerSecond = scrapsPerSecond;
 }
@@ -224,11 +224,11 @@ function updateGeneratorButtonColor() {
 
 function updateGeneratorInfo() {
     for (let i = 0; i < 8; i++) {
-        let g = data.generators[i];
-        let amountBoost = ((Math.floor(g.amount / 25) * 0.25) + 1);
+        let generators = data.generators[i];
+        let amountBoost = ((Math.floor(generators.amount / 25) * 0.25) + 1);
         let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
-        document.getElementById("gen" + (i + 1) + "-amount").innerHTML = g.amount;
-        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(g.sps * data.generatorsBonus * amountBoost * transistorsBoost);
+        document.getElementById("gen" + (i + 1) + "-amount").innerHTML = generators.amount;
+        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(generators.sps * data.generatorsBonus * amountBoost * transistorsBoost);
         document.getElementById("gen" + (i + 1) + "-amount-bonus").innerHTML = format(amountBoost);
         document.getElementById("gen" + (i + 1) + "-cost").innerHTML = format(data.cost[i]);
     }
@@ -236,27 +236,26 @@ function updateGeneratorInfo() {
 
 function updateGeneratorCost() {
     for (let i = 0; i < 8; i++) {
-        let g = data.generators[i];
-        data.cost[i] = g.baseCost * Math.pow(1.15, g.amount);
+        let generators = data.generators[i];
+        data.cost[i] = generators.baseCost * Math.pow(1.15, generators.amount);
     }
 }
 
 function calculateHighestGeneratorAmounts() {
     let totalGeneratorAmount = 0;
     for (let i = 0; i < 8; i++) {
-        let g = data.generators[i];
-        totalGeneratorAmount += g.amount;
+        let generators = data.generators[i];
+        totalGeneratorAmount += generators.amount;
     }
     if (data.highestTotalGenerators <= totalGeneratorAmount) data.highestTotalGenerators = totalGeneratorAmount;
 }
 
 function buyGenerator(generatorIndex) {
-    let g = data.generators[generatorIndex - 1];
     for (let i = 0; i < data.buyAmount; i++) {
         let c = data.cost[generatorIndex - 1];
         if (data.scraps < c) return;
         data.scraps -= c;
-        g.amount++;
+        generators.amount++;
         calculateHighestGeneratorAmounts();
         updateScrapsInfo();
         updateScrapsPerSecond();
@@ -332,8 +331,8 @@ function doPrestige() {
             baseCost: 11 * Math.pow(10.5, i),
         };
         data.generators.push(generator);
-        let g = data.generators[i];
-        data.cost.push(g.baseCost * Math.pow(1.15, g.amount));
+        let generators = data.generators[i];
+        data.cost.push(generators.baseCost * Math.pow(1.15, generators.amount));
     }
 
     data.scrapsThisRun = 11;
@@ -447,7 +446,7 @@ function updateGoalsInfo() {
     if (data.totalScraps >= data.totalScrapsRequirement && data.totalScrapsLevel <= 4) {
         data.totalScrapsLevel++;
         data.goalBoost += 0.25;
-        data.totalScrapsRequirement *= 1e6;
+        data.totalScrapsRequirement *= 1e4;
     }
 
     if (data.highestTotalScrapsPerSecond >= data.highestTotalScrapsPerSecondRequirement && data.highestTotalScrapsPerSecondLevel <= 4) {
@@ -459,7 +458,7 @@ function updateGoalsInfo() {
     if (data.highestTotalGenerators >= data.highestTotalGeneratorsRequirement && data.highestTotalGeneratorsLevel <= 4) {
         data.highestTotalGeneratorsLevel++;
         data.goalBoost += 0.25;
-        data.highestTotalGeneratorsRequirement += 500;
+        data.highestTotalGeneratorsRequirement += 300;
     }
 
     if (data.totalTransistors >= data.totalTransistorsRequirement && data.totalTransistorsLevel <= 4) {
@@ -533,7 +532,7 @@ function resetData() {
     // GOALS
     data.totalScrapsLevel = 0;
     data.totalScraps = 11;
-    data.totalScrapsRequirement = 1e6;
+    data.totalScrapsRequirement = 1e4;
 
     data.highestTotalScrapsPerSecondLevel = 0;
     data.highestTotalScrapsPerSecond = 0;
@@ -541,7 +540,7 @@ function resetData() {
 
     data.highestTotalGeneratorsLevel = 0; 
     data.highestTotalGenerators = 0;
-    data.highestTotalGeneratorsRequirement = 500;
+    data.highestTotalGeneratorsRequirement = 300;
 
     data.totalTransistorsLevel = 0;
     data.totalTransistors = 0; 
@@ -554,8 +553,8 @@ function resetData() {
             baseCost: 11 * Math.pow(10.5, i),
         };
         data.generators.push(generator);
-        let g = data.generators[i];
-        data.cost.push(g.baseCost * Math.pow(1.15, g.amount));
+        let generators = data.generators[i];
+        data.cost.push(generators.baseCost * Math.pow(1.15, generators.amount));
     }
 
     updateScrapsPerSecond();
