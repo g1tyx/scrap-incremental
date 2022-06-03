@@ -564,6 +564,9 @@ function resetData() {
     updateGeneratorInfo();
     updateUpgradeCost();
     updateUpgradeInfo();
+
+    data.time = Date.now();
+    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
 }
 
 function importData() {
