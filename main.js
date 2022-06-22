@@ -61,7 +61,7 @@ function revealGenerators() {
     for (let i = 1; i < 8; i++) {
         let generators = data.generators[i - 1];
         if (generators.amount > 0) {
-            document.getElementById("gen" + (i + 1) + "-row").style.display = "block";
+            document.getElementById("gen" + (i + 1) + "-row").style.display = "table-row";
         } else {
             document.getElementById("gen" + (i + 1) + "-row").style.display = "none";
         }

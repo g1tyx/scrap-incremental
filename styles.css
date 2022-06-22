@@ -5,6 +5,7 @@ body {
 }
 
 table {
+    font-family: 'Roboto Mono';
     width: 800px;
     margin: 0 auto;
 	text-align: center;
