@@ -55,6 +55,19 @@ for (let i = 0; i < 8; i++) {
     data.cost.push(generators.baseCost * Math.pow(1.07, generators.amount));
 }
 
+const robotNames = ["Type-A", "Type-B", "Type-C", "Type-D", "Type-E", "Type-F", "Type-G", "Type-H"];
+
+function revealGenerators() {
+    for (let i = 1; i < 8; i++) {
+        let generators = data.generators[i - 1];
+        if (generators.amount > 0) {
+            document.getElementById("gen" + (i + 1) + "-row").style.display = "block";
+        } else {
+            document.getElementById("gen" + (i + 1) + "-row").style.display = "none";
+        }
+    }
+}
+
 let scrapsPerSecond = 0;
 let lastUpdate = Date.now();
 let transistorsBonusUpgradeCost = 0;
@@ -119,8 +132,7 @@ function openMenu(clickedMenu, clickedMenuButton) {
     activeMenu = clickedMenu;
     activeMenuButton = clickedMenuButton;
     clickedMenuButton.style.borderColor = 'Orange';
-    if (activeMenu == generatorsMenuContainerElement) activeMenu.style.display = "flex";
-    else activeMenu.style.display = "block";
+    activeMenu.style.display = "block";
 }
 
 function updateScrapsInfo() {
@@ -182,7 +194,7 @@ function mainLoop() {
     lastUpdate = now;
     scrapsProductionLoop(deltaTime);
     updateScrapsInfo();
-    updateGeneratorButtonColor();
+    updateGeneratorButtonStatus();
     updateTransistorInfo();
     updateGoalsInfo();
     updateStatsInfo();
@@ -194,7 +206,8 @@ window.onload = function() {
     updateGeneratorInfo();
     updateUpgradeCost();
     updateUpgradeInfo();
-    changeBuyAmount(data.buyAmount);
+    revealGenerators();
+    changeBuyAmount();
     calculateAFKGains();
     updateAFKGainsButtonInfo();
 }
@@ -206,17 +219,17 @@ setInterval(autoSaveData, 15000); // saves every 15s
 // GENERATORS
 //#region
 
-const buyOneButtonElement = document.getElementById("buy-one-button");
-const buyTwentyFiveButtonElement = document.getElementById("buy-twentyfive-button");
-const buyHundredButtonElement = document.getElementById("buy-hundred-button");
+const buyAmountTextElement = document.getElementById("buy-amount-text");
 
-function updateGeneratorButtonColor() {
+buyAmountTextElement.innerHTML = `${data.buyAmount}`;
+
+function updateGeneratorButtonStatus() {
     for (let i = 0; i < 8; i++) {
         if (data.scraps < data.cost[i]) {
-            document.getElementById("gen" + (i + 1) + "-button").style.borderColor = 'Red';
+            document.getElementById("gen" + (i + 1) + "-button").disabled = true;
             document.getElementById("gen" + (i + 1) + "-button").style.cursor = "not-allowed";
         } else {
-            document.getElementById("gen" + (i + 1) + "-button").style.borderColor = 'Green';
+            document.getElementById("gen" + (i + 1) + "-button").disabled = false;
             document.getElementById("gen" + (i + 1) + "-button").style.cursor = "pointer";
         }
     }
@@ -227,10 +240,11 @@ function updateGeneratorInfo() {
         let generators = data.generators[i];
         let amountBoost = ((Math.floor(generators.amount / 25) * 0.25) + 1);
         let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
-        document.getElementById("gen" + (i + 1) + "-amount").innerHTML = generators.amount;
-        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(generators.sps * data.generatorsBonus * amountBoost * transistorsBoost);
-        document.getElementById("gen" + (i + 1) + "-amount-bonus").innerHTML = format(amountBoost);
-        document.getElementById("gen" + (i + 1) + "-cost").innerHTML = format(data.cost[i]);
+        document.getElementById("gen" + (i + 1) + "-name").textContent = `Robot ${robotNames[i]}`;
+        document.getElementById("gen" + (i + 1) + "-amount").textContent = generators.amount;
+        document.getElementById("gen" + (i + 1) + "-sps").textContent = format(generators.sps * data.generatorsBonus * amountBoost * transistorsBoost);
+        document.getElementById("gen" + (i + 1) + "-amount-bonus").textContent = format(amountBoost);
+        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost[i]);
     }
 }
 
@@ -262,29 +276,19 @@ function buyGenerator(generatorIndex) {
         updateScrapsPerSecond();
         updateGeneratorCost();
         updateGeneratorInfo();
+        revealGenerators();
     }
 }
 
-function changeBuyAmount(amount) {
-    data.buyAmount = amount;
-
-    switch(amount) {
-        case 1:
-            buyOneButtonElement.style.color = '#FBBF77';
-            buyTwentyFiveButtonElement.style.color = 'White';
-            buyHundredButtonElement.style.color = 'White';
-            break;
-        case 25:
-            buyOneButtonElement.style.color = 'White';
-            buyTwentyFiveButtonElement.style.color = '#FBBF77';
-            buyHundredButtonElement.style.color = 'White';
-            break;
-        case 100:
-            buyOneButtonElement.style.color = 'White';
-            buyTwentyFiveButtonElement.style.color = 'White';
-            buyHundredButtonElement.style.color = '#FBBF77';
-            break;
+function changeBuyAmount() {
+    if (data.buyAmount === 1) {
+        data.buyAmount = 25;
+    } else if (data.buyAmount === 25) {
+        data.buyAmount = 100;
+    } else if (data.buyAmount === 100) {
+        data.buyAmount = 1;
     }
+    buyAmountTextElement.innerHTML = `${data.buyAmount}`;
 }
 // #endregion
 
@@ -583,7 +587,7 @@ function importData() {
     updateUpgradeInfo();
     updateTransistorInfo();
     updateStatsInfo();
-    changeBuyAmount(data.buyAmount);
+    changeBuyAmount();
 }
 
 function exportData() {
