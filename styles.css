@@ -6,7 +6,8 @@ body {
 
 table {
     font-family: 'Roboto Mono';
-    width: 800px;
+    width: 1200px;
+    font-size: 20px;
     margin: 0 auto;
 	text-align: center;
 }
@@ -29,19 +30,16 @@ table {
 }
 
 #menu-container {
-    display: block;
+    display: flex;
     align-items: center;
     justify-content: center;
     padding: 25px 0px 25px 0px;
 }
 
 .menu-buttons {
-    border: 2px solid white;
-    background-color: #370D32;
     text-align: center;
-    color: white;
-    font-size: 30px;
-    width: 200px;
+    font-size: 25px;
+    width: 175px;
     height: 50px;
     margin-left: 25px;
     margin-right: 25px;
@@ -52,17 +50,33 @@ table {
     cursor: pointer;
     transform: scale(1.1);
     transition-duration: 0.5s;
-    background-color: white;
-    color: #370D32;
 }
 
-.menu-buttons:active {
-    background-color: #370D32;
-    color: white;
+.generator-buttons {
+    font-size: 25px;
+    height: 40px;
+    font-family: 'Roboto Mono';
+}
+
+.generator-buttons:hover {
+    transform: scale(1.1);
+    transition-duration: 0.5s;
 }
 
 .buy-amount-button-container {
     text-align: center;
+}
+
+#buy-amount-button {
+    font-size: 25px;
+    height: 40px;
+    margin: 20px 0px 0px 0px;
+    font-family: 'Roboto Mono';
+}
+
+#buy-amount-button:hover {
+    transform: scale(1.1);
+    transition-duration: 0.5s;
 }
 
 .prestige-info {
@@ -73,12 +87,8 @@ table {
 }
 
 #prestige-button {
-    background-color: #370D32;
     font-family: 'Roboto Mono';
-    color: white;
-    border: 3px solid white;
     font-size: 30px;
-    width: 450px;
     height: 100px;
     margin: 0 auto;
     display: block;
@@ -89,20 +99,13 @@ table {
     transition-duration: 0.5s;
 }
 
-.upgrades-buttons {
-    border: 2px solid white;
-    background-color: #370D32;
-    text-align: center;
-    color: white;
-    font-size: 20px;
-    width: 350px;
-    height: 150px;
-    margin: 150px 0px 100px 275px;
-    line-height: 2.25; 
+.upgrade-buttons {
+    font-size: 25px;
+    height: 40px;
     font-family: 'Roboto Mono';
 }
 
-.upgrades-buttons:hover {
+.upgrade-buttons:hover {
     transform: scale(1.1);
     transition-duration: 0.5s;
 }
@@ -122,10 +125,7 @@ table {
 }
 
 .settings-buttons {
-    border: 2px solid white;
-    background-color: #370D32;
     text-align: center;
-    color: white;
     font-size: 30px;
     width: 225px;
     height: 100px;
@@ -137,11 +137,4 @@ table {
     cursor: pointer;
     transform: scale(1.1);
     transition-duration: 0.5s;
-    background-color: white;
-    color: #370D32;
-}
-
-.settings-buttons:active {
-    background-color: #370D32;
-    color: white;
 }

@@ -56,6 +56,8 @@ for (let i = 0; i < 8; i++) {
 }
 
 const robotNames = ["Type-A", "Type-B", "Type-C", "Type-D", "Type-E", "Type-F", "Type-G", "Type-H"];
+const upgradeNames = ["Stronger Transistors", "Efficient Robots"];
+const goalNames = ["Total Scraps", "Highest Total Scraps/s", "Highest Total Generators", "Total Transistors"];
 
 function revealGenerators() {
     for (let i = 1; i < 8; i++) {
@@ -200,7 +202,7 @@ function mainLoop() {
     updateStatsInfo();
 }
 
-window.onload = function() {
+function load() {
     loadData();
     updateScrapsPerSecond();
     updateGeneratorInfo();
@@ -210,6 +212,10 @@ window.onload = function() {
     changeBuyAmount();
     calculateAFKGains();
     updateAFKGainsButtonInfo();
+}
+
+window.onload = function() {
+    load();
 }
 
 setInterval(mainLoop, 50);
@@ -313,10 +319,10 @@ function updateTransistorInfo() {
     bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * (data.transistorsBonus * 100), 0);
 
     if (transistorsGainedFromRestart < 1) {
-        prestigeButtonElement.style.borderColor = 'Red';
+        prestigeButtonElement.disabled = true;
         prestigeButtonElement.style.cursor = "not-allowed";
     } else {
-        prestigeButtonElement.style.borderColor = 'Green';
+        prestigeButtonElement.disabled = false;
         prestigeButtonElement.style.cursor = "pointer";
     }
 }
@@ -355,13 +361,17 @@ function doPrestige() {
 
 // UPGRADES
 //#region 
-const transistorsBonusUpgradeAmountElement =  document.getElementById("transistors-bonus-upgrade-amount");
-const transistorsBonusUpgradeCostElement =  document.getElementById("transistors-bonus-upgrade-cost");
-const generatorsBonusUpgradeAmountElement =  document.getElementById("generators-bonus-upgrade-amount");
-const generatorsBonusUpgradeCostElement =  document.getElementById("generators-bonus-upgrade-cost");
+const upgrade1AmountElement =  document.getElementById("upgrade1-amount");
+const upgrade1CostElement =  document.getElementById("upgrade1-cost");
+const upgrade2AmountElement =  document.getElementById("upgrade2-amount");
+const upgrade2CostElement =  document.getElementById("upgrade2-cost");
 
-const transistorsBonusButtonElement = document.getElementById("transistors-bonus-button");
-const generatorsBonusButtonElement = document.getElementById("generators-bonus-button");
+const upgrade1ButtonElement = document.getElementById("upgrade1-button");
+const upgrade2ButtonElement = document.getElementById("upgrade2-button");
+
+for (let i = 0; i < upgradeNames.length; i++) {
+    document.getElementById("upgrade" + (i + 1) + "-name").textContent = `${upgradeNames[i]}`;
+}
 
 function updateUpgradeCost() {
     transistorsBonusUpgradeCost = data.transistorsBonusUpgradeBaseCost * Math.pow(8.5, data.transistorsBonusUpgradeAmount);
@@ -369,26 +379,26 @@ function updateUpgradeCost() {
 }
 
 function updateUpgradeInfo() {
-    transistorsBonusUpgradeAmountElement.innerHTML = data.transistorsBonusUpgradeAmount;
-    transistorsBonusUpgradeCostElement.innerHTML = formatWithCommas(transistorsBonusUpgradeCost, 0);
+    upgrade1AmountElement.innerHTML = data.transistorsBonusUpgradeAmount;
+    upgrade1CostElement.innerHTML = formatWithCommas(transistorsBonusUpgradeCost, 0);
 
-    generatorsBonusUpgradeAmountElement.innerHTML = data.generatorsBonusUpgradeAmount;
-    generatorsBonusUpgradeCostElement.innerHTML = formatWithCommas(generatorsBonusUpgradeCost, 0);    
+    upgrade2AmountElement.innerHTML = data.generatorsBonusUpgradeAmount;
+    upgrade2CostElement.innerHTML = formatWithCommas(generatorsBonusUpgradeCost, 0);    
 
     if (data.transistors < transistorsBonusUpgradeCost) {
-        transistorsBonusButtonElement.style.borderColor = 'Red';
-        transistorsBonusButtonElement.style.cursor = "not-allowed";
+        upgrade1ButtonElement.disabled = true;
+        upgrade1ButtonElement.style.cursor = "not-allowed";
     } else {
-        transistorsBonusButtonElement.style.borderColor = 'Green';
-        transistorsBonusButtonElement.style.cursor = "pointer";
+        upgrade1ButtonElement.disabled = false;
+        upgrade1ButtonElement.style.cursor = "pointer";
     }
 
     if (data.transistors < generatorsBonusUpgradeCost) {
-        generatorsBonusButtonElement.style.borderColor = 'Red';
-        generatorsBonusButtonElement.style.cursor = "not-allowed";
+        upgrade2ButtonElement.disabled = true;
+        upgrade2ButtonElement.style.cursor = "not-allowed";
     } else {
-        generatorsBonusButtonElement.style.borderColor = 'Green';
-        generatorsBonusButtonElement.style.cursor = "pointer";
+        upgrade2ButtonElement.disabled = false;
+        upgrade2ButtonElement.style.cursor = "pointer";
     }
 }
 
@@ -419,34 +429,38 @@ function buyGeneratorsBonusUpgrade() {
 
 // GOALS
 //#region 
-const totalScrapsLevelElement = document.getElementById("total-scraps-level");
-const totalScrapsProgressElement = document.getElementById("total-scraps-progress");
+const goal1LevelElement = document.getElementById("goal1-level");
+const goal1ProgressElement = document.getElementById("goal1-progress");
 
-const highestTotalScrapsPerSecondLevelElement = document.getElementById("highest-total-scrapsPerSecond-level");
-const highestTotalScrapsPerSecondProgressElement = document.getElementById("highest-total-scrapsPerSecond-progress");
+const goal2LevelElement = document.getElementById("goal2-level");
+const goal2ProgressElement = document.getElementById("goal2-progress");
 
-const highestTotalGeneratorsLevelElement = document.getElementById("highest-total-generators-level");
-const highestTotalGeneratorsProgressElement = document.getElementById("highest-total-generators-progress");
+const goal3LevelElement = document.getElementById("goal3-level");
+const goal3ProgressElement = document.getElementById("goal3-progress");
 
-const totalTransistorsLevelElement = document.getElementById("total-transistors-level");
-const totalTransistorsProgressElement = document.getElementById("total-transistors-progress");
+const goal4LevelElement = document.getElementById("goal4-level");
+const goal4ProgressElement = document.getElementById("goal4-progress");
+
+for (let i = 0; i < goalNames.length; i++) {
+    document.getElementById("goal" + (i + 1) + "-name").textContent = goalNames[i];
+}
 
 function updateGoalsInfo() {
-    totalScrapsLevelElement.innerHTML = data.totalScrapsLevel;
-    if (data.totalScrapsLevel == 5) totalScrapsProgressElement.innerHTML = "[MAXED]";
-    else totalScrapsProgressElement.innerHTML = format(data.totalScraps) + "/" + format(data.totalScrapsRequirement);
+    goal1LevelElement.innerHTML = data.totalScrapsLevel;
+    if (data.totalScrapsLevel == 5) goal1ProgressElement.innerHTML = "[MAXED]";
+    else goal1ProgressElement.innerHTML = format(data.totalScraps) + "/" + format(data.totalScrapsRequirement);
 
-    highestTotalScrapsPerSecondLevelElement.innerHTML = data.highestTotalScrapsPerSecondLevel;
-    if (data.highestTotalScrapsPerSecondLevel == 5) highestTotalScrapsPerSecondProgressElement.innerHTML = "[MAXED]";
-    else highestTotalScrapsPerSecondProgressElement.innerHTML = format(data.highestTotalScrapsPerSecond) + "/" + format(data.highestTotalScrapsPerSecondRequirement);
+    goal2LevelElement.innerHTML = data.highestTotalScrapsPerSecondLevel;
+    if (data.highestTotalScrapsPerSecondLevel == 5) goal2ProgressElement.innerHTML = "[MAXED]";
+    else goal2ProgressElement.innerHTML = format(data.highestTotalScrapsPerSecond) + "/" + format(data.highestTotalScrapsPerSecondRequirement);
 
-    highestTotalGeneratorsLevelElement.innerHTML = data.highestTotalGeneratorsLevel;
-    if (data.highestTotalGeneratorsLevel == 5) highestTotalGeneratorsProgressElement.innerHTML = "[MAXED]";
-    else highestTotalGeneratorsProgressElement.innerHTML = formatWithCommas(data.highestTotalGenerators, 0) + "/" + formatWithCommas(data.highestTotalGeneratorsRequirement, 0);
+    goal3LevelElement.innerHTML = data.highestTotalGeneratorsLevel;
+    if (data.highestTotalGeneratorsLevel == 5) goal3ProgressElement.innerHTML = "[MAXED]";
+    else goal3ProgressElement.innerHTML = formatWithCommas(data.highestTotalGenerators, 0) + "/" + formatWithCommas(data.highestTotalGeneratorsRequirement, 0);
 
-    totalTransistorsLevelElement.innerHTML = data.totalTransistorsLevel;
-    if (data.totalTransistorsLevel == 5) totalTransistorsProgressElement.innerHTML = "[MAXED]";
-    else totalTransistorsProgressElement.innerHTML = formatWithCommas(data.totalTransistors, 0) + "/" + formatWithCommas(data.totalTransistorsRequirement, 0);
+    goal4LevelElement.innerHTML = data.totalTransistorsLevel;
+    if (data.totalTransistorsLevel == 5) goal4ProgressElement.innerHTML = "[MAXED]";
+    else goal4ProgressElement.innerHTML = formatWithCommas(data.totalTransistors, 0) + "/" + formatWithCommas(data.totalTransistorsRequirement, 0);
 
     if (data.totalScraps >= data.totalScrapsRequirement && data.totalScrapsLevel <= 4) {
         data.totalScrapsLevel++;
@@ -562,11 +576,7 @@ function resetData() {
         data.cost.push(generators.baseCost * Math.pow(1.15, generators.amount));
     }
 
-    updateScrapsPerSecond();
-    updateGeneratorCost();
-    updateGeneratorInfo();
-    updateUpgradeCost();
-    updateUpgradeInfo();
+    load();
 
     data.time = Date.now();
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
@@ -580,14 +590,7 @@ function importData() {
     }
     data = JSON.parse((atob(importedData)));
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
-    updateScrapsInfo();
-    updateScrapsPerSecond();
-    updateGeneratorInfo();
-    updateUpgradeCost();
-    updateUpgradeInfo();
-    updateTransistorInfo();
-    updateStatsInfo();
-    changeBuyAmount();
+    load();
 }
 
 function exportData() {
