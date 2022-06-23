@@ -343,11 +343,7 @@ function doPrestige() {
     data.totalTransistors += transistorsGainedFromRestart;
     transistorsGainedFromRestart = 0;
 
-    updateScrapsPerSecond();
-    updateGeneratorCost();
-    updateGeneratorInfo();
-    updateUpgradeCost();
-    updateUpgradeInfo();
+    load();
 }
 //#endregion
 
