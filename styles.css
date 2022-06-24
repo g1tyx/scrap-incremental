@@ -14,11 +14,13 @@ body {
 }
 
 tbody tr:nth-child(odd) {
-  background: #2f4858;
+    height: 45px;
+    background: #2f4858;
 }
 
 tbody tr:nth-child(even) {
-  background: #5C4033;
+    height: 45px;
+    background: #5C4033;
 }
 
 #generator-table tr td:last-child {
@@ -32,13 +34,13 @@ tbody tr:nth-child(even) {
 }
 
 #scraps-text {
-    font-size: 50px;
+    font-size: 40px;
     padding: 0px;
     margin: 0px;
 }
 
 #scraps-per-second-text {
-    font-size: 50px;
+    font-size: 40px;
     padding: 0px;
     margin: 0px;
 }
@@ -93,15 +95,11 @@ tbody tr:nth-child(even) {
     font-size: 25px;
     height: 50px;
     width: 90px;
-    margin: 5px 0px 0px 0px;
+    margin: 5px 10px 0px 10px;
     font-family: 'Roboto Mono';
     background-color: silver;
     color: black;
     border-width: 4px;
-}
-
-#buy-amount-text {
-    font-size: 30px;
 }
 
 .buy-amount-buttons:hover {
