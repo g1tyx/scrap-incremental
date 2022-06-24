@@ -110,10 +110,14 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="buy-amount-button-container">
-                <button onclick="changeBuyAmount()" id="buy-amount-button">
-                    Buy Amount: <span id="buy-amount-text"></span>x
-                </button>
+            <div class="buy-amount-buttons-container">
+                <p id="buy-amount-text">
+                    Buy Amount:
+                    <button onclick="changeBuyAmount(1)" class="buy-amount-buttons" id="buy-one-button">1x</button>
+                    <button onclick="changeBuyAmount(25)" class="buy-amount-buttons" id="buy-twentyfive-button">25x</button>
+                    <button onclick="changeBuyAmount(100)" class="buy-amount-buttons" id="buy-hundred-button">100x</button>
+                    <button onclick="changeBuyAmount(Infinity)" class="buy-amount-buttons" id="buy-max-button">Max</button>
+                </p>
             </div>
         </div>
     </div>

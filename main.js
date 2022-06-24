@@ -211,6 +211,7 @@ function load() {
     revealGenerators();
     calculateAFKGains();
     updateAFKGainsButtonInfo();
+    changeBuyAmount(data.buyAmount);
 }
 
 window.onload = function() {
@@ -224,9 +225,10 @@ setInterval(autoSaveData, 15000); // saves every 15s
 // GENERATORS
 //#region
 
-const buyAmountTextElement = document.getElementById("buy-amount-text");
-
-buyAmountTextElement.innerHTML = `${data.buyAmount}`;
+const buyOneButtonElement = document.getElementById("buy-one-button");
+const buyTwentyFiveButtonElement = document.getElementById("buy-twentyfive-button");
+const buyHundredButtonElement = document.getElementById("buy-hundred-button");
+const buyMaxButtonElement = document.getElementById("buy-max-button");
 
 function updateGeneratorButtonStatus() {
     for (let i = 0; i < 8; i++) {
@@ -285,15 +287,35 @@ function buyGenerator(generatorIndex) {
     }
 }
 
-function changeBuyAmount() {
-    if (data.buyAmount === 1) {
-        data.buyAmount = 25;
-    } else if (data.buyAmount === 25) {
-        data.buyAmount = 100;
-    } else if (data.buyAmount === 100) {
-        data.buyAmount = 1;
+function changeBuyAmount(amount) {
+    data.buyAmount = amount;
+
+    switch(amount) {
+        case 1:
+            buyOneButtonElement.style.borderColor = 'Orange';
+            buyTwentyFiveButtonElement.style.borderColor = 'Black';
+            buyHundredButtonElement.style.borderColor = 'Black';
+            buyMaxButtonElement.style.borderColor = 'Black';
+            break;
+        case 25:
+            buyOneButtonElement.style.borderColor = 'Black';
+            buyTwentyFiveButtonElement.style.borderColor = 'Orange';
+            buyHundredButtonElement.style.borderColor = 'Black';
+            buyMaxButtonElement.style.borderColor = 'Black';
+            break;
+        case 100:
+            buyOneButtonElement.style.borderColor = 'Black';
+            buyTwentyFiveButtonElement.style.borderColor = 'Black';
+            buyHundredButtonElement.style.borderColor = 'Orange';
+            buyMaxButtonElement.style.borderColor = 'Black';
+            break;
+        case Infinity:
+            buyOneButtonElement.style.borderColor = 'Black';
+            buyTwentyFiveButtonElement.style.borderColor = 'Black';
+            buyHundredButtonElement.style.borderColor = 'Black';
+            buyMaxButtonElement.style.borderColor = 'Orange';
+            break;
     }
-    buyAmountTextElement.innerHTML = `${data.buyAmount}`;
 }
 // #endregion
 
