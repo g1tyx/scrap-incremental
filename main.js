@@ -201,7 +201,6 @@ function load() {
     updateUpgradeCost();
     updateUpgradeInfo();
     revealGenerators();
-    changeBuyAmount();
     calculateAFKGains();
     updateAFKGainsButtonInfo();
 }
@@ -224,10 +223,10 @@ buyAmountTextElement.innerHTML = `${data.buyAmount}`;
 function updateGeneratorButtonStatus() {
     for (let i = 0; i < 8; i++) {
         if (data.scraps < data.cost[i]) {
-            document.getElementById("gen" + (i + 1) + "-button").disabled = true;
+            document.getElementById("gen" + (i + 1) + "-button").style.borderColor = '#b33939';
             document.getElementById("gen" + (i + 1) + "-button").style.cursor = "not-allowed";
         } else {
-            document.getElementById("gen" + (i + 1) + "-button").disabled = false;
+            document.getElementById("gen" + (i + 1) + "-button").style.borderColor = 'Green';
             document.getElementById("gen" + (i + 1) + "-button").style.cursor = "pointer";
         }
     }
@@ -311,10 +310,10 @@ function updateTransistorInfo() {
     bonusFromTransistorsAfterPrestigeElement.innerHTML = formatWithCommas((transistorsGainedFromRestart + data.transistors) * (data.transistorsBonus * 100), 0);
 
     if (transistorsGainedFromRestart < 1) {
-        prestigeButtonElement.disabled = true;
+        prestigeButtonElement.style.borderColor = '#b33939';
         prestigeButtonElement.style.cursor = "not-allowed";
     } else {
-        prestigeButtonElement.disabled = false;
+        prestigeButtonElement.style.borderColor = 'Green';
         prestigeButtonElement.style.cursor = "pointer";
     }
 }
@@ -343,7 +342,12 @@ function doPrestige() {
     data.totalTransistors += transistorsGainedFromRestart;
     transistorsGainedFromRestart = 0;
 
-    load();
+    updateScrapsPerSecond();
+    updateGeneratorCost();
+    updateGeneratorInfo();
+    updateUpgradeCost();
+    updateUpgradeInfo();
+    revealGenerators();
 }
 //#endregion
 
@@ -374,18 +378,18 @@ function updateUpgradeInfo() {
     upgrade2CostElement.innerHTML = formatWithCommas(generatorsBonusUpgradeCost, 0);    
 
     if (data.transistors < transistorsBonusUpgradeCost) {
-        upgrade1ButtonElement.disabled = true;
+        upgrade1ButtonElement.style.borderColor = '#b33939';
         upgrade1ButtonElement.style.cursor = "not-allowed";
     } else {
-        upgrade1ButtonElement.disabled = false;
+        upgrade1ButtonElement.style.borderColor = 'Green';
         upgrade1ButtonElement.style.cursor = "pointer";
     }
 
     if (data.transistors < generatorsBonusUpgradeCost) {
-        upgrade2ButtonElement.disabled = true;
+        upgrade2ButtonElement.style.borderColor = '#b33939';
         upgrade2ButtonElement.style.cursor = "not-allowed";
     } else {
-        upgrade2ButtonElement.disabled = false;
+        upgrade2ButtonElement.style.borderColor = 'Green';
         upgrade2ButtonElement.style.cursor = "pointer";
     }
 }
@@ -564,10 +568,10 @@ function resetData() {
         data.cost.push(generators.baseCost * Math.pow(1.15, generators.amount));
     }
 
-    load();
-
     data.time = Date.now();
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
+
+    load();
 }
 
 function importData() {
