@@ -378,6 +378,7 @@ function doPrestige() {
     updateUpgradeCost();
     updateUpgradeInfo();
     revealGenerators();
+    changeBuyAmount(data.buyAmount);
 }
 //#endregion
 
