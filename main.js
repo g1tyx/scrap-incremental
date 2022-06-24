@@ -130,8 +130,8 @@ function openMenu(clickedMenu, clickedMenuButton) {
 }
 
 function updateScrapsInfo() {
-    scrapsTextElement.textContent = "You have " + format(data.scraps) + " Scraps";
-    scrapsPerSecondTextElement.textContent = "You are making " + format(scrapsPerSecond) + " Scraps/s";
+    scrapsTextElement.textContent = format(data.scraps);
+    scrapsPerSecondTextElement.textContent = format(scrapsPerSecond);
 }
 
 function updateScrapsPerSecond() {

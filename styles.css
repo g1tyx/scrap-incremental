@@ -1,7 +1,7 @@
 body {
-    background-color: #485460;
+    background-color: #817464;
     user-select: none;
-    color: black;
+    color: #FAEDC6;
 }
 
 table {
@@ -15,6 +15,7 @@ table {
 #header-container {
     font-family: 'Roboto Mono';
     text-align: center;
+    font-size: 20px;
 }
 
 #scraps-text {
@@ -33,18 +34,21 @@ table {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 25px 0px 25px 0px;
+    padding: 0px 0px 25px 0px;
 }
 
 .menu-buttons {
     text-align: center;
     font-size: 25px;
-    background-color: #C5D2E1;
+    color: #F8F4E3;
+    background-color: #76412A;
     width: 175px;
     height: 50px;
     margin-left: 25px;
     margin-right: 25px;
     font-family: 'Roboto Mono';
+    border-width: medium;
+    border-color: black;
 }
 
 .menu-buttons:hover {
@@ -54,10 +58,13 @@ table {
 }
 
 .generator-buttons {
+    color: #F8F4E3;
     font-size: 25px;
     height: 40px;
     font-family: 'Roboto Mono';
-    background-color: #C5D2E1;
+    background-color: #76412A;
+    border-width: medium;
+    border-color: black;
 }
 
 .generator-buttons:hover {
@@ -71,10 +78,12 @@ table {
 
 #buy-amount-button {
     font-size: 25px;
-    height: 40px;
+    width: 270px;
+    height: 50px;
     margin: 20px 0px 0px 0px;
     font-family: 'Roboto Mono';
-    background-color: #C5D2E1;
+    background-color: #76412A;
+    color: #F8F4E3;
 }
 
 #buy-amount-button:hover {
@@ -95,6 +104,10 @@ table {
     height: 100px;
     margin: 0 auto;
     display: block;
+    color: #F8F4E3;
+    background-color: #76412A;
+    border-width: medium;
+    border-color: black;
 }
 
 #prestige-button:hover {
@@ -106,6 +119,10 @@ table {
     font-size: 25px;
     height: 40px;
     font-family: 'Roboto Mono';
+    color: #F8F4E3;
+    background-color: #76412A;
+    border-width: medium;
+    border-color: black;
 }
 
 .upgrade-buttons:hover {
@@ -134,6 +151,10 @@ table {
     height: 100px;
     margin: 50px 25px 50px 100px;
     font-family: 'Roboto Mono';
+    color: #F8F4E3;
+    background-color: #76412A;
+    border-width: medium;
+    border-color: black;
 }
 
 .settings-buttons:hover {
