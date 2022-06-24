@@ -13,13 +13,11 @@ body {
     border-spacing: 0 4px;
 }
 
-table tr:nth-child(odd):not(:first-child)
-{
+tbody tr:nth-child(odd) {
   background: #2f4858;
 }
 
-table tr:nth-child(even):not(:first-child)
-{
+tbody tr:nth-child(even) {
   background: #5C4033;
 }
 
@@ -41,7 +39,7 @@ table tr:nth-child(even):not(:first-child)
 
 #scraps-per-second-text {
     font-size: 30px;
-    padding: 0px 0px 25px 0px;
+    padding: 0px;
     margin: 0px;
 }
 
@@ -75,7 +73,7 @@ table tr:nth-child(even):not(:first-child)
 .generator-buttons {
     color: black;
     font-size: 25px;
-    height: 40px;
+    height: 45px;
     font-family: 'Roboto Mono';
     background-color: silver;
     border-width: 4px;
@@ -94,8 +92,8 @@ table tr:nth-child(even):not(:first-child)
 #buy-amount-button {
     font-size: 25px;
     width: 270px;
-    height: 50px;
-    margin: 20px 0px 0px 0px;
+    height: 70px;
+    margin: 5px 0px 0px 0px;
     font-family: 'Roboto Mono';
     background-color: silver;
     color: black;
@@ -103,6 +101,7 @@ table tr:nth-child(even):not(:first-child)
 }
 
 #buy-amount-button:hover {
+    cursor: pointer;
     transform: scale(1.1);
     transition-duration: 0.5s;
 }
@@ -117,7 +116,7 @@ table tr:nth-child(even):not(:first-child)
 #prestige-button {
     font-family: 'Roboto Mono';
     font-size: 30px;
-    height: 100px;
+    height: 80px;
     margin: 0 auto;
     display: block;
     color: black;
@@ -133,7 +132,7 @@ table tr:nth-child(even):not(:first-child)
 
 .upgrade-buttons {
     font-size: 25px;
-    height: 40px;
+    height: 45px;
     font-family: 'Roboto Mono';
     color: black;
     background-color: silver;

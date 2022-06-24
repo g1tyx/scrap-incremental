@@ -104,6 +104,12 @@ const statsMenuButtonElement = document.getElementById("stats-menu-button");
 const settingsMenuButtonElement = document.getElementById("settings-menu-button");
 
 let activeMenuButton = generatorsMenuButtonElement;
+generatorsMenuButtonElement.style.borderColor = 'Orange';
+prestigeMenuButtonElement.style.borderColor = 'Black';
+upgradesMenuButtonElement.style.borderColor = 'Black';
+goalsMenuButtonElement.style.borderColor = 'Black';
+statsMenuButtonElement.style.borderColor = 'Black';
+settingsMenuButtonElement.style.borderColor = 'Black';
 
 // UI
 //#region 
@@ -124,8 +130,10 @@ function formatWithCommas(amount, numFloatingDigits) {
 
 function openMenu(clickedMenu, clickedMenuButton) {
     activeMenu.style.display = "none";
+    activeMenuButton.style.borderColor = 'Black';
     activeMenu = clickedMenu;
     activeMenuButton = clickedMenuButton;
+    activeMenuButton.style.borderColor = 'Orange';
     activeMenu.style.display = "block";
 }
 

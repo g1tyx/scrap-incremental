@@ -25,86 +25,90 @@
     <div id="generators-container">
         <div id="generator-buttons-container">
             <table class="table-formatting" id="generator-table">
-                <tr>
-                    <th>Tier</th>
-                    <th>Name</th>
-                    <th>Amount</th>
-                    <th>Scraps/s</th>
-                    <th>Amount Bonus</th>
-                    <th>Cost (in Scraps)</th>
-                </tr>
-                <tr>
-                    <td>I</td>
-                    <td><span id="gen1-name"></span></td>
-                    <td><span id="gen1-amount">0</span></td>
-                    <td>+<span id="gen1-sps">0</span></td>
-                    <td><span id="gen1-amount-bonus"></span>x</td>
-                    <td><span id="gen1-cost"></span></td>
-                    <td><button onclick="buyGenerator(1)" class="generator-buttons" id="gen1-button">Purchase</button></td>
-                </tr>
-                <tr id="gen2-row">
-                    <td>II</td>
-                    <td><span id="gen2-name"></span></td>
-                    <td><span id="gen2-amount">0</span></td>
-                    <td>+<span id="gen2-sps">0</span></td>
-                    <td><span id="gen2-amount-bonus"></span>x</td>
-                    <td><span id="gen2-cost"></span></td>
-                    <td><button onclick="buyGenerator(2)" class="generator-buttons" id="gen2-button">Purchase</button></td>
-                </tr>
-                <tr id="gen3-row">
-                    <td>III</td>
-                    <td><span id="gen3-name"></span></td>
-                    <td><span id="gen3-amount">0</span></td>
-                    <td>+<span id="gen3-sps">0</span></td>
-                    <td><span id="gen3-amount-bonus"></span>x</td>
-                    <td><span id="gen3-cost"></span></td>
-                    <td><button onclick="buyGenerator(3)" class="generator-buttons" id="gen3-button">Purchase</button></td>
-                </tr>
-                <tr id="gen4-row">
-                    <td>IV</td>
-                    <td><span id="gen4-name"></span></td>
-                    <td><span id="gen4-amount">0</span></td>
-                    <td>+<span id="gen4-sps">0</span></td>
-                    <td><span id="gen4-amount-bonus"></span>x</td>
-                    <td><span id="gen4-cost"></span></td>
-                    <td><button onclick="buyGenerator(4)" class="generator-buttons" id="gen4-button">Purchase</button></td>
-                </tr>
-                <tr id="gen5-row">
-                    <td>V</td>
-                    <td><span id="gen5-name"></span></td>
-                    <td><span id="gen5-amount">0</span></td>
-                    <td>+<span id="gen5-sps">0</span></td>
-                    <td><span id="gen5-amount-bonus"></span>x</td>
-                    <td><span id="gen5-cost"></span></td>
-                    <td><button onclick="buyGenerator(5)" class="generator-buttons" id="gen5-button">Purchase</button></td>
-                </tr>
-                <tr id="gen6-row">
-                    <td>VI</td>
-                    <td><span id="gen6-name"></span></td>
-                    <td><span id="gen6-amount">0</span></td>
-                    <td>+<span id="gen6-sps">0</span></td>
-                    <td><span id="gen6-amount-bonus"></span>x</td>
-                    <td><span id="gen6-cost"></span></td>
-                    <td><button onclick="buyGenerator(6)" class="generator-buttons" id="gen6-button">Purchase</button></td>
-                </tr>
-                <tr id="gen7-row">
-                    <td>VII</td>
-                    <td><span id="gen7-name"></span></td>
-                    <td><span id="gen7-amount">0</span></td>
-                    <td>+<span id="gen7-sps">0</span></td>
-                    <td><span id="gen7-amount-bonus"></span>x</td>
-                    <td><span id="gen7-cost"></span></td>
-                    <td><button onclick="buyGenerator(7)" class="generator-buttons" id="gen7-button">Purchase</button></td>
-                </tr>
-                <tr id="gen8-row">
-                    <td>VIII</td>
-                    <td><span id="gen8-name"></span></td>
-                    <td><span id="gen8-amount">0</span></td>
-                    <td>+<span id="gen8-sps">0</span></td>
-                    <td><span id="gen8-amount-bonus"></span>x</td>
-                    <td><span id="gen8-cost"></span></td>
-                    <td><button onclick="buyGenerator(8)" class="generator-buttons" id="gen8-button">Purchase</button></td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Scraps/s</th>
+                        <th>Amount Bonus</th>
+                        <th>Cost (in Scraps)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>I</td>
+                        <td><span id="gen1-name"></span></td>
+                        <td><span id="gen1-amount">0</span></td>
+                        <td>+<span id="gen1-sps">0</span></td>
+                        <td><span id="gen1-amount-bonus"></span>x</td>
+                        <td><span id="gen1-cost"></span></td>
+                        <td><button onclick="buyGenerator(1)" class="generator-buttons" id="gen1-button">Purchase</button></td>
+                    </tr>
+                    <tr id="gen2-row">
+                        <td>II</td>
+                        <td><span id="gen2-name"></span></td>
+                        <td><span id="gen2-amount">0</span></td>
+                        <td>+<span id="gen2-sps">0</span></td>
+                        <td><span id="gen2-amount-bonus"></span>x</td>
+                        <td><span id="gen2-cost"></span></td>
+                        <td><button onclick="buyGenerator(2)" class="generator-buttons" id="gen2-button">Purchase</button></td>
+                    </tr>
+                    <tr id="gen3-row">
+                        <td>III</td>
+                        <td><span id="gen3-name"></span></td>
+                        <td><span id="gen3-amount">0</span></td>
+                        <td>+<span id="gen3-sps">0</span></td>
+                        <td><span id="gen3-amount-bonus"></span>x</td>
+                        <td><span id="gen3-cost"></span></td>
+                        <td><button onclick="buyGenerator(3)" class="generator-buttons" id="gen3-button">Purchase</button></td>
+                    </tr>
+                    <tr id="gen4-row">
+                        <td>IV</td>
+                        <td><span id="gen4-name"></span></td>
+                        <td><span id="gen4-amount">0</span></td>
+                        <td>+<span id="gen4-sps">0</span></td>
+                        <td><span id="gen4-amount-bonus"></span>x</td>
+                        <td><span id="gen4-cost"></span></td>
+                        <td><button onclick="buyGenerator(4)" class="generator-buttons" id="gen4-button">Purchase</button></td>
+                    </tr>
+                    <tr id="gen5-row">
+                        <td>V</td>
+                        <td><span id="gen5-name"></span></td>
+                        <td><span id="gen5-amount">0</span></td>
+                        <td>+<span id="gen5-sps">0</span></td>
+                        <td><span id="gen5-amount-bonus"></span>x</td>
+                        <td><span id="gen5-cost"></span></td>
+                        <td><button onclick="buyGenerator(5)" class="generator-buttons" id="gen5-button">Purchase</button></td>
+                    </tr>
+                    <tr id="gen6-row">
+                        <td>VI</td>
+                        <td><span id="gen6-name"></span></td>
+                        <td><span id="gen6-amount">0</span></td>
+                        <td>+<span id="gen6-sps">0</span></td>
+                        <td><span id="gen6-amount-bonus"></span>x</td>
+                        <td><span id="gen6-cost"></span></td>
+                        <td><button onclick="buyGenerator(6)" class="generator-buttons" id="gen6-button">Purchase</button></td>
+                    </tr>
+                    <tr id="gen7-row">
+                        <td>VII</td>
+                        <td><span id="gen7-name"></span></td>
+                        <td><span id="gen7-amount">0</span></td>
+                        <td>+<span id="gen7-sps">0</span></td>
+                        <td><span id="gen7-amount-bonus"></span>x</td>
+                        <td><span id="gen7-cost"></span></td>
+                        <td><button onclick="buyGenerator(7)" class="generator-buttons" id="gen7-button">Purchase</button></td>
+                    </tr>
+                    <tr id="gen8-row">
+                        <td>VIII</td>
+                        <td><span id="gen8-name"></span></td>
+                        <td><span id="gen8-amount">0</span></td>
+                        <td>+<span id="gen8-sps">0</span></td>
+                        <td><span id="gen8-amount-bonus"></span>x</td>
+                        <td><span id="gen8-cost"></span></td>
+                        <td><button onclick="buyGenerator(8)" class="generator-buttons" id="gen8-button">Purchase</button></td>
+                    </tr>
+                </tbody>
             </table>
             <div class="buy-amount-button-container">
                 <button onclick="changeBuyAmount()" id="buy-amount-button">
@@ -129,72 +133,78 @@
             Gained from Restart: <span id="gained-from-restart"></span> <br>
             Bonus from Transistors after Prestige: <span id="bonus-from-transistors-after-prestige"></span>%  
         </p>
-        <button onclick="doPrestige()" id="prestige-button">Yes, I want to prestige</button>
+        <button onclick="doPrestige()" id="prestige-button">Confirm Prestige</button>
     </div>
     <div id="upgrades-container">
         <table class="table-formatting" id="upgrades-table">
-            <tr>
-                <th>Tier</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Effect</th>
-                <th>Cost (in Transistors)</th>
-            </tr>
-            <tr>
-                <td>I</td>
-                <td><span id="upgrade1-name"></span></td>
-                <td><span id="upgrade1-amount"></span></td>
-                <td>+2% Transistor Bonus</td>
-                <td><span id="upgrade1-cost"></span></td>
-                <td><button onclick="buyTransistorsBonusUpgrade()" class="upgrade-buttons" id="upgrade1-button">Purchase</button></td>
-            </tr>
-            <tr>
-                <td>II</td>
-                <td><span id="upgrade2-name"></span></td>
-                <td><span id="upgrade2-amount"></span></td>
-                <td>+50% Generators Scrap/s</td>
-                <td><span id="upgrade2-cost"></span></td>
-                <td><button onclick="buyGeneratorsBonusUpgrade()" class="upgrade-buttons" id="upgrade2-button">Purchase</button></td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Effect</th>
+                    <th>Cost (in Transistors)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>I</td>
+                    <td><span id="upgrade1-name"></span></td>
+                    <td><span id="upgrade1-amount"></span></td>
+                    <td>+2% Transistor Bonus</td>
+                    <td><span id="upgrade1-cost"></span></td>
+                    <td><button onclick="buyTransistorsBonusUpgrade()" class="upgrade-buttons" id="upgrade1-button">Purchase</button></td>
+                </tr>
+                <tr>
+                    <td>II</td>
+                    <td><span id="upgrade2-name"></span></td>
+                    <td><span id="upgrade2-amount"></span></td>
+                    <td>+50% Generators Scrap/s</td>
+                    <td><span id="upgrade2-cost"></span></td>
+                    <td><button onclick="buyGeneratorsBonusUpgrade()" class="upgrade-buttons" id="upgrade2-button">Purchase</button></td>
+                </tr>
+            </tbody>
         </table>
     </div>
     <div id="goals-container">
         <table class="table-formatting" id="goals-table">
-            <tr>
+            <thead>
                 <th>Tier</th>
                 <th>Name</th>
                 <th>Level</th>
                 <th>Progress</th>
                 <th>Reward</th>
-            </tr>
-            <tr>
-                <td>I</td>
-                <td><span id="goal1-name"></span></td>
-                <td><span id="goal1-level"></span>/5</td>
-                <td><span id="goal1-progress"></span></td>
-                <td>+25% Scraps/s</td>
-            </tr>
-            <tr>
-                <td>II</td>
-                <td><span id="goal2-name"></span></td>
-                <td><span id="goal2-level"></span>/5</td>
-                <td><span id="goal2-progress"></span></td>
-                <td>+25% Scraps/s</td>
-            </tr>
-            <tr>
-                <td>III</td>
-                <td><span id="goal3-name"></span></td>
-                <td><span id="goal3-level"></span>/5</td>
-                <td><span id="goal3-progress"></span></td>
-                <td>+25% Scraps/s</td>
-            </tr>
-            <tr>
-                <td>IV</td>
-                <td><span id="goal4-name"></span></td>
-                <td><span id="goal4-level"></span>/5</td>
-                <td><span id="goal4-progress"></span></td>
-                <td>+25% Scraps/s</td>
-            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>I</td>
+                    <td><span id="goal1-name"></span></td>
+                    <td><span id="goal1-level"></span>/5</td>
+                    <td><span id="goal1-progress"></span></td>
+                    <td>+25% Scraps/s</td>
+                </tr>
+                <tr>
+                    <td>II</td>
+                    <td><span id="goal2-name"></span></td>
+                    <td><span id="goal2-level"></span>/5</td>
+                    <td><span id="goal2-progress"></span></td>
+                    <td>+25% Scraps/s</td>
+                </tr>
+                <tr>
+                    <td>III</td>
+                    <td><span id="goal3-name"></span></td>
+                    <td><span id="goal3-level"></span>/5</td>
+                    <td><span id="goal3-progress"></span></td>
+                    <td>+25% Scraps/s</td>
+                </tr>
+                <tr>
+                    <td>IV</td>
+                    <td><span id="goal4-name"></span></td>
+                    <td><span id="goal4-level"></span>/5</td>
+                    <td><span id="goal4-progress"></span></td>
+                    <td>+25% Scraps/s</td>
+                </tr>
+            </tbody>
         </table>
     </div>
     <div id="stats-container">
