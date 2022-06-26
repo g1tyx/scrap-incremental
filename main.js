@@ -251,7 +251,7 @@ function updateGeneratorInfo() {
         document.getElementById("gen" + (i + 1) + "-amount").textContent = generators.amount;
         document.getElementById("gen" + (i + 1) + "-sps").textContent = format(generators.sps * data.generatorsBonus * amountBoost * transistorsBoost);
         document.getElementById("gen" + (i + 1) + "-amount-bonus").textContent = format(amountBoost);
-        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost[i]);
+        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost);
     }
 }
 
@@ -275,7 +275,7 @@ function buyGenerator(generatorIndex) {
     let generators = data.generators[generatorIndex - 1];
     for (let i = 0; i < data.buyAmount; i++) {
         let cost = data.cost[generatorIndex - 1];
-        if (data.scraps < cost) return;
+        if (data.scraps < cost) break;
         data.scraps -= cost;
         generators.amount++;
         calculateHighestGeneratorAmounts();
@@ -294,13 +294,13 @@ function nextPrice(baseCost, amount) {
 function updateBuyAmount(amount) {
     for (let i = 0; i < 8; i++) {
         let generators = data.generators[i];
-        data.cost = 0;
+        data.cost[i] = 0;
 
         for (let j = 0; j < amount; j++) {
-            data.cost += nextPrice(generators.baseCost, generators.amount + j);
+            data.cost[i] += nextPrice(generators.baseCost, generators.amount + j);
         }
 
-        console.log(data.cost);
+        console.log(data.cost[i]);
     }
 
     updateGeneratorInfo();
