@@ -287,8 +287,25 @@ function buyGenerator(generatorIndex) {
     }
 }
 
+function nextPrice(baseCost, amount) {
+    return baseCost * Math.pow(1.15, amount);
+}
+
 function changeBuyAmount(amount) {
     data.buyAmount = amount;
+
+    for (let i = 0; i < 8; i++) {
+        let generators = data.generators[i];
+        data.cost[i] = 0;
+
+        for (let j = 0; j < data.buyAmount; j++) {
+            data.cost[i] += nextPrice(generators.baseCost, generators.amount + j);
+        }
+
+        console.log(data.cost[i]);
+    }
+
+    updateGeneratorInfo();
 
     switch(amount) {
         case 1:
