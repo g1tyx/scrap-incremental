@@ -300,8 +300,8 @@ function updateBuyAmount(amount) {
             data.cost[i] += nextPrice(generators.baseCost, generators.amount + j);
         }
 
-        console.log(data.cost[i]);
     }
+    console.log(data.cost);
 
     updateGeneratorInfo();
 }
