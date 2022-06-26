@@ -251,7 +251,7 @@ function updateGeneratorInfo() {
         document.getElementById("gen" + (i + 1) + "-amount").textContent = generators.amount;
         document.getElementById("gen" + (i + 1) + "-sps").textContent = format(generators.sps * data.generatorsBonus * amountBoost * transistorsBoost);
         document.getElementById("gen" + (i + 1) + "-amount-bonus").textContent = format(amountBoost);
-        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost);
+        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost[i]);
     }
 }
 
