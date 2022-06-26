@@ -251,7 +251,7 @@ function updateGeneratorInfo() {
         document.getElementById("gen" + (i + 1) + "-amount").textContent = generators.amount;
         document.getElementById("gen" + (i + 1) + "-sps").textContent = format(generators.sps * data.generatorsBonus * amountBoost * transistorsBoost);
         document.getElementById("gen" + (i + 1) + "-amount-bonus").textContent = format(amountBoost);
-        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost[i]);
+        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost);
     }
 }
 
@@ -296,13 +296,13 @@ function changeBuyAmount(amount) {
 
     for (let i = 0; i < 8; i++) {
         let generators = data.generators[i];
-        data.cost[i] = 0;
+        data.cost = 0;
 
         for (let j = 0; j < data.buyAmount; j++) {
-            data.cost[i] += nextPrice(generators.baseCost, generators.amount + j);
+            data.cost += nextPrice(generators.baseCost, generators.amount + j);
         }
 
-        console.log(data.cost[i]);
+        console.log(data.cost);
     }
 
     updateGeneratorInfo();
