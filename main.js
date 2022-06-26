@@ -251,7 +251,7 @@ function updateGeneratorInfo() {
         document.getElementById("gen" + (i + 1) + "-amount").textContent = generators.amount;
         document.getElementById("gen" + (i + 1) + "-sps").textContent = format(generators.sps * data.generatorsBonus * amountBoost * transistorsBoost);
         document.getElementById("gen" + (i + 1) + "-amount-bonus").textContent = format(amountBoost);
-        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost);
+        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost[i]);
     }
 }
 
@@ -291,14 +291,12 @@ function nextPrice(baseCost, amount) {
     return baseCost * Math.pow(1.15, amount);
 }
 
-function changeBuyAmount(amount) {
-    data.buyAmount = amount;
-
+function updateBuyAmount(amount) {
     for (let i = 0; i < 8; i++) {
         let generators = data.generators[i];
         data.cost = 0;
 
-        for (let j = 0; j < data.buyAmount; j++) {
+        for (let j = 0; j < amount; j++) {
             data.cost += nextPrice(generators.baseCost, generators.amount + j);
         }
 
@@ -306,31 +304,39 @@ function changeBuyAmount(amount) {
     }
 
     updateGeneratorInfo();
+}
 
-    switch(amount) {
+function changeBuyAmount(amount) {
+    data.buyAmount = amount;
+
+    switch(data.buyAmount) {
         case 1:
             buyOneButtonElement.style.borderColor = 'Orange';
             buyTwentyFiveButtonElement.style.borderColor = 'Black';
             buyHundredButtonElement.style.borderColor = 'Black';
             buyMaxButtonElement.style.borderColor = 'Black';
+            updateBuyAmount(data.buyAmount);
             break;
         case 25:
             buyOneButtonElement.style.borderColor = 'Black';
             buyTwentyFiveButtonElement.style.borderColor = 'Orange';
             buyHundredButtonElement.style.borderColor = 'Black';
             buyMaxButtonElement.style.borderColor = 'Black';
+            updateBuyAmount(data.buyAmount);
             break;
         case 100:
             buyOneButtonElement.style.borderColor = 'Black';
             buyTwentyFiveButtonElement.style.borderColor = 'Black';
             buyHundredButtonElement.style.borderColor = 'Orange';
             buyMaxButtonElement.style.borderColor = 'Black';
+            updateBuyAmount(data.buyAmount);
             break;
         case Infinity:
             buyOneButtonElement.style.borderColor = 'Black';
             buyTwentyFiveButtonElement.style.borderColor = 'Black';
             buyHundredButtonElement.style.borderColor = 'Black';
             buyMaxButtonElement.style.borderColor = 'Orange';
+            updateBuyAmount(1);
             break;
     }
 }
