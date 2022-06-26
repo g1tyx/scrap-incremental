@@ -275,14 +275,16 @@ function buyGenerator(generatorIndex) {
     let generators = data.generators[generatorIndex - 1];
     for (let i = 0; i < data.buyAmount; i++) {
         let cost = data.cost[generatorIndex - 1];
-        if (data.scraps < cost) break;
+        if (data.scraps < cost) {
+            updateBuyAmount(data.buyAmount);
+            break;
+        }
         data.scraps -= cost;
         generators.amount += data.buyAmount;
+        updateBuyAmount(data.buyAmount);
         calculateHighestGeneratorAmounts();
         updateScrapsInfo();
         updateScrapsPerSecond();
-        updateGeneratorCost();
-        updateGeneratorInfo();
         revealGenerators();
     }
 }
@@ -301,8 +303,6 @@ function updateBuyAmount(amount) {
         }
 
     }
-    console.log(data.cost);
-
     updateGeneratorInfo();
 }
 
