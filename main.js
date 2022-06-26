@@ -277,7 +277,7 @@ function buyGenerator(generatorIndex) {
         let cost = data.cost[generatorIndex - 1];
         if (data.scraps < cost) break;
         data.scraps -= cost;
-        generators.amount++;
+        generators.amount += data.buyAmount;
         calculateHighestGeneratorAmounts();
         updateScrapsInfo();
         updateScrapsPerSecond();
