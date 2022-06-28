@@ -44,7 +44,7 @@ let data = {
     totalTransistorsRequirement: 100
 };
 
-for (let i = 0; i < data.generators.length ; i++) {
+for (let i = 0; i < 8; i++) {
     let generator = {
         amount: 0,
         sps: 2 * Math.pow(7.84, i),
@@ -60,7 +60,7 @@ const upgradeNames = ["Stronger Transistors", "Efficient Robots"];
 const goalNames = ["Total Scraps", "Highest Total Scraps/s", "Highest Total Generators", "Total Transistors"];
 
 function revealGenerators() {
-    for (let i = 1; i < data.generators.length ; i++) {
+    for (let i = 1; i < 8; i++) {
         let generators = data.generators[i - 1];
         if (generators.amount > 0) {
             document.getElementById("gen" + (i + 1) + "-row").style.display = "table-row";
@@ -76,7 +76,7 @@ let transistorsBonusUpgradeCost = 0;
 let generatorsBonusUpgradeCost = 0;
 let transistorsGainedFromRestart = 0;
 
-for (let i = 0; i < data.generators.length ; i++) {
+for (let i = 0; i < 8; i++) {
     data.highestTotalGenerators = 0;
     let generators = data.generators[i];
     data.highestTotalGenerators += generators.amount;
@@ -138,13 +138,13 @@ function openMenu(clickedMenu, clickedMenuButton) {
 }
 
 function updateScrapsInfo() {
-    scrapsTextElement.textContent = format(data.scraps);
-    scrapsPerSecondTextElement.textContent = format(scrapsPerSecond);
+    scrapsTextElement.innerHTML = format(data.scraps);
+    scrapsPerSecondTextElement.innerHTML = format(scrapsPerSecond);
 }
 
 function updateScrapsPerSecond() {
     scrapsPerSecond = 0;
-    for (let i = 0; i < data.generators.length ; i++) {
+    for (let i = 0; i < 8; i++) {
         let generators = data.generators[i];
         let amountBoost = ((Math.floor(generators.amount / 25) * 0.25) + 1);
         let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
@@ -231,7 +231,7 @@ const buyHundredButtonElement = document.getElementById("buy-hundred-button");
 const buyMaxButtonElement = document.getElementById("buy-max-button");
 
 function updateGeneratorButtonStatus() {
-    for (let i = 0; i < data.generators.length ; i++) {
+    for (let i = 0; i < 8; i++) {
         if (data.scraps < data.cost[i]) {
             document.getElementById("gen" + (i + 1) + "-button").style.borderColor = '#b33939';
             document.getElementById("gen" + (i + 1) + "-button").style.cursor = "not-allowed";
@@ -243,20 +243,21 @@ function updateGeneratorButtonStatus() {
 }
 
 function updateGeneratorInfo() {
-    for (let i = 0; i < data.generators.length ; i++) {
+    for (let i = 0; i < 8; i++) {
         let generators = data.generators[i];
         let amountBoost = ((Math.floor(generators.amount / 25) * 0.25) + 1);
         let transistorsBoost = 1 + (data.transistors * data.transistorsBonus);
-        document.getElementById("gen" + (i + 1) + "-name").textContent = `Robot ${robotNames[i]}`;
-        document.getElementById("gen" + (i + 1) + "-amount").textContent = generators.amount;
-        document.getElementById("gen" + (i + 1) + "-sps").textContent = format(generators.sps * data.generatorsBonus * amountBoost * transistorsBoost);
-        document.getElementById("gen" + (i + 1) + "-amount-bonus").textContent = format(amountBoost);
-        document.getElementById("gen" + (i + 1) + "-cost").textContent = format(data.cost[i]);
+        document.getElementById("gen" + (i + 1) + "-name").innerHTML = `Robot ${robotNames[i]}`;
+        document.getElementById("gen" + (i + 1) + "-amount").innerHTML = generators.amount;
+        document.getElementById("gen" + (i + 1) + "-sps").innerHTML = format(generators.sps * data.generatorsBonus * amountBoost * transistorsBoost);
+        document.getElementById("gen" + (i + 1) + "-amount-bonus").innerHTML = format(amountBoost);
+        document.getElementById("gen" + (i + 1) + "-cost").innerHTML = format(data.cost[i]);
+        console.log(i);
     }
 }
 
 function updateGeneratorCost() {
-    for (let i = 0; i < data.generators.length ; i++) {
+    for (let i = 0; i < 8; i++) {
         let generators = data.generators[i];
         data.cost[i] = generators.baseCost * Math.pow(1.15, generators.amount);
     }
@@ -264,7 +265,7 @@ function updateGeneratorCost() {
 
 function calculateHighestGeneratorAmounts() {
     let totalGeneratorAmount = 0;
-    for (let i = 0; i < data.generators.length ; i++) {
+    for (let i = 0; i < 8; i++) {
         let generators = data.generators[i];
         totalGeneratorAmount += generators.amount;
     }
@@ -292,6 +293,7 @@ function buyGenerator(generatorIndex) {
             updateScrapsInfo();
             updateScrapsPerSecond();
             revealGenerators();
+            updateGeneratorInfo();
         } else {
             generators.amount += data.buyAmount;
             updateBuyAmount(data.buyAmount);
@@ -301,6 +303,7 @@ function buyGenerator(generatorIndex) {
     updateScrapsInfo();
     updateScrapsPerSecond();
     revealGenerators();
+    updateGeneratorInfo();
 }
 
 function nextPrice(baseCost, amount) {
@@ -308,7 +311,7 @@ function nextPrice(baseCost, amount) {
 }
 
 function updateBuyAmount(amount) {
-    for (let i = 0; i < data.generators.length ; i++) {
+    for (let i = 0; i < 8; i++) {
         let generators = data.generators[i];
         data.cost[i] = 0;
 
@@ -393,7 +396,7 @@ function doPrestige() {
     data.generators = [];
     data.cost = [];
 
-    for (let i = 0; i < data.generators.length ; i++) {
+    for (let i = 0; i < 8; i++) {
         let generator = {
             amount: 0,
             sps: 2 * Math.pow(7.84, i),
@@ -430,7 +433,7 @@ const upgrade1ButtonElement = document.getElementById("upgrade1-button");
 const upgrade2ButtonElement = document.getElementById("upgrade2-button");
 
 for (let i = 0; i < upgradeNames.length; i++) {
-    document.getElementById("upgrade" + (i + 1) + "-name").textContent = `${upgradeNames[i]}`;
+    document.getElementById("upgrade" + (i + 1) + "-name").innerHTML = `${upgradeNames[i]}`;
 }
 
 function updateUpgradeCost() {
@@ -502,7 +505,7 @@ const goal4LevelElement = document.getElementById("goal4-level");
 const goal4ProgressElement = document.getElementById("goal4-progress");
 
 for (let i = 0; i < goalNames.length; i++) {
-    document.getElementById("goal" + (i + 1) + "-name").textContent = goalNames[i];
+    document.getElementById("goal" + (i + 1) + "-name").innerHTML = goalNames[i];
 }
 
 function updateGoalsInfo() {
@@ -625,7 +628,7 @@ function resetData() {
     data.totalTransistors = 0; 
     data.totalTransistorsRequirement = 100;
 
-    for (let i = 0; i < data.generators.length ; i++) {
+    for (let i = 0; i < 8; i++) {
         let generator = {
             amount: 0,
             sps: 2 * Math.pow(7.84, i),
@@ -639,7 +642,14 @@ function resetData() {
     data.time = Date.now();
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
 
-    load();
+    loadData();
+    updateScrapsPerSecond();
+    updateGeneratorInfo();
+    updateUpgradeCost();
+    updateUpgradeInfo();
+    revealGenerators();
+    updateAFKGainsButtonInfo();
+    changeBuyAmount(data.buyAmount);
 }
 
 function importData() {
@@ -650,7 +660,14 @@ function importData() {
     }
     data = JSON.parse((atob(importedData)));
     window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
-    load();
+    loadData();
+    updateScrapsPerSecond();
+    updateGeneratorInfo();
+    updateUpgradeCost();
+    updateUpgradeInfo();
+    revealGenerators();
+    updateAFKGainsButtonInfo();
+    changeBuyAmount(data.buyAmount);
 }
 
 function exportData() {
