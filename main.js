@@ -12,6 +12,7 @@ let data = {
 
     // PRESTIGE
     transistors: 0,
+    prestigeCounter: 0,
 
     // UPGRADES
     transistorsBonusUpgradeAmount: 0,
@@ -110,6 +111,14 @@ upgradesMenuButtonElement.style.borderColor = 'Black';
 goalsMenuButtonElement.style.borderColor = 'Black';
 statsMenuButtonElement.style.borderColor = 'Black';
 settingsMenuButtonElement.style.borderColor = 'Black';
+
+function revealUpgradeMenu() {
+    if (data.prestigeCounter === 0) {
+        upgradesMenuButtonElement.style.display = "none";
+    } else {
+        upgradesMenuButtonElement.style.display = "block";
+    }
+}
 
 // UI
 //#region 
@@ -211,6 +220,7 @@ function load() {
     revealGenerators();
     calculateAFKGains();
     updateAFKGainsButtonInfo();
+    revealUpgradeMenu();
     changeBuyAmount(data.buyAmount);
 }
 
@@ -407,6 +417,7 @@ function doPrestige() {
         data.cost.push(generators.baseCost * Math.pow(1.15, generators.amount));
     }
 
+    data.prestigeCounter++;
     data.scrapsThisRun = 11;
     data.transistors += transistorsGainedFromRestart;
     data.totalTransistors += transistorsGainedFromRestart;
@@ -418,6 +429,7 @@ function doPrestige() {
     updateUpgradeCost();
     updateUpgradeInfo();
     revealGenerators();
+    revealUpgradeMenu();
     changeBuyAmount(data.buyAmount);
 }
 //#endregion
@@ -597,6 +609,7 @@ function resetData() {
 
     // PRESTIGE
     data.transistors = 0;
+    data.prestigeCounter = 0;
 
     // UPGRADES
     data.transistorsBonusUpgradeAmount = 0;
@@ -649,6 +662,7 @@ function resetData() {
     updateUpgradeInfo();
     revealGenerators();
     updateAFKGainsButtonInfo();
+    revealUpgradeMenu();
     changeBuyAmount(data.buyAmount);
 }
 
@@ -667,6 +681,7 @@ function importData() {
     updateUpgradeInfo();
     revealGenerators();
     updateAFKGainsButtonInfo();
+    revealUpgradeMenu();
     changeBuyAmount(data.buyAmount);
 }
 
