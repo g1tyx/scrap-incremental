@@ -487,6 +487,7 @@ function buyTransistorsBonusUpgrade() {
     updateGeneratorInfo();
     updateUpgradeCost();
     updateUpgradeInfo();
+    updateScrapsPerSecond();
 }
 
 function buyGeneratorsBonusUpgrade() {
@@ -499,6 +500,7 @@ function buyGeneratorsBonusUpgrade() {
     updateGeneratorInfo();
     updateUpgradeCost();
     updateUpgradeInfo();
+    updateScrapsPerSecond();
 }
 //#endregion
 
