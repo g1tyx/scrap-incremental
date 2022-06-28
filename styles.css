@@ -23,7 +23,7 @@ tbody tr:nth-child(even) {
     background: #5C4033;
 }
 
-#generator-table tr td:last-child {
+#robot-table tr td:last-child {
     width: 0px;
 }
 
@@ -73,7 +73,7 @@ tbody tr:nth-child(even) {
     transition-duration: 0.5s;
 }
 
-.generator-buttons {
+.robot-buttons {
     color: black;
     font-size: 25px;
     height: 45px;
@@ -83,7 +83,7 @@ tbody tr:nth-child(even) {
     border-color: black;
 }
 
-.generator-buttons:hover {
+.robot-buttons:hover {
     transform: scale(1.1);
     transition-duration: 0.5s;
 }
@@ -101,6 +101,7 @@ tbody tr:nth-child(even) {
     background-color: silver;
     color: black;
     border-width: 4px;
+    transition-duration: 0.5s;
 }
 
 .buy-amount-buttons:hover {
