@@ -245,9 +245,11 @@ function updateRobotButtonStatus() {
         if (data.scraps < data.cost[i]) {
             document.getElementById("robot" + (i + 1) + "-button").style.borderColor = '#b33939';
             document.getElementById("robot" + (i + 1) + "-button").style.cursor = "not-allowed";
+            document.getElementById("robot" + (i + 1) + "-button").disabled = true;
         } else {
             document.getElementById("robot" + (i + 1) + "-button").style.borderColor = 'Green';
             document.getElementById("robot" + (i + 1) + "-button").style.cursor = "pointer";
+            document.getElementById("robot" + (i + 1) + "-button").disabled = false;
         }
     }
 }
@@ -262,7 +264,6 @@ function updateRobotInfo() {
         document.getElementById("robot" + (i + 1) + "-sps").innerHTML = format(robots.sps * data.robotsBonus * amountBoost * transistorsBoost);
         document.getElementById("robot" + (i + 1) + "-amount-bonus").innerHTML = format(amountBoost);
         document.getElementById("robot" + (i + 1) + "-cost").innerHTML = format(data.cost[i]);
-        console.log(i);
     }
 }
 
@@ -305,7 +306,7 @@ function buyRobot(robotIndex) {
             revealRobots();
             updateRobotInfo();
         } else {
-            robots.amount += data.buyAmount;
+            robots.amount++;
             updateBuyAmount(data.buyAmount);
         }
     }
@@ -336,27 +337,27 @@ function updateBuyAmount(amount) {
 function changeBuyAmount(amount) {
     data.buyAmount = amount;
 
-    switch(data.buyAmount) {
+    switch(amount) {
         case 1:
             buyOneButtonElement.style.borderColor = 'Orange';
             buyTwentyFiveButtonElement.style.borderColor = 'Black';
             buyHundredButtonElement.style.borderColor = 'Black';
             buyMaxButtonElement.style.borderColor = 'Black';
-            updateBuyAmount(data.buyAmount);
+            updateBuyAmount(amount);
             break;
         case 25:
             buyOneButtonElement.style.borderColor = 'Black';
             buyTwentyFiveButtonElement.style.borderColor = 'Orange';
             buyHundredButtonElement.style.borderColor = 'Black';
             buyMaxButtonElement.style.borderColor = 'Black';
-            updateBuyAmount(data.buyAmount);
+            updateBuyAmount(amount);
             break;
         case 100:
             buyOneButtonElement.style.borderColor = 'Black';
             buyTwentyFiveButtonElement.style.borderColor = 'Black';
             buyHundredButtonElement.style.borderColor = 'Orange';
             buyMaxButtonElement.style.borderColor = 'Black';
-            updateBuyAmount(data.buyAmount);
+            updateBuyAmount(amount);
             break;
         case Infinity:
             buyOneButtonElement.style.borderColor = 'Black';
@@ -366,6 +367,8 @@ function changeBuyAmount(amount) {
             updateBuyAmount(1);
             break;
     }
+
+    console.log(amount)
 }
 // #endregion
 
@@ -392,9 +395,11 @@ function updateTransistorInfo() {
     if (transistorsGainedFromRestart < 1) {
         prestigeButtonElement.style.borderColor = '#b33939';
         prestigeButtonElement.style.cursor = "not-allowed";
+        prestigeButtonElement.disabled = true;
     } else {
         prestigeButtonElement.style.borderColor = 'Green';
         prestigeButtonElement.style.cursor = "pointer";
+        prestigeButtonElement.disabled = false;
     }
 }
 
@@ -463,17 +468,21 @@ function updateUpgradeInfo() {
     if (data.transistors < transistorsBonusUpgradeCost) {
         upgrade1ButtonElement.style.borderColor = '#b33939';
         upgrade1ButtonElement.style.cursor = "not-allowed";
+        upgrade1ButtonElement.disabled = true;
     } else {
         upgrade1ButtonElement.style.borderColor = 'Green';
         upgrade1ButtonElement.style.cursor = "pointer";
+        upgrade1ButtonElement.disabled = false;
     }
 
     if (data.transistors < robotsBonusUpgradeCost) {
         upgrade2ButtonElement.style.borderColor = '#b33939';
         upgrade2ButtonElement.style.cursor = "not-allowed";
+        upgrade2ButtonElement.disabled = true;
     } else {
         upgrade2ButtonElement.style.borderColor = 'Green';
         upgrade2ButtonElement.style.cursor = "pointer";
+        upgrade2ButtonElement.disabled = false;
     }
 }
 
