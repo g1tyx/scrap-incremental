@@ -1,18 +1,14 @@
 const toggleAFKGainsButtonElement = document.getElementById("toggle-afk-gains-button");
-
-function autoSaveData() {
-    data.time = Date.now();
-    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
-}
+const saveName = 'ScrapIdleSave';
 
 function saveData() {
     data.time = Date.now();
-    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
+    window.localStorage.setItem(saveName, JSON.stringify(data));
     alert("Game saved!");
 }
 
 function loadData() {
-    let savedGame = JSON.parse(localStorage.getItem('ScrapIdleSave'));
+    let savedGame = JSON.parse(localStorage.getItem(saveName));
     if (savedGame !== null) data = savedGame;
 }
 
@@ -74,7 +70,7 @@ function resetData() {
     }
 
     data.time = Date.now();
-    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
+    window.localStorage.setItem(saveName, JSON.stringify(data));
 
     loadData();
     updateScrapsPerSecond();
@@ -94,7 +90,7 @@ function importData() {
         return;
     }
     data = JSON.parse((atob(importedData)));
-    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
+    window.localStorage.setItem(saveName, JSON.stringify(data));
     loadData();
     updateScrapsPerSecond();
     updateRobotInfo();
@@ -107,7 +103,7 @@ function importData() {
 }
 
 function exportData() {
-    window.localStorage.setItem('ScrapIdleSave', JSON.stringify(data));
+    window.localStorage.setItem(saveName, JSON.stringify(data));
     let exportedData = btoa(JSON.stringify(data));
     const exportedDataText = document.createElement("textarea");
     exportedDataText.value = exportedData;
