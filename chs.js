@@ -296,7 +296,7 @@ var cnPrefix = {
     "Single-Tab Mode: ": "单标签模式：",
     "Time Played: ": "已玩时长：",
     "Shift-Click to Toggle Tooltips: ": "Shift-单击以切换工具提示：",
-    "AFK Gains: ": "AFK 增益: ",
+    "AFK Gains: ": "AFK增益: ",
     "": "",
     "": "",
     "": "",
