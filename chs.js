@@ -93,7 +93,7 @@ var cnItems = {
     "Reset Data": "重置数据",
     "Robot Type-A": "A型机器人",
     "Robot Type-B": "B型机器人",
-    "Robot Type-C": "机器人C型",
+    "Robot Type-C": "C型机器人",
     "Robot Type-D": "D型机器人",
     "Robot Type-E": "E型机器人",
     "Robot Type-F": "F型机器人",
